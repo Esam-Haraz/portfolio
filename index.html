@@ -93,36 +93,60 @@
     /* ==========================================================================
        3. PAGE TRANSITION CURTAIN (EEZYINN-STYLE LANGUAGE SWITCH)
        ========================================================================== */
-    .transition-curtain {
+.transition-curtain {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       z-index: 9999;
-      transform: translateY(100%);
-      transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
       pointer-events: none;
+      overflow: hidden;
+    }
+
+    .curtain-panel {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateY(100%);
+      will-change: transform;
+    }
+
+    .curtain-panel-accent {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      z-index: 1;
+    }
+
+    .curtain-panel-dark {
+      background: #060911;
+      border-top: 1px solid rgba(16, 185, 129, 0.35);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.35);
+      z-index: 2;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-
-    .transition-curtain.active {
-      transform: translateY(0%);
-    }
-
-    .transition-curtain.exit {
-      transform: translateY(-100%);
+      gap: 0.75rem;
     }
 
     .curtain-label {
       font-family: var(--font-mono);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #060911;
-      letter-spacing: 0.15em;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: 0.18em;
       text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .curtain-sub {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-primary);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0;
     }
 
     /* ==========================================================================
@@ -836,11 +860,14 @@
 </head>
 <body>
 
-  <!-- Page Transition Curtain (eezyinn language switch effect) -->
+<!-- Page Transition Curtain (eezyinn multi-layer language switch effect) -->
   <div class="transition-curtain" id="curtain">
-    <span class="curtain-label" id="curtain-text">ESAM HARAZ</span>
+    <div class="curtain-panel curtain-panel-accent" id="curtain-accent"></div>
+    <div class="curtain-panel curtain-panel-dark" id="curtain-dark">
+      <span class="curtain-sub" id="curtain-lang-indicator">SWITCHING LANGUAGE</span>
+      <span class="curtain-label" id="curtain-text">ESAM HARAZ</span>
+    </div>
   </div>
-
   <!-- Top Navigation -->
   <header class="navbar">
     <a href="#" class="brand">
@@ -1500,41 +1527,96 @@
       }
     }
 
-    /* ==========================================================================
-       LANGUAGE SWITCHER WITH CURTAIN ANIMATION (EEZYINN EFFECT)
+/* ==========================================================================
+       LANGUAGE SWITCHER WITH GSAP MULTI-LAYER CURTAIN (EEZYINN EFFECT)
        ========================================================================== */
+    let isTransitioning = false;
+
     function triggerLanguageSwitch(targetLang) {
-      if (targetLang === currentLang) return;
+      if (targetLang === currentLang || isTransitioning) return;
+      isTransitioning = true;
 
-      const curtain = document.getElementById("curtain");
-      curtain.classList.remove("exit");
-      curtain.classList.add("active");
+      const accentPanel = document.getElementById("curtain-accent");
+      const darkPanel = document.getElementById("curtain-dark");
+      const curtainText = document.getElementById("curtain-text");
+      const curtainSub = document.getElementById("curtain-lang-indicator");
+      const pageContent = document.querySelectorAll(".hero, .projects-pinned-section, .skills-section, .footer-section");
 
-      setTimeout(() => {
+      curtainSub.textContent = targetLang === "ar" ? "التحويل إلى العربية" : "SWITCHING TO ENGLISH";
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          // Reset panels below viewport instantly without visible reverse movement
+          gsap.set([accentPanel, darkPanel], { yPercent: 0, clearProps: "transform" });
+          isTransitioning = false;
+        }
+      });
+
+      // Ensure panels start strictly from the bottom (100%)
+      gsap.set([accentPanel, darkPanel], { yPercent: 100, y: 0 });
+      gsap.set([curtainText, curtainSub], { opacity: 0, y: 20 });
+
+      // 1. Slide current page content slightly up & fade out while staggered curtains rise
+      tl.to(pageContent, {
+        y: -30,
+        opacity: 0.2,
+        duration: 0.45,
+        ease: "power2.in"
+      }, 0)
+      .to(accentPanel, {
+        yPercent: 0,
+        duration: 0.55,
+        ease: "expo.inOut"
+      }, 0)
+      .to(darkPanel, {
+        yPercent: 0,
+        duration: 0.55,
+        ease: "expo.inOut"
+      }, 0.08)
+      .to([curtainSub, curtainText], {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        stagger: 0.06,
+        ease: "power2.out"
+      }, 0.35)
+
+      // 2. Swap language state & DOM while screen is covered
+      .add(() => {
         currentLang = targetLang;
         document.getElementById("btn-en").classList.toggle("active", targetLang === "en");
         document.getElementById("btn-ar").classList.toggle("active", targetLang === "ar");
 
         renderSite(currentLang);
         ScrollTrigger.refresh();
+        gsap.set(pageContent, { y: 35, opacity: 0 });
+      }, "+=0.15")
 
-        curtain.classList.remove("active");
-        curtain.classList.add("exit");
-
-        setTimeout(() => {
-          curtain.classList.remove("exit");
-        }, 550);
-      }, 520);
+      // 3. Fade out curtain text and glide curtains up to -100% while revealing new content
+      .to([curtainSub, curtainText], {
+        opacity: 0,
+        y: -20,
+        duration: 0.25,
+        ease: "power2.in"
+      })
+      .to(darkPanel, {
+        yPercent: -100,
+        duration: 0.6,
+        ease: "expo.inOut"
+      }, "-=0.05")
+      .to(accentPanel, {
+        yPercent: -100,
+        duration: 0.6,
+        ease: "expo.inOut"
+      }, "-=0.52")
+      .to(pageContent, {
+        y: 0,
+        opacity: 1,
+        duration: 0.55,
+        ease: "power3.out",
+        clearProps: "transform,opacity"
+      }, "-=0.45");
     }
-
-    // Initialize on load & resize
-    window.addEventListener("DOMContentLoaded", () => {
-      renderSite(currentLang);
-      initPinnedProjectsScroll();
-    });
-
-    window.addEventListener("resize", () => {
-      initPinnedProjectsScroll();
     });
   </script>
 </body>
