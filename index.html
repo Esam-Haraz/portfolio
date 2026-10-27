@@ -5,21 +5,31 @@
   ==============================================================================
   AI CONTEXT & ARCHITECTURE GUIDE (FOR FUTURE LLM / AI SESSIONS)
   ==============================================================================
-  Project: Bilingual Data Analyst Portfolio for Esam Haraz (عصام حراز)
-  Hosting: Static single-file architecture optimized for GitHub Pages (index.html)
-  
-  CORE FEATURES & LIBRARIES:
-  1. Smooth Inertia Scrolling: Powered by Lenis (lenis.min.js).
-  2. Curtain Language Switcher (eezyinn-inspired): Full dynamic EN/AR state 
-     switching with RTL/LTR layout adaptation and cubic-bezier curtain overlay.
-  3. Pinned Project Showcase (EnduroSat-inspired): Powered by GSAP + ScrollTrigger.
-     Pins the viewport on desktop and cycles through projects on scroll with a 
-     synchronized side progress indicator and category tabs.
-  4. Interactive Dashboard Switcher: Allows toggling between Power BI and Excel
-     dashboard screenshots directly pulled from GitHub raw URLs.
-  5. Data-Driven State: All site copy, skills, and projects are centralized in the
-     `PORTFOLIO_DATA` JavaScript object. To add a project, modify skills, or update
-     links, edit `PORTFOLIO_DATA` without needing to rewrite HTML markup.
+  Project: Bilingual Data Analyst Portfolio for Esam Haraz
+  Hosting: Single-file static architecture optimized for GitHub Pages (index.html)
+
+  BOOKMARK INDEX (Use Ctrl+F with these exact tags to locate/edit any section):
+  - [CSS-01: THEME VARIABLES]
+  - [CSS-02: BASE & RESET]
+  - [CSS-03: LANGUAGE CURTAIN ANIMATION]
+  - [CSS-04: NAVBAR]
+  - [CSS-05: BUTTONS & TAGS]
+  - [CSS-06: HERO & METRICS]
+  - [CSS-07: PINNED PROJECTS SHOWCASE]
+  - [CSS-08: SKILLS GRID]
+  - [CSS-09: EDUCATION & CONTACT FOOTER]
+  - [HTML-01: LANGUAGE CURTAIN]
+  - [HTML-02: NAVBAR]
+  - [HTML-03: HERO SECTION]
+  - [HTML-04: PINNED PROJECTS SECTION]
+  - [HTML-05: SKILLS SECTION]
+  - [HTML-06: FOOTER & CONTACT SECTION]
+  - [JS-01: PORTFOLIO DATA STORE]
+  - [JS-02: LENIS & GSAP INITIALIZATION]
+  - [JS-03: DOM RENDER ENGINE]
+  - [JS-04: DASHBOARD & PROJECT CONTROLS]
+  - [JS-05: PINNED SCROLLTRIGGER LOGIC]
+  - [JS-06: LANGUAGE SWITCH ANIMATION]
   ==============================================================================
   -->
   <meta charset="UTF-8">
@@ -33,7 +43,7 @@
 
   <style>
     /* ==========================================================================
-       1. CSS VARIABLES & THEME TOKENS
+       START [CSS-01: THEME VARIABLES]
        ========================================================================== */
     :root {
       --bg-primary: #060911;
@@ -43,16 +53,17 @@
       --border-highlight: rgba(16, 185, 129, 0.45);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --accent-primary: #10b981; /* Emerald Neon */
-      --accent-secondary: #38bdf8; /* Cyan Tech */
+      --accent-primary: #10b981;
+      --accent-secondary: #38bdf8;
       --accent-glow: rgba(16, 185, 129, 0.18);
       --font-en: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-ar: 'Cairo', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
+    /* END [CSS-01: THEME VARIABLES] */
 
     /* ==========================================================================
-       2. RESET & BASE STYLES
+       START [CSS-02: BASE & RESET]
        ========================================================================== */
     * {
       margin: 0;
@@ -63,7 +74,7 @@
     html {
       background-color: var(--bg-primary);
       color: var(--text-main);
-      scroll-behavior: auto; /* Handled by Lenis */
+      scroll-behavior: auto;
     }
 
     body {
@@ -89,11 +100,12 @@
       color: inherit;
       text-decoration: none;
     }
+    /* END [CSS-02: BASE & RESET] */
 
     /* ==========================================================================
-       3. PAGE TRANSITION CURTAIN (EEZYINN-STYLE LANGUAGE SWITCH)
+       START [CSS-03: LANGUAGE CURTAIN ANIMATION]
        ========================================================================== */
-.transition-curtain {
+    .transition-curtain {
       position: fixed;
       inset: 0;
       width: 100vw;
@@ -148,9 +160,10 @@
       text-transform: uppercase;
       opacity: 0;
     }
+    /* END [CSS-03: LANGUAGE CURTAIN ANIMATION] */
 
     /* ==========================================================================
-       4. FLOATING GLASSMORPHIC NAVBAR
+       START [CSS-04: NAVBAR]
        ========================================================================== */
     .navbar {
       position: fixed;
@@ -234,9 +247,10 @@
       background: var(--accent-primary);
       color: #060911;
     }
+    /* END [CSS-04: NAVBAR] */
 
     /* ==========================================================================
-       5. BUTTONS & COMMON UI ELEMENTS
+       START [CSS-05: BUTTONS & TAGS]
        ========================================================================== */
     .btn {
       display: inline-flex;
@@ -289,9 +303,10 @@
       border-radius: 999px;
       margin-bottom: 1rem;
     }
+    /* END [CSS-05: BUTTONS & TAGS] */
 
     /* ==========================================================================
-       6. HERO SECTION & METRICS STRIP
+       START [CSS-06: HERO & METRICS]
        ========================================================================== */
     .hero {
       min-height: 100vh;
@@ -378,9 +393,10 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
+    /* END [CSS-06: HERO & METRICS] */
 
     /* ==========================================================================
-       7. ENDUROSAT-INSPIRED PINNED SCROLL PROJECTS SECTION
+       START [CSS-07: PINNED PROJECTS SHOWCASE]
        ========================================================================== */
     .projects-pinned-section {
       position: relative;
@@ -410,7 +426,6 @@
       }
     }
 
-    /* Left/Side Navigation & Scroll Progress */
     .projects-sidebar {
       display: flex;
       flex-direction: column;
@@ -488,7 +503,6 @@
       transition: width 0.2s ease;
     }
 
-    /* Project Stage Card */
     .project-stage {
       position: relative;
       background: var(--bg-card);
@@ -614,7 +628,6 @@
       font-weight: bold;
     }
 
-    /* Right Side: Dashboard Frame & Switcher */
     .dashboard-showcase {
       display: flex;
       flex-direction: column;
@@ -696,9 +709,10 @@
     .dashboard-img-wrap:hover img {
       transform: scale(1.02);
     }
+    /* END [CSS-07: PINNED PROJECTS SHOWCASE] */
 
     /* ==========================================================================
-       8. SKILLS & TECH STACK SECTION
+       START [CSS-08: SKILLS GRID]
        ========================================================================== */
     .skills-section {
       max-width: 1320px;
@@ -767,9 +781,10 @@
       background: var(--accent-secondary);
       flex-shrink: 0;
     }
+    /* END [CSS-08: SKILLS GRID] */
 
     /* ==========================================================================
-       9. EDUCATION & FOOTER SECTION
+       START [CSS-09: EDUCATION & CONTACT FOOTER]
        ========================================================================== */
     .footer-section {
       border-top: 1px solid var(--border-subtle);
@@ -856,11 +871,14 @@
       color: var(--text-muted);
       font-size: 0.85rem;
     }
+    /* END [CSS-09: EDUCATION & CONTACT FOOTER] */
   </style>
 </head>
 <body>
 
-<!-- Page Transition Curtain (eezyinn multi-layer language switch effect) -->
+  <!-- ========================================================================
+       START [HTML-01: LANGUAGE CURTAIN]
+       ======================================================================== -->
   <div class="transition-curtain" id="curtain">
     <div class="curtain-panel curtain-panel-accent" id="curtain-accent"></div>
     <div class="curtain-panel curtain-panel-dark" id="curtain-dark">
@@ -868,7 +886,11 @@
       <span class="curtain-label" id="curtain-text">ESAM HARAZ</span>
     </div>
   </div>
-  <!-- Top Navigation -->
+  <!-- END [HTML-01: LANGUAGE CURTAIN] -->
+
+  <!-- ========================================================================
+       START [HTML-02: NAVBAR]
+       ======================================================================== -->
   <header class="navbar">
     <a href="#" class="brand">
       <span class="brand-dot"></span>
@@ -888,8 +910,11 @@
       </div>
     </div>
   </header>
+  <!-- END [HTML-02: NAVBAR] -->
 
-  <!-- Hero Section -->
+  <!-- ========================================================================
+       START [HTML-03: HERO SECTION]
+       ======================================================================== -->
   <section class="hero">
     <div class="hero-main">
       <div class="section-tag" id="hero-role">Data Analyst</div>
@@ -911,16 +936,18 @@
     </div>
 
     <div class="metrics-strip" id="metrics-container">
-      <!-- Populated dynamically from PORTFOLIO_DATA -->
+      <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
     </div>
   </section>
+  <!-- END [HTML-03: HERO SECTION] -->
 
-  <!-- EnduroSat-Inspired Pinned Scroll Projects Showcase -->
+  <!-- ========================================================================
+       START [HTML-04: PINNED PROJECTS SECTION]
+       ======================================================================== -->
   <div id="projects-anchor"></div>
   <section class="projects-pinned-section" id="projects-pinned">
     <div class="projects-container">
       
-      <!-- Sidebar Progress & Project Category Selector -->
       <aside class="projects-sidebar">
         <div>
           <span class="section-tag" id="proj-section-tag">Featured Case Studies</span>
@@ -930,33 +957,38 @@
           <span>🖱️ Scroll or click to switch category</span>
         </div>
         <div class="project-nav-list" id="project-nav-list">
-          <!-- Populated dynamically -->
+          <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
         </div>
         <div class="progress-track">
           <div class="progress-fill" id="scroll-progress-bar"></div>
         </div>
       </aside>
 
-      <!-- Active Project Display Stage -->
       <div class="project-stage" id="project-stage">
-        <!-- Populated dynamically -->
+        <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
       </div>
 
     </div>
   </section>
+  <!-- END [HTML-04: PINNED PROJECTS SECTION] -->
 
-  <!-- Tech Stack & Skills Section -->
+  <!-- ========================================================================
+       START [HTML-05: SKILLS SECTION]
+       ======================================================================== -->
   <section class="skills-section" id="skills">
     <div class="section-header">
       <span class="section-tag" id="skills-tag">Capabilities</span>
       <h2 class="section-title" id="skills-title">Technical Stack & Tools</h2>
     </div>
     <div class="skills-grid" id="skills-grid">
-      <!-- Populated dynamically -->
+      <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
     </div>
   </section>
+  <!-- END [HTML-05: SKILLS SECTION] -->
 
-  <!-- Education & Contact Footer -->
+  <!-- ========================================================================
+       START [HTML-06: FOOTER & CONTACT SECTION]
+       ======================================================================== -->
   <footer class="footer-section" id="contact">
     <div class="footer-container">
       
@@ -1004,16 +1036,17 @@
       <span style="font-family: var(--font-mono);">SQL • Excel • Power BI • Python</span>
     </div>
   </footer>
+  <!-- END [HTML-06: FOOTER & CONTACT SECTION] -->
 
-  <!-- External Animation Libraries: Lenis (Smooth Scroll) + GSAP & ScrollTrigger -->
+  <!-- External Animation Libraries: Lenis + GSAP & ScrollTrigger -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <script>
     /* ==========================================================================
-       CENTRALIZED PORTFOLIO DATA STORE (AI-FRIENDLY SCHEMA)
-       To update text, add a 4th project, or modify skills, edit this object only.
+       START [JS-01: PORTFOLIO DATA STORE]
+       Edit this object to update texts, skills, links, or add new projects.
        ========================================================================== */
     const PORTFOLIO_DATA = {
       en: {
@@ -1158,7 +1191,6 @@
         footerCopy: "© 2026 عصام حراز. مستضاف عبر GitHub Pages."
       },
 
-      /* Projects List (Order: 1. IBM HR -> 2. Pizza Sales -> 3. Supply Chain) */
       projects: [
         {
           id: "hr-analytics",
@@ -1296,15 +1328,15 @@
         }
       ]
     };
+    /* END [JS-01: PORTFOLIO DATA STORE] */
 
     /* ==========================================================================
-       APPLICATION STATE & INITIALIZATION
+       START [JS-02: LENIS & GSAP INITIALIZATION]
        ========================================================================== */
     let currentLang = "en";
     let activeProjectIndex = 0;
     let projectScrollTrigger = null;
 
-    // 1. Initialize Lenis Smooth Scroll
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -1317,16 +1349,16 @@
     }
     requestAnimationFrame(raf);
 
-    // Sync Lenis with GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
     gsap.ticker.lagSmoothing(0);
+    /* END [JS-02: LENIS & GSAP INITIALIZATION] */
 
     /* ==========================================================================
-       RENDER ENGINE (POPULATES DOM FROM PORTFOLIO_DATA)
+       START [JS-03: DOM RENDER ENGINE]
        ========================================================================== */
     function renderSite(lang) {
       const data = PORTFOLIO_DATA[lang];
@@ -1334,7 +1366,6 @@
       document.documentElement.dir = data.dir;
       document.body.dir = data.dir;
 
-      // Update Navbar & Hero
       document.getElementById("nav-name").textContent = data.name.toUpperCase();
       document.getElementById("curtain-text").textContent = data.name;
       document.getElementById("nav-projects").textContent = data.nav.projects;
@@ -1348,7 +1379,6 @@
       document.getElementById("cta-projects").textContent = data.ctaProjects;
       document.getElementById("cta-cv").textContent = data.ctaCv;
 
-      // Render Metrics Strip
       const metricsContainer = document.getElementById("metrics-container");
       metricsContainer.innerHTML = data.metrics.map(m => `
         <div class="metric-box">
@@ -1357,12 +1387,10 @@
         </div>
       `).join("");
 
-      // Update Projects Section Headers
       document.getElementById("proj-section-tag").textContent = data.projSectionTag;
       document.getElementById("proj-section-heading").textContent = data.projSectionHeading;
       document.getElementById("proj-scroll-hint").innerHTML = `<span>${data.projScrollHint}</span>`;
 
-      // Render Project Sidebar Navigation Buttons
       const navList = document.getElementById("project-nav-list");
       navList.innerHTML = PORTFOLIO_DATA.projects.map((proj, idx) => `
         <button class="project-nav-btn ${idx === activeProjectIndex ? 'active' : ''}" onclick="selectProjectManual(${idx})">
@@ -1371,7 +1399,6 @@
         </button>
       `).join("");
 
-      // Render Project Slides inside Stage
       const stage = document.getElementById("project-stage");
       stage.innerHTML = PORTFOLIO_DATA.projects.map((proj, idx) => {
         const pLang = proj[lang];
@@ -1427,7 +1454,6 @@
         `;
       }).join("");
 
-      // Render Skills Section
       document.getElementById("skills-tag").textContent = data.skillsTag;
       document.getElementById("skills-title").textContent = data.skillsTitle;
       document.getElementById("skills-grid").innerHTML = data.skills.map(s => `
@@ -1439,7 +1465,6 @@
         </div>
       `).join("");
 
-      // Render Education & Footer
       document.getElementById("edu-tag").textContent = data.eduTag;
       document.getElementById("edu-heading").textContent = data.eduHeading;
       document.getElementById("edu-degree").textContent = data.eduDegree;
@@ -1451,20 +1476,19 @@
       document.getElementById("contact-sub").textContent = data.contactSub;
       document.getElementById("footer-copy").textContent = data.footerCopy;
     }
+    /* END [JS-03: DOM RENDER ENGINE] */
 
     /* ==========================================================================
-       INTERACTIVE CONTROLS: DASHBOARD TAB SWITCHER & PROJECT SELECTOR
+       START [JS-04: DASHBOARD & PROJECT CONTROLS]
        ========================================================================== */
     function switchDashboardImage(projId, newUrl, btnEl) {
       const imgEl = document.getElementById(`img-${projId}`);
       if (!imgEl) return;
 
-      // Update active button styling within this project's toolbar
       const parentSwitcher = btnEl.parentElement;
       parentSwitcher.querySelectorAll(".dash-tab").forEach(b => b.classList.remove("active"));
       btnEl.classList.add("active");
 
-      // Smooth fade swap
       imgEl.style.opacity = "0.25";
       setTimeout(() => {
         delete imgEl.dataset.retried;
@@ -1477,17 +1501,14 @@
       if (index === activeProjectIndex) return;
       activeProjectIndex = index;
 
-      // Toggle active slide
       document.querySelectorAll(".project-slide").forEach((slide, idx) => {
         slide.classList.toggle("active", idx === index);
       });
 
-      // Toggle active sidebar button
       document.querySelectorAll(".project-nav-btn").forEach((btn, idx) => {
         btn.classList.toggle("active", idx === index);
       });
 
-      // Update progress bar
       const total = PORTFOLIO_DATA.projects.length;
       const pct = ((index + 1) / total) * 100;
       document.getElementById("scroll-progress-bar").style.width = `${pct}%`;
@@ -1496,16 +1517,16 @@
     function selectProjectManual(index) {
       setActiveProject(index);
     }
+    /* END [JS-04: DASHBOARD & PROJECT CONTROLS] */
 
     /* ==========================================================================
-       GSAP SCROLLTRIGGER: ENDUROSAT PINNED CATEGORY REVEAL
+       START [JS-05: PINNED SCROLLTRIGGER LOGIC]
        ========================================================================== */
     function initPinnedProjectsScroll() {
       if (projectScrollTrigger) {
         projectScrollTrigger.kill();
       }
 
-      // Pin on desktop viewports so each scroll wheel step reveals the next project
       if (window.innerWidth >= 1024) {
         const totalProjects = PORTFOLIO_DATA.projects.length;
         projectScrollTrigger = ScrollTrigger.create({
@@ -1526,9 +1547,10 @@
         });
       }
     }
+    /* END [JS-05: PINNED SCROLLTRIGGER LOGIC] */
 
-/* ==========================================================================
-       LANGUAGE SWITCHER WITH GSAP MULTI-LAYER CURTAIN (EEZYINN EFFECT)
+    /* ==========================================================================
+       START [JS-06: LANGUAGE SWITCH ANIMATION]
        ========================================================================== */
     let isTransitioning = false;
 
@@ -1546,17 +1568,14 @@
 
       const tl = gsap.timeline({
         onComplete: () => {
-          // Reset panels below viewport instantly without visible reverse movement
-          gsap.set([accentPanel, darkPanel], { yPercent: 0, clearProps: "transform" });
+          gsap.set([accentPanel, darkPanel], { yPercent: 100, clearProps: "transform" });
           isTransitioning = false;
         }
       });
 
-      // Ensure panels start strictly from the bottom (100%)
       gsap.set([accentPanel, darkPanel], { yPercent: 100, y: 0 });
       gsap.set([curtainText, curtainSub], { opacity: 0, y: 20 });
 
-      // 1. Slide current page content slightly up & fade out while staggered curtains rise
       tl.to(pageContent, {
         y: -30,
         opacity: 0.2,
@@ -1580,19 +1599,16 @@
         stagger: 0.06,
         ease: "power2.out"
       }, 0.35)
-
-      // 2. Swap language state & DOM while screen is covered
       .add(() => {
         currentLang = targetLang;
         document.getElementById("btn-en").classList.toggle("active", targetLang === "en");
         document.getElementById("btn-ar").classList.toggle("active", targetLang === "ar");
 
         renderSite(currentLang);
+        initPinnedProjectsScroll();
         ScrollTrigger.refresh();
         gsap.set(pageContent, { y: 35, opacity: 0 });
       }, "+=0.15")
-
-      // 3. Fade out curtain text and glide curtains up to -100% while revealing new content
       .to([curtainSub, curtainText], {
         opacity: 0,
         y: -20,
@@ -1617,7 +1633,16 @@
         clearProps: "transform,opacity"
       }, "-=0.45");
     }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderSite(currentLang);
+      initPinnedProjectsScroll();
     });
+
+    window.addEventListener("resize", () => {
+      initPinnedProjectsScroll();
+    });
+    /* END [JS-06: LANGUAGE SWITCH ANIMATION] */
   </script>
 </body>
 </html>
