@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!--
+  ==============================================================================
+  AI CONTEXT & ARCHITECTURE GUIDE (FOR FUTURE LLM / AI SESSIONS)
+  ==============================================================================
+  Project: Bilingual Data Analyst Portfolio for Esam Haraz (عصام حراز)
+  Hosting: Static single-file architecture optimized for GitHub Pages (index.html)
+  
+  CORE FEATURES & LIBRARIES:
+  1. Smooth Inertia Scrolling: Powered by Lenis (lenis.min.js).
+  2. Curtain Language Switcher (eezyinn-inspired): Full dynamic EN/AR state 
+     switching with RTL/LTR layout adaptation and cubic-bezier curtain overlay.
+  3. Pinned Project Showcase (EnduroSat-inspired): Powered by GSAP + ScrollTrigger.
+     Pins the viewport on desktop and cycles through projects on scroll with a 
+     synchronized side progress indicator and category tabs.
+  4. Interactive Dashboard Switcher: Allows toggling between Power BI and Excel
+     dashboard screenshots directly pulled from GitHub raw URLs.
+  5. Data-Driven State: All site copy, skills, and projects are centralized in the
+     `PORTFOLIO_DATA` JavaScript object. To add a project, modify skills, or update
+     links, edit `PORTFOLIO_DATA` without needing to rewrite HTML markup.
+  ==============================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esam Haraz | Data Analyst Portfolio</title>
+
+  <!-- Google Fonts: Inter (EN), Cairo (AR), JetBrains Mono (Technical Tags/Numbers) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & THEME TOKENS
+       ========================================================================== */
+    :root {
+      --bg-primary: #060911;
+      --bg-secondary: #0c1220;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-highlight: rgba(16, 185, 129, 0.45);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-primary: #10b981; /* Emerald Neon */
+      --accent-secondary: #38bdf8; /* Cyan Tech */
+      --accent-glow: rgba(16, 185, 129, 0.18);
+      --font-en: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-ar: 'Cairo', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    /* ==========================================================================
+       2. RESET & BASE STYLES
+       ========================================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      scroll-behavior: auto; /* Handled by Lenis */
+    }
+
+    body {
+      font-family: var(--font-en);
+      background-color: var(--bg-primary);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.06) 0%, transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 35%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+      color: var(--text-main);
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body[dir="rtl"] {
+      font-family: var(--font-ar);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ==========================================================================
+       3. PAGE TRANSITION CURTAIN (EEZYINN-STYLE LANGUAGE SWITCH)
+       ========================================================================== */
+    .transition-curtain {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      z-index: 9999;
+      transform: translateY(100%);
+      transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .transition-curtain.active {
+      transform: translateY(0%);
+    }
+
+    .transition-curtain.exit {
+      transform: translateY(-100%);
+    }
+
+    .curtain-label {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #060911;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ==========================================================================
+       4. FLOATING GLASSMORPHIC NAVBAR
+       ========================================================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(6, 9, 17, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--accent-primary);
+      box-shadow: 0 0 12px var(--accent-primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-links {
+      display: none;
+      gap: 1.75rem;
+      margin-inline-end: 1.5rem;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-primary);
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.2rem;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--accent-primary);
+      color: #060911;
+    }
+
+    /* ==========================================================================
+       5. BUTTONS & COMMON UI ELEMENTS
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #060911;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: #34d399;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.55);
+      color: var(--text-main);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-primary);
+      background: rgba(16, 185, 129, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-primary);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    /* ==========================================================================
+       6. HERO SECTION & METRICS STRIP
+       ========================================================================== */
+    .hero {
+      min-height: 100vh;
+      padding: 8.5rem 5% 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .hero-main {
+      max-width: 880px;
+      margin-top: auto;
+      margin-bottom: auto;
+      padding: 2rem 0;
+    }
+
+    .location-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.3rem, 5.2vw, 4.4rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    body[dir="rtl"] .hero-title {
+      line-height: 1.28;
+      letter-spacing: 0;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+      color: var(--text-muted);
+      max-width: 700px;
+      margin-bottom: 2.25rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .metric-box {
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1.15rem 1.25rem;
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      display: block;
+    }
+
+    .metric-lbl {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       7. ENDUROSAT-INSPIRED PINNED SCROLL PROJECTS SECTION
+       ========================================================================== */
+    .projects-pinned-section {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5.5rem 5% 3rem;
+      overflow: hidden;
+    }
+
+    .projects-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .projects-container {
+        grid-template-columns: 240px 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    /* Left/Side Navigation & Scroll Progress */
+    .projects-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .projects-heading {
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .scroll-hint {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .project-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      position: relative;
+    }
+
+    .project-nav-btn {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      text-align: start;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .project-nav-btn.active {
+      border-color: var(--accent-primary);
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--text-main);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.12);
+    }
+
+    .proj-num {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+
+    .proj-nav-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(148, 163, 184, 0.15);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 33.33%;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      transition: width 0.2s ease;
+    }
+
+    /* Project Stage Card */
+    .project-stage {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.75rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (min-width: 768px) {
+      .project-stage {
+        padding: 2.25rem;
+      }
+    }
+
+    .project-slide {
+      display: none;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+      animation: slideFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .project-slide.active {
+      display: grid;
+    }
+
+    @media (min-width: 960px) {
+      .project-slide {
+        grid-template-columns: 1.05fr 1.15fr;
+      }
+    }
+
+    @keyframes slideFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .proj-meta-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .tech-tag {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-secondary);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+    }
+
+    .proj-title {
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+
+    .proj-summary {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .proj-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .kpi-mini {
+      background: rgba(6, 9, 17, 0.65);
+      border: 1px solid var(--border-subtle);
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+    }
+
+    .kpi-mini strong {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--accent-primary);
+    }
+
+    .kpi-mini span {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .insights-list {
+      list-style: none;
+      margin-bottom: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .insights-list li {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      position: relative;
+      padding-inline-start: 1.2rem;
+    }
+
+    .insights-list li::before {
+      content: "▹";
+      position: absolute;
+      inset-inline-start: 0;
+      color: var(--accent-primary);
+      font-weight: bold;
+    }
+
+    /* Right Side: Dashboard Frame & Switcher */
+    .dashboard-showcase {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .dashboard-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(6, 9, 17, 0.8);
+      padding: 0.5rem 0.85rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .window-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #334155;
+    }
+
+    .window-dots span:nth-child(1) { background: #ef4444; }
+    .window-dots span:nth-child(2) { background: #f59e0b; }
+    .window-dots span:nth-child(3) { background: #10b981; }
+
+    .dash-switcher {
+      display: inline-flex;
+      gap: 0.35rem;
+      background: rgba(15, 23, 42, 0.95);
+      padding: 0.2rem;
+      border-radius: 7px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .dash-tab {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 0.3rem 0.7rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dash-tab.active {
+      background: var(--accent-primary);
+      color: #060911;
+    }
+
+    .dashboard-img-wrap {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: #060911;
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dashboard-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.35s ease, opacity 0.25s ease;
+    }
+
+    .dashboard-img-wrap:hover img {
+      transform: scale(1.02);
+    }
+
+    /* ==========================================================================
+       8. SKILLS & TECH STACK SECTION
+       ========================================================================== */
+    .skills-section {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 6rem 5%;
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      font-weight: 800;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.75rem;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-4px);
+    }
+
+    .skill-card-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .skill-items li {
+      font-size: 0.92rem;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-items li::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-secondary);
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       9. EDUCATION & FOOTER SECTION
+       ========================================================================== */
+    .footer-section {
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(12, 18, 32, 0.6);
+      padding: 5rem 5% 3rem;
+    }
+
+    .footer-container {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    @media (min-width: 860px) {
+      .footer-container {
+        grid-template-columns: 1.2fr 1fr;
+      }
+    }
+
+    .edu-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .edu-degree {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-main);
+    }
+
+    .edu-meta {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent-primary);
+      margin: 0.25rem 0 0.5rem;
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-link-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 1.15rem;
+      border-radius: 10px;
+      background: rgba(6, 9, 17, 0.65);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.25s ease;
+    }
+
+    .contact-link-item:hover {
+      border-color: var(--accent-primary);
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .copyright-bar {
+      max-width: 1320px;
+      margin: 3.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Transition Curtain (eezyinn language switch effect) -->
+  <div class="transition-curtain" id="curtain">
+    <span class="curtain-label" id="curtain-text">ESAM HARAZ</span>
+  </div>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <a href="#" class="brand">
+      <span class="brand-dot"></span>
+      <span id="nav-name">ESAM HARAZ</span>
+    </a>
+
+    <div class="nav-actions">
+      <nav class="nav-links">
+        <a href="#projects-anchor" id="nav-projects">Projects</a>
+        <a href="#skills" id="nav-skills">Tech Stack</a>
+        <a href="#contact" id="nav-contact">Contact</a>
+      </nav>
+
+      <div class="lang-toggle" role="group" aria-label="Language Switcher">
+        <button class="lang-btn active" id="btn-en" onclick="triggerLanguageSwitch('en')">EN</button>
+        <button class="lang-btn" id="btn-ar" onclick="triggerLanguageSwitch('ar')">AR</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-main">
+      <div class="section-tag" id="hero-role">Data Analyst</div>
+      <div class="location-pill">
+        <span>📍</span>
+        <span id="hero-location">Damietta, Egypt</span>
+      </div>
+      <h1 class="hero-title" id="hero-headline">
+        Transforming Raw Data Into <span class="highlight">Actionable Business Impact.</span>
+      </h1>
+      <p class="hero-subtitle" id="hero-summary">
+        Entry-Level Data Analyst experienced in building end-to-end analytics solutions using SQL (PostgreSQL), Microsoft Excel, and Power BI—from schema design and data cleaning to interactive executive dashboards, while expanding into Python data analysis.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects-anchor" class="btn btn-primary" id="cta-projects">Explore Projects ↓</a>
+        <a href="https://drive.google.com/file/d/1Nvp8LGj5I9xcJgomfNOWV6uqoiPpZJ56/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary" id="cta-cv">Download CV (PDF) ↗</a>
+        <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="btn btn-secondary">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="metrics-strip" id="metrics-container">
+      <!-- Populated dynamically from PORTFOLIO_DATA -->
+    </div>
+  </section>
+
+  <!-- EnduroSat-Inspired Pinned Scroll Projects Showcase -->
+  <div id="projects-anchor"></div>
+  <section class="projects-pinned-section" id="projects-pinned">
+    <div class="projects-container">
+      
+      <!-- Sidebar Progress & Project Category Selector -->
+      <aside class="projects-sidebar">
+        <div>
+          <span class="section-tag" id="proj-section-tag">Featured Case Studies</span>
+          <h2 class="projects-heading" id="proj-section-heading">End-to-End Analytics</h2>
+        </div>
+        <div class="scroll-hint" id="proj-scroll-hint">
+          <span>🖱️ Scroll or click to switch category</span>
+        </div>
+        <div class="project-nav-list" id="project-nav-list">
+          <!-- Populated dynamically -->
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="scroll-progress-bar"></div>
+        </div>
+      </aside>
+
+      <!-- Active Project Display Stage -->
+      <div class="project-stage" id="project-stage">
+        <!-- Populated dynamically -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Tech Stack & Skills Section -->
+  <section class="skills-section" id="skills">
+    <div class="section-header">
+      <span class="section-tag" id="skills-tag">Capabilities</span>
+      <h2 class="section-title" id="skills-title">Technical Stack & Tools</h2>
+    </div>
+    <div class="skills-grid" id="skills-grid">
+      <!-- Populated dynamically -->
+    </div>
+  </section>
+
+  <!-- Education & Contact Footer -->
+  <footer class="footer-section" id="contact">
+    <div class="footer-container">
+      
+      <div>
+        <span class="section-tag" id="edu-tag">Academic Background</span>
+        <h2 class="section-title" id="edu-heading">Education & Foundation</h2>
+        <div class="edu-box">
+          <div class="edu-degree" id="edu-degree">Bachelor of Education (B.Ed.) — Damietta University</div>
+          <div class="edu-meta" id="edu-date">Sep 2022 – Jul 2026 | Damietta, Egypt</div>
+          <p style="color: var(--text-muted); font-size: 0.92rem;" id="edu-desc">
+            Focused on research methodologies and quantitative data processing, applying structured analytical thinking to solve real-world business problems.
+          </p>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div>
+          <span class="section-tag" id="contact-tag">Get In Touch</span>
+          <h3 style="font-size: 1.5rem; font-weight: 800;" id="contact-heading">Ready to Contribute to Data-Driven Teams</h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 0.4rem;" id="contact-sub">
+            Available for Data Analyst internships and entry-level opportunities.
+          </p>
+        </div>
+
+        <div class="contact-links-list">
+          <a href="mailto:esamv20@gmail.com" class="contact-link-item">
+            <span>✉️ esamv20@gmail.com</span>
+            <span style="color: var(--accent-primary); font-family: var(--font-mono);">Email ↗</span>
+          </a>
+          <a href="https://www.linkedin.com/in/esam-haraz-459925402" target="_blank" rel="noopener" class="contact-link-item">
+            <span>💼 linkedin.com/in/esam-haraz</span>
+            <span style="color: var(--accent-primary); font-family: var(--font-mono);">LinkedIn ↗</span>
+          </a>
+          <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="contact-link-item">
+            <span>💻 github.com/Esam-Haraz</span>
+            <span style="color: var(--accent-primary); font-family: var(--font-mono);">GitHub ↗</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="copyright-bar">
+      <span id="footer-copy">© 2026 Esam Haraz. Built for GitHub Pages.</span>
+      <span style="font-family: var(--font-mono);">SQL • Excel • Power BI • Python</span>
+    </div>
+  </footer>
+
+  <!-- External Animation Libraries: Lenis (Smooth Scroll) + GSAP & ScrollTrigger -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    /* ==========================================================================
+       CENTRALIZED PORTFOLIO DATA STORE (AI-FRIENDLY SCHEMA)
+       To update text, add a 4th project, or modify skills, edit this object only.
+       ========================================================================== */
+    const PORTFOLIO_DATA = {
+      en: {
+        dir: "ltr",
+        name: "Esam Haraz",
+        role: "Data Analyst",
+        location: "Damietta, Egypt",
+        nav: { projects: "Projects", skills: "Tech Stack", contact: "Contact" },
+        heroHeadline: 'Transforming Raw Data Into <span class="highlight">Actionable Business Impact.</span>',
+        heroSummary: "Entry-Level Data Analyst experienced in building end-to-end analytics projects using SQL (PostgreSQL), Microsoft Excel, and Power BI—from raw data cleaning and schema design to interactive dashboards, while expanding into Python data analysis (Pandas, Polars, NumPy).",
+        ctaProjects: "Explore Projects ↓",
+        ctaCv: "Download CV (PDF) ↗",
+        metrics: [
+          { val: "3", lbl: "End-to-End Case Studies (SQL, Excel, Power BI)" },
+          { val: "47.8K+", lbl: "Business Records Analyzed Across Domains" },
+          { val: "250+", lbl: "Python Practice Exercises & Small Scripts" },
+          { val: "EN / AR", lbl: "Bilingual Technical Documentation" }
+        ],
+        projSectionTag: "Featured Case Studies",
+        projSectionHeading: "End-to-End Analytics",
+        projScrollHint: "🖱️ Scroll or click to switch category",
+        repoBtnText: "Explore Full Repository & SQL on GitHub ↗",
+        skillsTag: "Capabilities",
+        skillsTitle: "Technical Stack & Tools",
+        skills: [
+          {
+            category: "SQL & Databases (PostgreSQL)",
+            items: [
+              "Relational Schema Design & Primary Keys",
+              "Data Filtering, Sorting & Conditional Logic",
+              "Aggregations & Grouping (GROUP BY, COUNT, SUM, AVG)",
+              "Data Quality Auditing & Type Conversion"
+            ]
+          },
+          {
+            category: "Power BI & Data Visualization",
+            items: [
+              "Interactive Executive Dashboards",
+              "Custom DAX Measures (Retention, Attrition, AOV)",
+              "Power Query Data Cleaning & Transformation",
+              "60-30-10 Visual Layout & Custom Color Themes"
+            ]
+          },
+          {
+            category: "Microsoft Excel Analytics",
+            items: [
+              "Dynamic Pivot Tables & Pivot Charts",
+              "Interactive Slicers & Cross-Filtering Dashboards",
+              "Exploratory Data Analysis (EDA) & Type Validation",
+              "Data Cleaning & Duplicate Handling"
+            ]
+          },
+          {
+            category: "Python & Workflow Tools",
+            items: [
+              "Core Python Foundation (250+ Exercises)",
+              "Data Manipulation: Pandas, Polars & NumPy",
+              "File Handling & Regular Expressions (Regex)",
+              "Git, GitHub & Bilingual Markdown Documentation"
+            ]
+          }
+        ],
+        eduTag: "Academic Background",
+        eduHeading: "Education & Foundation",
+        eduDegree: "Bachelor of Education (B.Ed.) — Damietta University",
+        eduDate: "Sep 2022 – Jul 2026 | Damietta, Egypt",
+        eduDesc: "Focused on research methodologies and quantitative data processing, applying structured analytical skills to derive insights and solve real-world problems.",
+        contactTag: "Get In Touch",
+        contactHeading: "Ready to Contribute to Data-Driven Teams",
+        contactSub: "Looking to secure an internship or entry-level Data Analyst role to apply analytical and problem-solving skills.",
+        footerCopy: "© 2026 Esam Haraz. Hosted on GitHub Pages."
+      },
+
+      ar: {
+        dir: "rtl",
+        name: "عصام حراز",
+        role: "محلل بيانات (Data Analyst)",
+        location: "دمياط، مصر",
+        nav: { projects: "المشاريع", skills: "المهارات التقنية", contact: "تواصل معي" },
+        heroHeadline: 'تحويل البيانات الخام إلى <span class="highlight">رؤى وقرارات أعمال فعالة.</span>',
+        heroSummary: "محلل بيانات (Entry-Level) ذو خبرة عملية في بناء مشاريع تحليل بيانات متكاملة باستخدام SQL (PostgreSQL) وExcel وPower BI — بدءاً من تنظيف البيانات وتصميم الجداول وحتى بناء لوحات التحكم التفاعلية، مع التوسع في تحليل البيانات بلغة Python (Pandas, Polars, NumPy).",
+        ctaProjects: "استكشف المشاريع ↓",
+        ctaCv: "تحميل السيرة الذاتية (CV) ↗",
+        metrics: [
+          { val: "3", lbl: "مشاريع تحليلية متكاملة (SQL, Excel, Power BI)" },
+          { val: "+47.8K", lbl: "سجل بيانات تم تحليله في المبيعات والموارد البشرية والشحن" },
+          { val: "+250", lbl: "تطبيق وتمرين برمجي عملي بلغة Python" },
+          { val: "AR / EN", lbl: "توثيق تقني شامل باللغتين العربية والإنجليزية" }
+        ],
+        projSectionTag: "أبرز المشاريع التطبيقية",
+        projSectionHeading: "مشاريع تحليل البيانات",
+        projScrollHint: "🖱️ مرر للأسفل أو اضغط للتنقل بين المشاريع",
+        repoBtnText: "استعراض الكود والتوثيق الكامل على GitHub ↗",
+        skillsTag: "الأدوات والقدرات",
+        skillsTitle: "المهارات والأدوات التقنية",
+        skills: [
+          {
+            category: "قواعد البيانات و SQL (PostgreSQL)",
+            items: [
+              "تصميم الجداول (Schema Design) والمفاتيح الأساسية",
+              "تصفية وفرز البيانات والشروط المنطقية",
+              "تجميع البيانات والدوال الحسابية (GROUP BY, COUNT, SUM, AVG)",
+              "فحص جودة البيانات ومعالجة صيغ التواريخ والأنواع"
+            ]
+          },
+          {
+            category: "ذكاء الأعمال وتصور البيانات (Power BI)",
+            items: [
+              "بناء لوحات تحكم تفاعلية (Interactive Dashboards)",
+              "كتابة مقاييس DAX مخصصة لمؤشرات الأداء (KPIs)",
+              "تنظيف وتحويل البيانات عبر Power Query",
+              "تطبيق قاعدة التصميم 60-30-10 وثيمات الألوان المخصصة"
+            ]
+          },
+          {
+            category: "تحليل البيانات عبر Microsoft Excel",
+            items: [
+              "الجداول والرسوم المحورية (Pivot Tables & Charts)",
+              "بناء لوحات تفاعلية باستخدام مقسمات العرض (Slicers)",
+              "الاستكشاف الأولي للبيانات (EDA) والتحقق من الأنواع",
+              "تنظيف البيانات واكتشاف القيم المكررة والشاذة"
+            ]
+          },
+          {
+            category: "البرمجة بـ Python وأدوات العمل",
+            items: [
+              "أساس قوي في Python عبر أكثر من 250+ تمرين وتطبيق",
+              "مكتبات تحليل البيانات: Pandas و Polars و NumPy",
+              "معالجة الملفات النصية والتعبيرات النمطية (Regex)",
+              "إدارة المشاريع عبر Git و GitHub والتوثيق بـ Markdown"
+            ]
+          }
+        ],
+        eduTag: "الخلفية الأكاديمية",
+        eduHeading: "التعليم والأساس البحثي",
+        eduDegree: "بكالوريوس التربية — جامعة دمياط",
+        eduDate: "سبتمبر 2022 – يوليو 2026 | دمياط، مصر",
+        eduDesc: "التركيز على مناهج البحث ومعالجة البيانات الكمية، وتوظيف المهارات التحليلية لاستخلاص الرؤى وحل المشكلات العملية.",
+        contactTag: "تواصل معي",
+        contactHeading: "جاهز للانضمام والمساهمة في فرق البيانات",
+        contactSub: "متاح لفرص التدريب (Internships) والوظائف التأسيسية في مجال تحليل البيانات.",
+        footerCopy: "© 2026 عصام حراز. مستضاف عبر GitHub Pages."
+      },
+
+      /* Projects List (Order: 1. IBM HR -> 2. Pizza Sales -> 3. Supply Chain) */
+      projects: [
+        {
+          id: "hr-analytics",
+          num: "01",
+          repoUrl: "https://github.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance",
+          tags: ["SQL", "Power BI", "DAX", "Microsoft Excel"],
+          dashboards: [
+            {
+              label: "Power BI",
+              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance/main/Images/PowerBi_Dashboard.png"
+            },
+            {
+              label: "Excel",
+              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance/main/Images/Excel_Dashboard.png"
+            }
+          ],
+          en: {
+            navTitle: "IBM HR Attrition",
+            title: "IBM HR Analytics — Employee Attrition & Performance",
+            summary: "End-to-end HR analytics solution evaluating 1,470 employee records across SQL, Excel, and Power BI to pinpoint key turnover drivers across overtime, income levels, tenure, and job satisfaction.",
+            kpis: [
+              { val: "1,470", lbl: "Total Employees" },
+              { val: "16.12%", lbl: "Attrition Rate (237)" },
+              { val: "39.76%", lbl: "Sales Rep Risk" }
+            ],
+            insights: [
+              "Overtime workers leave at 31% vs 10% for non-overtime staff — nearly a 3x turnover multiplier.",
+              "Sales Representatives carry the highest attrition risk (39.76%), nearly double the next role.",
+              "Employees who left earned a noticeably lower average monthly income ($4,787 vs $6,832 for retained staff)."
+            ]
+          },
+          ar: {
+            navTitle: "تحليل الموارد البشرية (IBM HR)",
+            title: "تحليل تسرب الموظفين والأداء — IBM HR Analytics",
+            summary: "مشروع متكامل لتحليل بيانات 1,470 موظفاً باستخدام SQL وExcel وPower BI لتحديد الأسباب الرئيسية لترك العمل عبر ساعات العمل الإضافي، فجوات الرواتب، والرضا الوظيفي.",
+            kpis: [
+              { val: "1,470", lbl: "إجمالي الموظفين" },
+              { val: "16.12%", lbl: "معدل الترك (237)" },
+              { val: "39.76%", lbl: "خطر مندوبي المبيعات" }
+            ],
+            insights: [
+              "العاملون لوقت إضافي (Overtime) يتركون العمل بنسبة 31% مقابل 10% فقط لغيرهم (3 أضعاف).",
+              "مندوبو المبيعات يسجلون أعلى نسبة تسرب وظيفي على الإطلاق بمعدل 39.76%.",
+              "الموظفون المغادرون كان متوسط دخلهم الشهري أقل بوضوح (4,787) مقارنة بالمستمرين في الشركة (6,832)."
+            ]
+          }
+        },
+        {
+          id: "pizza-sales",
+          num: "02",
+          repoUrl: "https://github.com/Esam-Haraz/Pizza_Sales",
+          tags: ["SQL (PostgreSQL)", "Power BI", "Power Query", "Excel"],
+          dashboards: [
+            {
+              label: "Power BI",
+              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Pizza_Sales/main/Images/Power_Bi_Dashboard.png"
+            },
+            {
+              label: "Excel",
+              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Pizza_Sales/main/Images/Excel_Dashboard.png"
+            }
+          ],
+          en: {
+            navTitle: "Pizza Sales & Ops",
+            title: "Pizza Sales Performance & Operations Analytics",
+            summary: "Comprehensive retail sales & operations pipeline processing 21,350 orders ($817.86K revenue) using Power Query, SQL date conversion, and a 60-30-10 Power BI dashboard to optimize staffing and menu strategy.",
+            kpis: [
+              { val: "$817.86K", lbl: "Total Revenue" },
+              { val: "21,350", lbl: "Total Orders" },
+              { val: "$38.31", lbl: "Avg Order Value" }
+            ],
+            insights: [
+              "Fridays and Thursdays record the highest order volumes, defining peak kitchen staffing windows.",
+              "The Classic category leads total demand and revenue, while Large (L) size dominates customer preferences.",
+              "The Thai Chicken Pizza is the top revenue generator, whereas The Brie Carre Pizza is the lowest performer."
+            ]
+          },
+          ar: {
+            navTitle: "تحليل مبيعات البيتزا",
+            title: "تحليل أداء المبيعات والعمليات التشغيلية — Pizza Sales",
+            summary: "تحليل شامل للمبيعات والعمليات على 21,350 طلباً بإجمالي إيرادات 817.86 ألف دولار باستخدام Power Query وSQL ولوحة Power BI مصممة بقاعدة 60-30-10 لتحسين جدولة العمالة وقائمة المنتجات.",
+            kpis: [
+              { val: "$817.86K", lbl: "إجمالي الإيرادات" },
+              { val: "21,350", lbl: "إجمالي الطلبات" },
+              { val: "$38.31", lbl: "متوسط قيمة الطلب" }
+            ],
+            insights: [
+              "يومي الجمعة والخميس يسجلان ذروة الطلبات الأسبوعية؛ مما يحدد أوقات تكثيف طاقم العمل والمخزون.",
+              "فئة Classic تتصدر المبيعات والإيرادات، والحجم الكبير (Large) هو الأكثر تفضيلاً لدى العملاء.",
+              "بيتزا الدجاج التايلاندي (Thai Chicken) هي الأعلى إيراداً، بينما سجلت Brie Carre الأداء الأضعف."
+            ]
+          }
+        },
+        {
+          id: "supply-chain",
+          num: "03",
+          repoUrl: "https://github.com/Esam-Haraz/Supply-Chain---Shipment-Deliveries",
+          tags: ["SQL (PostgreSQL)", "Microsoft Excel", "Data Quality"],
+          dashboards: [
+            {
+              label: "Excel Dashboard",
+              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Supply-Chain---Shipment-Deliveries/main/Images/Excel_Dashboard.png"
+            }
+          ],
+          en: {
+            navTitle: "Supply Chain Logistics",
+            title: "Supply Chain & Shipment Deliveries Analysis",
+            summary: "Analyzed 25,000 shipment records using PostgreSQL and Excel to uncover delay drivers, cost scaling, and partner performance—including resolving primary key data quality issues via SERIAL keys.",
+            kpis: [
+              { val: "25,000", lbl: "Total Shipments" },
+              { val: "26.68%", lbl: "Overall Delay Rate" },
+              { val: "41.45%", lbl: "Stormy Delay Rate" }
+            ],
+            insights: [
+              "Weather is the strongest delay driver: Stormy conditions cause a 41.45% delay rate vs 16.02% in cold weather.",
+              "Express delivery Paradox: Holds the lowest customer rating (2.72/5) despite being the fastest shipping mode.",
+              "Delivery cost scales linearly with distance from 239.64 (0–50 km) up to 1,365.76 (200+ km)."
+            ]
+          },
+          ar: {
+            navTitle: "سلاسل الإمداد والشحن",
+            title: "تحليل سلاسل الإمداد وتوصيل الشحنات — Supply Chain",
+            summary: "تحليل 25,000 سجل شحنة باستخدام PostgreSQL وExcel لاكتشاف أسباب التأخير وأنماط التكلفة، مع معالجة مشكلات جودة البيانات في المعرفات المكررة والعشرية عبر SERIAL PRIMARY KEY.",
+            kpis: [
+              { val: "25,000", lbl: "إجمالي الشحنات" },
+              { val: "26.68%", lbl: "نسبة التأخير العامة" },
+              { val: "41.45%", lbl: "تأخير الطقس العاصف" }
+            ],
+            insights: [
+              "الطقس هو المحرك الأول للتأخير: الطقس العاصف يرفع التأخير إلى 41.45% مقارنة بـ 16.02% في الطقس البارد.",
+              "مفارقة الشحن السريع (Express): سجل أقل تقييم من العملاء (2.72 من 5) رغم كونه الأسرع بسبب سقف التوقعات المرتفع.",
+              "تزداد تكلفة التوصيل بعلاقة خطية منتظمة مع المسافة من 239.64 (0–50 كم) إلى 1,365.76 (+200 كم)."
+            ]
+          }
+        }
+      ]
+    };
+
+    /* ==========================================================================
+       APPLICATION STATE & INITIALIZATION
+       ========================================================================== */
+    let currentLang = "en";
+    let activeProjectIndex = 0;
+    let projectScrollTrigger = null;
+
+    // 1. Initialize Lenis Smooth Scroll
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Sync Lenis with GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    /* ==========================================================================
+       RENDER ENGINE (POPULATES DOM FROM PORTFOLIO_DATA)
+       ========================================================================== */
+    function renderSite(lang) {
+      const data = PORTFOLIO_DATA[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir = data.dir;
+      document.body.dir = data.dir;
+
+      // Update Navbar & Hero
+      document.getElementById("nav-name").textContent = data.name.toUpperCase();
+      document.getElementById("curtain-text").textContent = data.name;
+      document.getElementById("nav-projects").textContent = data.nav.projects;
+      document.getElementById("nav-skills").textContent = data.nav.skills;
+      document.getElementById("nav-contact").textContent = data.nav.contact;
+
+      document.getElementById("hero-role").textContent = data.role;
+      document.getElementById("hero-location").textContent = data.location;
+      document.getElementById("hero-headline").innerHTML = data.heroHeadline;
+      document.getElementById("hero-summary").textContent = data.heroSummary;
+      document.getElementById("cta-projects").textContent = data.ctaProjects;
+      document.getElementById("cta-cv").textContent = data.ctaCv;
+
+      // Render Metrics Strip
+      const metricsContainer = document.getElementById("metrics-container");
+      metricsContainer.innerHTML = data.metrics.map(m => `
+        <div class="metric-box">
+          <span class="metric-val">${m.val}</span>
+          <span class="metric-lbl">${m.lbl}</span>
+        </div>
+      `).join("");
+
+      // Update Projects Section Headers
+      document.getElementById("proj-section-tag").textContent = data.projSectionTag;
+      document.getElementById("proj-section-heading").textContent = data.projSectionHeading;
+      document.getElementById("proj-scroll-hint").innerHTML = `<span>${data.projScrollHint}</span>`;
+
+      // Render Project Sidebar Navigation Buttons
+      const navList = document.getElementById("project-nav-list");
+      navList.innerHTML = PORTFOLIO_DATA.projects.map((proj, idx) => `
+        <button class="project-nav-btn ${idx === activeProjectIndex ? 'active' : ''}" onclick="selectProjectManual(${idx})">
+          <span class="proj-num">${proj.num}</span>
+          <span class="proj-nav-name">${proj[lang].navTitle}</span>
+        </button>
+      `).join("");
+
+      // Render Project Slides inside Stage
+      const stage = document.getElementById("project-stage");
+      stage.innerHTML = PORTFOLIO_DATA.projects.map((proj, idx) => {
+        const pLang = proj[lang];
+        const dashButtons = proj.dashboards.map((d, dIdx) => `
+          <button class="dash-tab ${dIdx === 0 ? 'active' : ''}" onclick="switchDashboardImage('${proj.id}', '${d.imgUrl}', this)">
+            ${d.label}
+          </button>
+        `).join("");
+
+        return `
+          <article class="project-slide ${idx === activeProjectIndex ? 'active' : ''}" data-index="${idx}">
+            <div class="project-details">
+              <div class="proj-meta-top">
+                <span class="proj-num" style="font-size:0.9rem;">#${proj.num}</span>
+                ${proj.tags.map(t => `<span class="tech-tag">${t}</span>`).join("")}
+              </div>
+              <h3 class="proj-title">${pLang.title}</h3>
+              <p class="proj-summary">${pLang.summary}</p>
+              
+              <div class="proj-kpis">
+                ${pLang.kpis.map(k => `
+                  <div class="kpi-mini">
+                    <strong>${k.val}</strong>
+                    <span>${k.lbl}</span>
+                  </div>
+                `).join("")}
+              </div>
+
+              <ul class="insights-list">
+                ${pLang.insights.map(ins => `<li>${ins}</li>`).join("")}
+              </ul>
+
+              <a href="${proj.repoUrl}" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">
+                ${data.repoBtnText}
+              </a>
+            </div>
+
+            <div class="dashboard-showcase">
+              <div class="dashboard-toolbar">
+                <div class="window-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="dash-switcher">
+                  ${dashButtons}
+                </div>
+              </div>
+              <div class="dashboard-img-wrap">
+                <img id="img-${proj.id}" src="${proj.dashboards[0].imgUrl}" alt="${pLang.title} Dashboard" loading="lazy"
+                     onerror="if(!this.dataset.retried){this.dataset.retried='true'; this.src=this.src.replace('/main/','/master/');}">
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      // Render Skills Section
+      document.getElementById("skills-tag").textContent = data.skillsTag;
+      document.getElementById("skills-title").textContent = data.skillsTitle;
+      document.getElementById("skills-grid").innerHTML = data.skills.map(s => `
+        <div class="skill-card">
+          <div class="skill-card-title">❖ ${s.category}</div>
+          <ul class="skill-items">
+            ${s.items.map(item => `<li>${item}</li>`).join("")}
+          </ul>
+        </div>
+      `).join("");
+
+      // Render Education & Footer
+      document.getElementById("edu-tag").textContent = data.eduTag;
+      document.getElementById("edu-heading").textContent = data.eduHeading;
+      document.getElementById("edu-degree").textContent = data.eduDegree;
+      document.getElementById("edu-date").textContent = data.eduDate;
+      document.getElementById("edu-desc").textContent = data.eduDesc;
+
+      document.getElementById("contact-tag").textContent = data.contactTag;
+      document.getElementById("contact-heading").textContent = data.contactHeading;
+      document.getElementById("contact-sub").textContent = data.contactSub;
+      document.getElementById("footer-copy").textContent = data.footerCopy;
+    }
+
+    /* ==========================================================================
+       INTERACTIVE CONTROLS: DASHBOARD TAB SWITCHER & PROJECT SELECTOR
+       ========================================================================== */
+    function switchDashboardImage(projId, newUrl, btnEl) {
+      const imgEl = document.getElementById(`img-${projId}`);
+      if (!imgEl) return;
+
+      // Update active button styling within this project's toolbar
+      const parentSwitcher = btnEl.parentElement;
+      parentSwitcher.querySelectorAll(".dash-tab").forEach(b => b.classList.remove("active"));
+      btnEl.classList.add("active");
+
+      // Smooth fade swap
+      imgEl.style.opacity = "0.25";
+      setTimeout(() => {
+        delete imgEl.dataset.retried;
+        imgEl.src = newUrl;
+        imgEl.style.opacity = "1";
+      }, 150);
+    }
+
+    function setActiveProject(index) {
+      if (index === activeProjectIndex) return;
+      activeProjectIndex = index;
+
+      // Toggle active slide
+      document.querySelectorAll(".project-slide").forEach((slide, idx) => {
+        slide.classList.toggle("active", idx === index);
+      });
+
+      // Toggle active sidebar button
+      document.querySelectorAll(".project-nav-btn").forEach((btn, idx) => {
+        btn.classList.toggle("active", idx === index);
+      });
+
+      // Update progress bar
+      const total = PORTFOLIO_DATA.projects.length;
+      const pct = ((index + 1) / total) * 100;
+      document.getElementById("scroll-progress-bar").style.width = `${pct}%`;
+    }
+
+    function selectProjectManual(index) {
+      setActiveProject(index);
+    }
+
+    /* ==========================================================================
+       GSAP SCROLLTRIGGER: ENDUROSAT PINNED CATEGORY REVEAL
+       ========================================================================== */
+    function initPinnedProjectsScroll() {
+      if (projectScrollTrigger) {
+        projectScrollTrigger.kill();
+      }
+
+      // Pin on desktop viewports so each scroll wheel step reveals the next project
+      if (window.innerWidth >= 1024) {
+        const totalProjects = PORTFOLIO_DATA.projects.length;
+        projectScrollTrigger = ScrollTrigger.create({
+          trigger: "#projects-pinned",
+          start: "top top",
+          end: () => `+=${window.innerHeight * (totalProjects * 0.95)}`,
+          pin: true,
+          scrub: 0.3,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const targetIndex = Math.min(
+              totalProjects - 1,
+              Math.floor(progress * totalProjects)
+            );
+            setActiveProject(targetIndex);
+            document.getElementById("scroll-progress-bar").style.width = `${Math.max(15, progress * 100)}%`;
+          }
+        });
+      }
+    }
+
+    /* ==========================================================================
+       LANGUAGE SWITCHER WITH CURTAIN ANIMATION (EEZYINN EFFECT)
+       ========================================================================== */
+    function triggerLanguageSwitch(targetLang) {
+      if (targetLang === currentLang) return;
+
+      const curtain = document.getElementById("curtain");
+      curtain.classList.remove("exit");
+      curtain.classList.add("active");
+
+      setTimeout(() => {
+        currentLang = targetLang;
+        document.getElementById("btn-en").classList.toggle("active", targetLang === "en");
+        document.getElementById("btn-ar").classList.toggle("active", targetLang === "ar");
+
+        renderSite(currentLang);
+        ScrollTrigger.refresh();
+
+        curtain.classList.remove("active");
+        curtain.classList.add("exit");
+
+        setTimeout(() => {
+          curtain.classList.remove("exit");
+        }, 550);
+      }, 520);
+    }
+
+    // Initialize on load & resize
+    window.addEventListener("DOMContentLoaded", () => {
+      renderSite(currentLang);
+      initPinnedProjectsScroll();
+    });
+
+    window.addEventListener("resize", () => {
+      initPinnedProjectsScroll();
+    });
+  </script>
+</body>
+</html>
