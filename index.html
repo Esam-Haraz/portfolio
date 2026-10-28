@@ -9,50 +9,59 @@
   Hosting: Single-file static architecture optimized for GitHub Pages (index.html)
 
   BOOKMARK INDEX (Use Ctrl+F with these exact tags to locate/edit any section):
-  - [HTML-00: META, SEO, OPEN GRAPH & FAVICON]
+  - [HTML-00: META, SEO, CANONICAL, OPEN GRAPH & FAVICON]
   - [CSS-01: THEME VARIABLES - BLUE GRADIENT]
   - [CSS-02: BASE, AURORA MESH & MOUSE SPOTLIGHT]
   - [CSS-03: CIRCULAR CORNER LANGUAGE REVEAL]
   - [CSS-04: NAVBAR]
   - [CSS-05: BUTTONS & TAGS]
-  - [CSS-06: HERO & METRICS]
-  - [CSS-07: PINNED PROJECTS SHOWCASE & FLUID MOBILE]
-  - [CSS-07B: FULLSCREEN LIGHTBOX MODAL]
+  - [CSS-06: HERO & 3-CARD IMPACT METRICS]
+  - [CSS-07: PINNED PROJECTS SHOWCASE (SHORT LAPTOP & FLUID MOBILE SAFE)]
+  - [CSS-07B: ACCESSIBLE FULLSCREEN LIGHTBOX MODAL]
   - [CSS-08: SKILLS GRID]
-  - [CSS-09: EDUCATION & CONTACT FOOTER]
+  - [CSS-09: ABOUT, EDUCATION & CONTACT FOOTER]
   - [HTML-01: CIRCULAR LANGUAGE CURTAIN & LIGHTBOX]
   - [HTML-02: NAVBAR]
   - [HTML-03: HERO SECTION]
   - [HTML-04: PINNED PROJECTS SECTION]
   - [HTML-05: SKILLS SECTION]
-  - [HTML-06: FOOTER & CONTACT SECTION]
+  - [HTML-06: ABOUT, EDUCATION & CONTACT FOOTER]
   - [JS-01: PORTFOLIO DATA STORE]
-  - [JS-02: SAFE LENIS, GSAP & MOUSE SPOTLIGHT INIT]
-  - [JS-03: DOM RENDER ENGINE WITH SMART IMAGE FALLBACK]
-  - [JS-04: DASHBOARD & ACCESSIBLE LIGHTBOX CONTROLS]
-  - [JS-05: PINNED SCROLLTRIGGER LOGIC (DESKTOP + MOBILE)]
-  - [JS-06: CIRCULAR LANGUAGE SWITCH ANIMATION]
+  - [JS-02: SINGLE-TICKER LENIS, GSAP & MOUSE SPOTLIGHT INIT]
+  - [JS-03: DOM RENDER ENGINE & STATE PERSISTENCE]
+  - [JS-04: DASHBOARD, KEYBOARD TABS & ACCESSIBLE LIGHTBOX]
+  - [JS-05: PINNED SCROLLTRIGGER & SMOOTH ANCHOR NAVIGATION]
+  - [JS-06: CIRCULAR LANGUAGE SWITCH & LOCALSTORAGE]
+  - [JS-07: BUILT-IN 1200x630 OG-COVER.PNG GENERATOR (Ctrl+Shift+O)]
   ==============================================================================
   -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- START [HTML-00: META, SEO, OPEN GRAPH & FAVICON] -->
+  <!-- START [HTML-00: META, SEO, CANONICAL, OPEN GRAPH & FAVICON] -->
   <title>Esam Haraz | Data Analyst Portfolio</title>
-  <meta name="description" content="Bilingual Data Analyst Portfolio of Esam Haraz. Explore end-to-end analytics case studies in SQL (PostgreSQL), Power BI (DAX), Microsoft Excel, and Python.">
+  <meta name="description" content="Bilingual Data Analyst Portfolio of Esam Haraz. End-to-end analytics case studies in SQL (PostgreSQL), Power BI (DAX), Microsoft Excel, and Python.">
   <meta name="author" content="Esam Haraz">
+  <link rel="canonical" href="https://esam-haraz.github.io/portfolio/">
 
   <!-- Open Graph / LinkedIn / WhatsApp Preview Tags -->
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ar_EG">
   <meta property="og:title" content="Esam Haraz | Data Analyst Portfolio">
-  <meta property="og:description" content="End-to-end data analytics projects analyzing 47,820+ records across HR Attrition, Retail Sales, and Supply Chain Logistics using SQL, Power BI, and Excel.">
+  <meta property="og:description" content="Explore end-to-end data analytics case studies uncovering 3x overtime attrition, $817.86K retail revenue drivers, and supply chain delay patterns using SQL, Power BI, and Excel.">
   <meta property="og:url" content="https://esam-haraz.github.io/portfolio/">
-  <meta property="og:image" content="https://raw.githubusercontent.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance/main/Images/PowerBi_Dashboard.png">
+  <meta property="og:image" content="https://esam-haraz.github.io/portfolio/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Esam Haraz | Data Analyst Portfolio">
+  <meta name="twitter:description" content="End-to-end data analytics projects in SQL (PostgreSQL), Power BI (DAX), and Excel.">
+  <meta name="twitter:image" content="https://esam-haraz.github.io/portfolio/assets/og-cover.png">
 
   <!-- Data Node SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%2338bdf8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%23050a18'/%3E%3Cpath d='M20 44 L32 20 L46 36 L20 44 Z' stroke='url(%23g)' stroke-width='3.5' fill='none' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='20' r='6' fill='%2338bdf8'/%3E%3Ccircle cx='20' cy='44' r='5.5' fill='%232563eb'/%3E%3Ccircle cx='46' cy='36' r='5.5' fill='%2360a5fa'/%3E%3C/svg%3E">
-  <!-- END [HTML-00: META, SEO, OPEN GRAPH & FAVICON] -->
+  <!-- END [HTML-00: META, SEO, CANONICAL, OPEN GRAPH & FAVICON] -->
 
   <!-- Google Fonts: Inter (EN), Cairo (AR), JetBrains Mono (Technical Tags/Numbers) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,7 +75,7 @@
     :root {
       --bg-primary: #040814;
       --bg-secondary: #081126;
-      --bg-card: rgba(10, 20, 42, 0.72);
+      --bg-card: rgba(10, 20, 42, 0.74);
       --border-subtle: rgba(148, 163, 184, 0.16);
       --border-highlight: rgba(56, 189, 248, 0.5);
       --text-main: #f8fafc;
@@ -121,17 +130,17 @@
       pointer-events: none;
       overflow: hidden;
       background:
-        radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(56, 189, 248, 0.22), rgba(37, 99, 235, 0.08) 40%, transparent 70%),
-        radial-gradient(circle at 12% 18%, rgba(29, 78, 216, 0.26) 0%, transparent 45%),
-        radial-gradient(circle at 88% 22%, rgba(56, 189, 248, 0.18) 0%, transparent 42%),
-        radial-gradient(circle at 50% 85%, rgba(37, 99, 235, 0.20) 0%, transparent 48%);
+        radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(56, 189, 248, 0.20), rgba(37, 99, 235, 0.07) 40%, transparent 70%),
+        radial-gradient(circle at 12% 18%, rgba(29, 78, 216, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 88% 22%, rgba(56, 189, 248, 0.16) 0%, transparent 42%),
+        radial-gradient(circle at 50% 85%, rgba(37, 99, 235, 0.18) 0%, transparent 48%);
     }
 
     .aurora-orb {
       position: absolute;
       border-radius: 50%;
       filter: blur(65px);
-      opacity: 0.42;
+      opacity: 0.4;
       will-change: transform;
       animation: auroraFloat 18s infinite alternate ease-in-out;
     }
@@ -164,8 +173,8 @@
 
     @media (max-width: 768px) {
       .aurora-orb {
-        filter: blur(45px);
-        opacity: 0.32;
+        filter: blur(40px);
+        opacity: 0.3;
       }
     }
 
@@ -179,9 +188,7 @@
       }
     }
 
-    .hero,
-    .projects-pinned-section,
-    .skills-section,
+    main,
     .footer-section {
       position: relative;
       z-index: 1;
@@ -266,7 +273,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(4, 8, 20, 0.78);
+      background: rgba(4, 8, 20, 0.8);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-subtle);
@@ -399,11 +406,11 @@
     /* END [CSS-05: BUTTONS & TAGS] */
 
     /* ==========================================================================
-       START [CSS-06: HERO & METRICS]
+       START [CSS-06: HERO & 3-CARD IMPACT METRICS]
        ========================================================================== */
     .hero {
       min-height: 100dvh;
-      padding: 7.5rem 5% 3.5rem;
+      padding: 7rem 5% 3rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -415,24 +422,47 @@
       max-width: 880px;
       margin-top: auto;
       margin-bottom: auto;
-      padding: 1.5rem 0;
+      padding: 1.25rem 0;
     }
 
-    .location-pill {
-      display: inline-flex;
+    .hero-badges-row {
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 0.5rem;
-      color: var(--text-muted);
-      font-size: 0.88rem;
+      gap: 0.75rem;
       margin-bottom: 1rem;
     }
 
+    .hero-badges-row .section-tag {
+      margin-bottom: 0;
+    }
+
+    .availability-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-subtle);
+      padding: 0.32rem 0.85rem;
+      border-radius: 999px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 8px #38bdf8;
+    }
+
     .hero-title {
-      font-size: clamp(2.2rem, 5.2vw, 4.3rem);
+      font-size: clamp(2.1rem, 5vw, 4.2rem);
       font-weight: 800;
       line-height: 1.12;
       letter-spacing: -0.03em;
-      margin-bottom: 1.35rem;
+      margin-bottom: 1.25rem;
     }
 
     body[dir="rtl"] .hero-title {
@@ -447,10 +477,10 @@
     }
 
     .hero-subtitle {
-      font-size: clamp(1rem, 1.7vw, 1.2rem);
+      font-size: clamp(0.98rem, 1.6vw, 1.16rem);
       color: var(--text-muted);
-      max-width: 720px;
-      margin-bottom: 2rem;
+      max-width: 740px;
+      margin-bottom: 1.85rem;
     }
 
     .hero-cta {
@@ -461,9 +491,9 @@
 
     .metrics-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0.85rem;
-      padding-top: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      padding-top: 1.75rem;
       border-top: 1px solid var(--border-subtle);
     }
 
@@ -471,7 +501,7 @@
       background: rgba(10, 20, 42, 0.6);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      padding: 1rem 1.15rem;
+      padding: 1.05rem 1.25rem;
       backdrop-filter: blur(8px);
       transition: border-color 0.25s ease;
     }
@@ -488,16 +518,19 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: block;
+      margin-bottom: 0.15rem;
     }
 
     .metric-lbl {
-      font-size: 0.83rem;
+      font-size: 0.84rem;
       color: var(--text-muted);
     }
-    /* END [CSS-06: HERO & METRICS] */
+    /* END [CSS-06: HERO & 3-CARD IMPACT METRICS] */
 
     /* ==========================================================================
-       START [CSS-07: PINNED PROJECTS SHOWCASE & FLUID MOBILE]
+       START [CSS-07: PINNED PROJECTS SHOWCASE (SHORT LAPTOP & FLUID MOBILE SAFE)]
+       Includes responsive height protection for 1366x768 laptops and full
+       2-line insight + recommendation display on mobile screens.
        ========================================================================== */
     .projects-pinned-section {
       position: relative;
@@ -506,7 +539,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 4.5rem 5% 1.5rem;
+      padding: 4.5rem 5% 1.25rem;
       overflow: hidden;
     }
 
@@ -524,8 +557,8 @@
 
     @media (min-width: 1024px) {
       .projects-container {
-        grid-template-columns: 245px 1fr;
-        gap: 2.5rem;
+        grid-template-columns: 240px 1fr;
+        gap: 2.25rem;
         height: auto;
       }
     }
@@ -537,7 +570,7 @@
     }
 
     .projects-heading {
-      font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+      font-size: clamp(1.3rem, 2.1vw, 1.7rem);
       font-weight: 800;
       line-height: 1.2;
     }
@@ -554,14 +587,14 @@
     .project-nav-list {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0.55rem;
     }
 
     .project-nav-btn {
       background: rgba(10, 20, 42, 0.55);
       border: 1px solid var(--border-subtle);
       border-radius: 9px;
-      padding: 0.8rem 0.95rem;
+      padding: 0.75rem 0.95rem;
       text-align: start;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -573,7 +606,7 @@
 
     .project-nav-btn.active {
       border-color: var(--accent-secondary);
-      background: rgba(37, 99, 235, 0.2);
+      background: rgba(37, 99, 235, 0.22);
       color: var(--text-main);
       box-shadow: 0 0 20px rgba(37, 99, 235, 0.22);
     }
@@ -586,7 +619,7 @@
     }
 
     .proj-nav-name {
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 600;
       white-space: nowrap;
     }
@@ -611,7 +644,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
-      padding: 2rem;
+      padding: 1.75rem;
       backdrop-filter: blur(14px);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
     }
@@ -619,9 +652,9 @@
     .project-slide {
       display: none;
       grid-template-columns: 1fr;
-      gap: 1.75rem;
+      gap: 1.5rem;
       align-items: center;
-      animation: slideFadeIn 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: slideFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .project-slide.active {
@@ -630,15 +663,15 @@
 
     @media (min-width: 1024px) {
       .project-slide {
-        grid-template-columns: 1.05fr 1.15fr;
-        gap: 2rem;
+        grid-template-columns: 1.08fr 1.12fr;
+        gap: 1.85rem;
       }
     }
 
     @keyframes slideFadeIn {
       from {
         opacity: 0;
-        transform: translateY(14px);
+        transform: translateY(12px);
       }
       to {
         opacity: 1;
@@ -650,72 +683,84 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.45rem;
-      margin-bottom: 0.7rem;
+      gap: 0.4rem;
+      margin-bottom: 0.55rem;
     }
 
     .tech-tag {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      padding: 0.22rem 0.6rem;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
       border-radius: 6px;
       background: rgba(56, 189, 248, 0.11);
       color: var(--accent-secondary);
       border: 1px solid rgba(56, 189, 248, 0.25);
     }
 
+    .source-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(148, 163, 184, 0.1);
+      color: #cbd5e1;
+      border: 1px solid var(--border-subtle);
+    }
+
     .proj-title {
-      font-size: clamp(1.25rem, 2.1vw, 1.8rem);
+      font-size: clamp(1.2rem, 1.9vw, 1.65rem);
       font-weight: 800;
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.5rem;
       line-height: 1.25;
     }
 
     .proj-summary {
       color: var(--text-muted);
-      font-size: 0.92rem;
-      margin-bottom: 1rem;
+      font-size: 0.88rem;
+      margin-bottom: 0.85rem;
+      line-height: 1.55;
     }
 
     .proj-kpis {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.55rem;
-      margin-bottom: 1rem;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
     }
 
     .kpi-mini {
       background: rgba(4, 8, 20, 0.68);
       border: 1px solid var(--border-subtle);
-      padding: 0.55rem 0.7rem;
+      padding: 0.45rem 0.65rem;
       border-radius: 8px;
     }
 
     .kpi-mini strong {
       display: block;
       font-family: var(--font-mono);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       color: var(--accent-secondary);
     }
 
     .kpi-mini span {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
     }
 
     .insights-list {
       list-style: none;
-      margin-bottom: 1.25rem;
+      margin-bottom: 0.75rem;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 0.35rem;
     }
 
     .insights-list li {
-      font-size: 0.86rem;
+      font-size: 0.83rem;
       color: #cbd5e1;
       position: relative;
-      padding-inline-start: 1.15rem;
+      padding-inline-start: 1.1rem;
+      line-height: 1.45;
     }
 
     .insights-list li::before {
@@ -726,10 +771,29 @@
       font-weight: bold;
     }
 
+    .proj-recommendation {
+      background: rgba(37, 99, 235, 0.12);
+      border-inline-start: 3px solid var(--accent-secondary);
+      padding: 0.55rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.81rem;
+      color: #e2e8f0;
+      margin-bottom: 1rem;
+      line-height: 1.45;
+    }
+
+    .proj-recommendation strong {
+      color: var(--accent-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      margin-inline-end: 0.35rem;
+    }
+
     .dashboard-showcase {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.65rem;
     }
 
     .dashboard-toolbar {
@@ -737,7 +801,7 @@
       justify-content: space-between;
       align-items: center;
       background: rgba(4, 8, 20, 0.82);
-      padding: 0.45rem 0.8rem;
+      padding: 0.42rem 0.75rem;
       border-radius: 10px;
       border: 1px solid var(--border-subtle);
     }
@@ -773,7 +837,7 @@
       font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.28rem 0.65rem;
+      padding: 0.26rem 0.65rem;
       border-radius: 5px;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -823,14 +887,14 @@
 
     .zoom-badge {
       position: absolute;
-      bottom: 0.6rem;
-      inset-inline-end: 0.6rem;
+      bottom: 0.55rem;
+      inset-inline-end: 0.55rem;
       background: rgba(4, 8, 20, 0.86);
       border: 1px solid var(--border-subtle);
       color: var(--text-main);
       font-family: var(--font-mono);
       font-size: 0.68rem;
-      padding: 0.25rem 0.6rem;
+      padding: 0.22rem 0.55rem;
       border-radius: 6px;
       pointer-events: none;
       backdrop-filter: blur(6px);
@@ -842,10 +906,50 @@
       color: var(--accent-secondary);
     }
 
-    /* FLUID DYNAMIC MOBILE ADAPTATION (<1024px) */
+    /* SHORT LAPTOP SCREEN PROTECTION (e.g. 1366x768) */
+    @media (min-width: 1024px) and (max-height: 780px) {
+      .projects-pinned-section {
+        padding: 4rem 4% 0.75rem;
+      }
+      .project-stage {
+        padding: 1.15rem 1.4rem;
+      }
+      .proj-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.3rem;
+      }
+      .proj-summary {
+        font-size: 0.82rem;
+        margin-bottom: 0.55rem;
+      }
+      .proj-kpis {
+        margin-bottom: 0.55rem;
+      }
+      .kpi-mini {
+        padding: 0.35rem 0.5rem;
+      }
+      .insights-list {
+        margin-bottom: 0.5rem;
+        gap: 0.25rem;
+      }
+      .insights-list li {
+        font-size: 0.78rem;
+      }
+      .proj-recommendation {
+        padding: 0.4rem 0.65rem;
+        font-size: 0.76rem;
+        margin-bottom: 0.65rem;
+      }
+      .project-details .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.82rem;
+      }
+    }
+
+    /* FLUID DYNAMIC MOBILE ADAPTATION (<1024px) - Preserves Full Insights */
     @media (max-width: 1023px) {
       .projects-pinned-section {
-        padding: 4.2rem 4% 0.8rem;
+        padding: 4.1rem 4% 0.7rem;
         height: 100dvh;
       }
 
@@ -854,12 +958,12 @@
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        gap: 0.6vh;
+        gap: 0.5dvh;
       }
 
       .projects-sidebar {
         width: 100%;
-        gap: 0.5vh;
+        gap: 0.4dvh;
         flex-shrink: 0;
       }
 
@@ -869,14 +973,14 @@
       }
 
       .projects-heading {
-        font-size: clamp(1.05rem, 2.2dvh, 1.35rem);
+        font-size: clamp(1rem, 2dvh, 1.25rem);
       }
 
       .project-nav-list {
         flex-direction: row;
         overflow-x: auto;
-        gap: 0.4rem;
-        padding-bottom: 0.2rem;
+        gap: 0.35rem;
+        padding-bottom: 0.15rem;
         scrollbar-width: none;
       }
 
@@ -885,13 +989,13 @@
       }
 
       .project-nav-btn {
-        padding: 0.4rem 0.7rem;
+        padding: 0.35rem 0.6rem;
         flex: 1;
         justify-content: center;
       }
 
       .proj-nav-name {
-        font-size: clamp(0.72rem, 1.5dvh, 0.82rem);
+        font-size: clamp(0.7rem, 1.45dvh, 0.8rem);
       }
 
       .project-stage {
@@ -900,8 +1004,8 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: clamp(0.75rem, 1.8dvh, 1.25rem);
-        overflow: hidden;
+        padding: clamp(0.65rem, 1.5dvh, 1.1rem);
+        overflow-y: auto;
       }
 
       .project-slide.active {
@@ -909,89 +1013,95 @@
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        gap: 0.8dvh;
+        gap: 0.6dvh;
       }
 
       .project-details {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        gap: 0.5dvh;
+        gap: 0.4dvh;
       }
 
       .proj-meta-top {
-        margin-bottom: 0.2dvh;
+        margin-bottom: 0.15dvh;
       }
 
-      .tech-tag {
-        font-size: clamp(0.62rem, 1.2dvh, 0.72rem);
-        padding: 0.15rem 0.45rem;
+      .tech-tag, .source-tag {
+        font-size: clamp(0.6rem, 1.15dvh, 0.68rem);
+        padding: 0.12rem 0.4rem;
       }
 
       .proj-title {
-        font-size: clamp(0.98rem, 2.1dvh, 1.25rem);
-        margin-bottom: 0.2dvh;
+        font-size: clamp(0.95rem, 2dvh, 1.18rem);
+        margin-bottom: 0.15dvh;
       }
 
       .proj-summary {
-        font-size: clamp(0.75rem, 1.55dvh, 0.86rem);
-        margin-bottom: 0.4dvh;
+        display: none;
+      }
+
+      .proj-kpis {
+        margin-bottom: 0.3dvh;
+        gap: 0.35rem;
+      }
+
+      .kpi-mini {
+        padding: clamp(0.25rem, 0.7dvh, 0.45rem) 0.45rem;
+      }
+
+      .kpi-mini strong {
+        font-size: clamp(0.76rem, 1.55dvh, 0.88rem);
+      }
+
+      .kpi-mini span {
+        font-size: clamp(0.6rem, 1.15dvh, 0.68rem);
+      }
+
+      /* Mobile Insights: Show top 2 insights at 2 full lines each so numbers aren't cut */
+      .insights-list {
+        margin-bottom: 0.35dvh;
+        gap: 0.25dvh;
+      }
+
+      .insights-list li {
+        font-size: clamp(0.71rem, 1.4dvh, 0.8rem);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.35;
+      }
+
+      .insights-list li:nth-child(3) {
+        display: none;
+      }
+
+      .proj-recommendation {
+        padding: 0.35rem 0.55rem;
+        font-size: clamp(0.69rem, 1.35dvh, 0.78rem);
+        margin-bottom: 0.35dvh;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
 
-      .proj-kpis {
-        margin-bottom: 0.4dvh;
-        gap: 0.4rem;
-      }
-
-      .kpi-mini {
-        padding: clamp(0.3rem, 0.8dvh, 0.5rem) 0.5rem;
-      }
-
-      .kpi-mini strong {
-        font-size: clamp(0.78rem, 1.65dvh, 0.92rem);
-      }
-
-      .kpi-mini span {
-        font-size: clamp(0.62rem, 1.2dvh, 0.7rem);
-      }
-
-      .insights-list {
-        margin-bottom: 0.5dvh;
-        gap: 0.25dvh;
-      }
-
-      .insights-list li {
-        font-size: clamp(0.72rem, 1.45dvh, 0.82rem);
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-
-      /* Fixed CSS selector (removed space after dot) */
-      .insights-list li:nth-child(3) {
-        display: none;
-      }
-
       .project-details .btn {
-        padding: clamp(0.42rem, 1.1dvh, 0.65rem) 0.9rem;
-        font-size: clamp(0.76rem, 1.5dvh, 0.86rem);
+        padding: clamp(0.38rem, 1dvh, 0.58rem) 0.8rem;
+        font-size: clamp(0.74rem, 1.45dvh, 0.84rem);
       }
 
       .dashboard-showcase {
         flex: 1;
-        min-height: 0;
+        min-height: 120px;
         display: flex;
         flex-direction: column;
-        gap: 0.4dvh;
+        gap: 0.35dvh;
       }
 
       .dashboard-toolbar {
-        padding: 0.3rem 0.6rem;
+        padding: 0.25rem 0.55rem;
         flex-shrink: 0;
       }
 
@@ -1002,10 +1112,11 @@
         height: 100%;
       }
     }
-    /* END [CSS-07: PINNED PROJECTS SHOWCASE & FLUID MOBILE] */
+    /* END [CSS-07: PINNED PROJECTS SHOWCASE (SHORT LAPTOP & FLUID MOBILE SAFE)] */
 
     /* ==========================================================================
-       START [CSS-07B: FULLSCREEN LIGHTBOX MODAL]
+       START [CSS-07B: ACCESSIBLE FULLSCREEN LIGHTBOX MODAL]
+       Uses visibility: hidden when closed so keyboard Tab cannot focus inside it.
        ========================================================================== */
     .lightbox-modal {
       position: fixed;
@@ -1022,13 +1133,15 @@
       justify-content: center;
       padding: 1.5rem;
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
       cursor: zoom-out;
     }
 
     .lightbox-modal.open {
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
     }
 
@@ -1075,7 +1188,7 @@
       color: var(--text-muted);
       text-align: center;
     }
-    /* END [CSS-07B: FULLSCREEN LIGHTBOX MODAL] */
+    /* END [CSS-07B: ACCESSIBLE FULLSCREEN LIGHTBOX MODAL] */
 
     /* ==========================================================================
        START [CSS-08: SKILLS GRID]
@@ -1116,7 +1229,7 @@
     }
 
     .skill-card-title {
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       font-weight: 700;
       margin-bottom: 1rem;
       color: var(--accent-secondary);
@@ -1133,7 +1246,7 @@
     }
 
     .skill-items li {
-      font-size: 0.92rem;
+      font-size: 0.91rem;
       color: #e2e8f0;
       display: flex;
       align-items: center;
@@ -1151,7 +1264,7 @@
     /* END [CSS-08: SKILLS GRID] */
 
     /* ==========================================================================
-       START [CSS-09: EDUCATION & CONTACT FOOTER]
+       START [CSS-09: ABOUT, EDUCATION & CONTACT FOOTER]
        ========================================================================== */
     .footer-section {
       border-top: 1px solid var(--border-subtle);
@@ -1173,25 +1286,36 @@
       }
     }
 
+    .about-box {
+      background: rgba(10, 20, 42, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.35rem 1.5rem;
+      margin-top: 1.25rem;
+      color: #cbd5e1;
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
     .edu-box {
       background: rgba(10, 20, 42, 0.65);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      padding: 1.5rem;
-      margin-top: 1.5rem;
+      padding: 1.35rem 1.5rem;
+      margin-top: 1rem;
     }
 
     .edu-degree {
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       color: var(--text-main);
     }
 
     .edu-meta {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--accent-secondary);
-      margin: 0.25rem 0 0.5rem;
+      margin: 0.25rem 0 0.45rem;
     }
 
     .contact-card {
@@ -1202,6 +1326,18 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
+
+    .contact-avail-badge {
+      display: inline-block;
+      margin-top: 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent-secondary);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
     }
 
     .contact-links-list {
@@ -1238,7 +1374,7 @@
       color: var(--text-muted);
       font-size: 0.85rem;
     }
-    /* END [CSS-09: EDUCATION & CONTACT FOOTER] */
+    /* END [CSS-09: ABOUT, EDUCATION & CONTACT FOOTER] */
   </style>
 </head>
 <body>
@@ -1260,8 +1396,8 @@
     </div>
   </div>
 
-  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Fullscreen Dashboard Preview" onclick="closeLightbox()">
-    <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close fullscreen preview" onclick="closeLightbox()">✕ ESC</button>
+  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Fullscreen Dashboard Preview" onclick="closeLightbox()">
+    <button class="lightbox-close" id="lightbox-close-btn" tabindex="-1" aria-label="Close fullscreen preview" onclick="closeLightbox()">✕ ESC</button>
     <img class="lightbox-img" id="lightbox-img" src="" alt="Fullscreen Dashboard Preview" onclick="event.stopPropagation()">
     <div class="lightbox-caption" id="lightbox-caption"></div>
   </div>
@@ -1271,16 +1407,16 @@
        START [HTML-02: NAVBAR]
        ======================================================================== -->
   <header class="navbar">
-    <a href="#" class="brand" aria-label="Esam Haraz Home">
+    <a href="#" class="brand" aria-label="Esam Haraz Home" onclick="scrollToSection(event, 'top')">
       <span class="brand-dot"></span>
       <span id="nav-name">ESAM HARAZ</span>
     </a>
 
     <div class="nav-actions">
       <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="#projects-pinned" id="nav-projects">Projects</a>
-        <a href="#skills" id="nav-skills">Tech Stack</a>
-        <a href="#contact" id="nav-contact">Contact</a>
+        <a href="#projects-pinned" id="nav-projects" onclick="scrollToSection(event, '#projects-pinned')">Projects</a>
+        <a href="#skills" id="nav-skills" onclick="scrollToSection(event, '#skills')">Tech Stack</a>
+        <a href="#contact" id="nav-contact" onclick="scrollToSection(event, '#contact')">About & Contact</a>
       </nav>
 
       <div class="lang-toggle" id="lang-toggle-box" role="group" aria-label="Language Switcher">
@@ -1297,11 +1433,14 @@
   <main>
     <section class="hero">
       <div class="hero-main">
-        <div class="section-tag" id="hero-role">Data Analyst</div>
-        <div class="location-pill">
-          <span aria-hidden="true">📍</span>
-          <span id="hero-location">Damietta, Egypt</span>
+        <div class="hero-badges-row">
+          <span class="section-tag" id="hero-role">Data Analyst</span>
+          <span class="availability-pill">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="hero-availability">Available Immediately • Egypt (On-Site / Hybrid) & Remote</span>
+          </span>
         </div>
+
         <h1 class="hero-title" id="hero-headline">
           Transforming Raw Data Into <span class="highlight">Actionable Business Impact.</span>
         </h1>
@@ -1309,7 +1448,7 @@
           Data Analyst specializing in building end-to-end analytics solutions using SQL (PostgreSQL), Microsoft Excel, and Power BI—from raw data cleaning and relational schema design to interactive executive dashboards, while expanding into Python data analysis (Pandas, Polars, NumPy).
         </p>
         <div class="hero-cta">
-          <a href="#projects-pinned" class="btn btn-primary" id="cta-projects">Explore Projects ↓</a>
+          <a href="#projects-pinned" class="btn btn-primary" id="cta-projects" onclick="scrollToSection(event, '#projects-pinned')">Explore Case Studies ↓</a>
           <a href="https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link" target="_blank" rel="noopener" class="btn btn-secondary" id="cta-cv">Download CV (PDF) ↗</a>
           <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="btn btn-secondary" aria-label="Visit Esam Haraz GitHub Profile">GitHub ↗</a>
         </div>
@@ -1333,7 +1472,7 @@
             <h2 class="projects-heading" id="proj-section-heading">End-to-End Analytics</h2>
           </div>
           <div class="scroll-hint" id="proj-scroll-hint">
-            <span>🖱️ Scroll or click to switch category</span>
+            <span>🖱️ Scroll or use arrows to switch</span>
           </div>
           <div class="project-nav-list" id="project-nav-list" role="tablist" aria-label="Project Categories">
             <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
@@ -1367,19 +1506,24 @@
   <!-- END [HTML-05: SKILLS SECTION] -->
 
   <!-- ========================================================================
-       START [HTML-06: FOOTER & CONTACT SECTION]
+       START [HTML-06: ABOUT, EDUCATION & CONTACT FOOTER]
        ======================================================================== -->
   <footer class="footer-section" id="contact">
     <div class="footer-container">
       
       <div>
-        <span class="section-tag" id="edu-tag">Academic Background</span>
-        <h2 class="section-title" id="edu-heading">Education & Foundation</h2>
+        <span class="section-tag" id="edu-tag">About & Academic Background</span>
+        <h2 class="section-title" id="edu-heading"> Analytical Mindset & Education</h2>
+        
+        <div class="about-box" id="about-story">
+          My academic background in Education trained me in research methodologies, hypothesis testing, and communicating complex concepts clearly. Today, I apply that structured analytical rigor to clean raw data, uncover business drivers, and build clear dashboards.
+        </div>
+
         <div class="edu-box">
           <div class="edu-degree" id="edu-degree">Bachelor of Education (B.Ed.) — Damietta University</div>
-          <div class="edu-meta" id="edu-date">Graduated Jul 2026 | Damietta, Egypt</div>
-          <p style="color: var(--text-muted); font-size: 0.92rem;" id="edu-desc">
-            Focused on research methodologies and quantitative data processing, applying structured analytical thinking to solve real-world business problems.
+          <div class="edu-meta" id="edu-date">Graduated Jul 2026 (Sep 2022 – Jul 2026) | Damietta, Egypt</div>
+          <p style="color: var(--text-muted); font-size: 0.88rem;" id="edu-desc">
+            Focused on quantitative data processing and structured research methodology.
           </p>
         </div>
       </div>
@@ -1389,8 +1533,11 @@
           <span class="section-tag" id="contact-tag">Get In Touch</span>
           <h3 style="font-size: 1.5rem; font-weight: 800;" id="contact-heading">Ready to Contribute to Data-Driven Teams</h3>
           <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 0.4rem;" id="contact-sub">
-            Available for Data Analyst internships and entry-level opportunities.
+            Seeking Data Analyst internships and entry-level roles.
           </p>
+          <div class="contact-avail-badge" id="contact-avail-badge">
+            📍 Damietta, Egypt • Open to Remote, Hybrid & On-Site
+          </div>
         </div>
 
         <div class="contact-links-list">
@@ -1416,7 +1563,7 @@
       <span style="font-family: var(--font-mono);">SQL • Excel • Power BI • Python</span>
     </div>
   </footer>
-  <!-- END [HTML-06: FOOTER & CONTACT SECTION] -->
+  <!-- END [HTML-06: ABOUT, EDUCATION & CONTACT FOOTER] -->
 
   <!-- External Animation Libraries: Reliable jsDelivr / Cloudflare CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
@@ -1434,22 +1581,23 @@
         dir: "ltr",
         name: "Esam Haraz",
         role: "Data Analyst",
-        location: "Damietta, Egypt",
-        nav: { projects: "Projects", skills: "Tech Stack", contact: "Contact" },
+        availability: "Available Immediately • Egypt (On-Site / Hybrid) & Remote",
+        nav: { projects: "Projects", skills: "Tech Stack", contact: "About & Contact" },
         heroHeadline: 'Transforming Raw Data Into <span class="highlight">Actionable Business Impact.</span>',
         heroSummary: "Data Analyst specializing in building end-to-end analytics solutions using SQL (PostgreSQL), Microsoft Excel, and Power BI—from raw data cleaning and relational schema design to interactive executive dashboards, while expanding into Python data analysis (Pandas, Polars, NumPy).",
-        ctaProjects: "Explore Projects ↓",
+        ctaProjects: "Explore Case Studies ↓",
         ctaCv: "Download CV (PDF) ↗",
         metrics: [
-          { val: "3", lbl: "End-to-End Case Studies (SQL, Excel, Power BI)" },
-          { val: "47,820", lbl: "Business Records Analyzed Across Domains" },
-          { val: "SQL • BI", lbl: "Schema Design, DAX & Interactive Dashboards" },
-          { val: "EN / AR", lbl: "Bilingual Technical Documentation" }
+          { val: "3x Attrition", lbl: "31% vs 10% Overtime Turnover Uncovered (HR Case Study)" },
+          { val: "$817.86K", lbl: "2015 Retail Revenue Analyzed Across 21,350 Orders" },
+          { val: "41.45% Delay", lbl: "Stormy Weather Impact vs 16.02% in Cold Conditions (25K Shipments)" }
         ],
         projSectionTag: "Featured Case Studies",
         projSectionHeading: "End-to-End Analytics",
-        projScrollHint: "🖱️ Scroll or click to switch category",
+        projScrollHint: "🖱️ Scroll or use arrow keys to switch",
         repoBtnText: "Explore Full Repository & SQL on GitHub ↗",
+        recLabel: "Recommendation:",
+        sourceLabel: "Source: Kaggle Dataset",
         skillsTag: "Capabilities",
         skillsTitle: "Technical Stack & Tools",
         skills: [
@@ -1481,23 +1629,25 @@
             ]
           },
           {
-            category: "Python & Workflow Tools",
+            category: "Python (Expanding) & Workflow",
             items: [
-              "Data Manipulation: Pandas, Polars & NumPy",
-              "File Handling & Regular Expressions (Regex)",
-              "Strong Algorithmic Foundation (250+ Practice Scripts)",
+              "Currently Expanding: Pandas, Polars & NumPy",
+              "Core Python & File Handling (250+ Practice Scripts)",
+              "Pattern Matching with Regular Expressions (Regex)",
               "Git, GitHub & Bilingual Markdown Documentation"
             ]
           }
         ],
-        eduTag: "Academic Background",
-        eduHeading: "Education & Foundation",
+        eduTag: "About & Academic Background",
+        eduHeading: "Analytical Mindset & Education",
+        aboutStory: "My academic background in Education trained me in research methodologies, hypothesis testing, and communicating complex concepts clearly. Today, I apply that structured analytical rigor to clean raw data, uncover business drivers, and build clear dashboards.",
         eduDegree: "Bachelor of Education (B.Ed.) — Damietta University",
         eduDate: "Graduated Jul 2026 (Sep 2022 – Jul 2026) | Damietta, Egypt",
-        eduDesc: "Focused on research methodologies and quantitative data processing, applying structured analytical skills to derive insights and solve real-world problems.",
+        eduDesc: "Focused on quantitative data processing and structured research methodology.",
         contactTag: "Get In Touch",
         contactHeading: "Ready to Contribute to Data-Driven Teams",
-        contactSub: "Looking to secure an internship or entry-level Data Analyst role to apply analytical and problem-solving skills.",
+        contactSub: "Seeking Data Analyst internships and entry-level opportunities.",
+        contactAvailBadge: "📍 Damietta, Egypt • Open to Remote, Hybrid & On-Site",
         footerCopy: "© 2026 Esam Haraz. Hosted on GitHub Pages.",
         imgFallback: "📊 Dashboard preview failed to load"
       },
@@ -1506,22 +1656,23 @@
         dir: "rtl",
         name: "عصام حراز",
         role: "محلل بيانات (Data Analyst)",
-        location: "دمياط، مصر",
-        nav: { projects: "المشاريع", skills: "المهارات التقنية", contact: "تواصل معي" },
+        availability: "متاح فوراً للعمل • مصر (مقر الشركة / هجين) وعن بُعد (Remote)",
+        nav: { projects: "المشاريع", skills: "المهارات التقنية", contact: "عني وتواصل" },
         heroHeadline: 'تحويل البيانات الخام إلى <span class="highlight">رؤى وقرارات أعمال فعالة.</span>',
-        heroSummary: "محلل بيانات متخصص في بناء مشاريع تحليلية متكاملة باستخدام SQL (PostgreSQL) وExcel وPower BI — بدءاً من تنظيف البيانات وتصميم الجداول وحتى بناء لوحات التحكم التفاعلية، مع التوسع في تحليل البيانات بلغة Python (Pandas, Polars, NumPy).",
+        heroSummary: "محلل بيانات متخصص في بناء مشاريع تحليلية متكاملة باستخدام SQL (PostgreSQL) وExcel وPower BI — بدءاً من تنظيف البيانات وتصميم الجداول وحتى بناء لوحات التحكم التفاعلية، مع التوسع الحالي في تحليل البيانات بلغة Python (Pandas, Polars, NumPy).",
         ctaProjects: "استكشف المشاريع ↓",
         ctaCv: "تحميل السيرة الذاتية (CV) ↗",
         metrics: [
-          { val: "3", lbl: "مشاريع تحليلية متكاملة (SQL, Excel, Power BI)" },
-          { val: "47,820", lbl: "سجل بيانات تم تحليله في الموارد البشرية والمبيعات والشحن" },
-          { val: "SQL • BI", lbl: "تصميم قواعد البيانات ومقاييس DAX ولوحات التحكم" },
-          { val: "AR / EN", lbl: "توثيق تقني شامل باللغتين العربية والإنجليزية" }
+          { val: "3x تسرب وظيفي", lbl: "31% مقابل 10% معدل ترك العمل مع الساعات الإضافية (مشروع HR)" },
+          { val: "$817.86K", lbl: "إيرادات مبيعات تم تحليلها عبر 21,350 طلباً لتحسين التشغيل" },
+          { val: "41.45% تأخير", lbl: "معدل تأخر الشحنات في الطقس العاصف مقابل 16.02% في البارد (25 ألف شحنة)" }
         ],
         projSectionTag: "أبرز المشاريع التطبيقية",
         projSectionHeading: "مشاريع تحليل البيانات",
-        projScrollHint: "🖱️ مرر للأسفل أو اضغط للتنقل بين المشاريع",
+        projScrollHint: "🖱️ مرر للأسفل أو استخدم الأسهم للتنقل",
         repoBtnText: "استعراض الكود والتوثيق الكامل على GitHub ↗",
+        recLabel: "التوصية العملية:",
+        sourceLabel: "المصدر: بيانات Kaggle",
         skillsTag: "الأدوات والقدرات",
         skillsTitle: "المهارات والأدوات التقنية",
         skills: [
@@ -1553,23 +1704,25 @@
             ]
           },
           {
-            category: "البرمجة بـ Python وأدوات العمل",
+            category: "لغة Python (قيد التوسع) وأدوات العمل",
             items: [
-              "مكتبات تحليل البيانات: Pandas و Polars و NumPy",
-              "معالجة الملفات النصية والتعبيرات النمطية (Regex)",
-              "أساس برمجي متين في Python (أكثر من 250 تطبيق عملي)",
+              "قيد التوسع التطبيقي: Pandas و Polars و NumPy",
+              "أساس برمجي في Python ومعالجة الملفات (+250 تمرين عملي)",
+              "التعبيرات النمطية واستخراج النصوص (Regex)",
               "إدارة المشاريع عبر Git و GitHub والتوثيق بـ Markdown"
             ]
           }
         ],
-        eduTag: "الخلفية الأكاديمية",
-        eduHeading: "التعليم والأساس البحثي",
+        eduTag: "نبذة عني والخلفية الأكاديمية",
+        eduHeading: "العقلية التحليلية والتعليم",
+        aboutStory: "دراستي الأكاديمية في كلية التربية درّبتني على مناهج البحث العلمي، واختبار الفرضيات، وتبسيط المفاهيم المعقدة. أوظف اليوم هذه المنهجية البحثية والكمية في تنظيف البيانات الخام، واستخلاص دوافع الأعمال، وبناء لوحات تحكم واضحة تدعم اتخاذ القرار.",
         eduDegree: "بكالوريوس التربية — جامعة دمياط",
         eduDate: "تخرج في يوليو 2026 (سبتمبر 2022 – يوليو 2026) | دمياط، مصر",
-        eduDesc: "التركيز على مناهج البحث ومعالجة البيانات الكمية، وتوظيف المهارات التحليلية لاستخلاص الرؤى وحل المشكلات العملية.",
+        eduDesc: "التركيز على مناهج البحث العلمي ومعالجة البيانات الكمية.",
         contactTag: "تواصل معي",
         contactHeading: "جاهز للانضمام والمساهمة في فرق البيانات",
-        contactSub: "متاح لفرص التدريب (Internships) والوظائف التأسيسية في مجال تحليل البيانات.",
+        contactSub: "أبحث عن فرص التدريب (Internships) والوظائف التأسيسية كمحلل بيانات.",
+        contactAvailBadge: "📍 دمياط، مصر • متاح للعمل عن بُعد (Remote) أو هجين أو من المقر",
         footerCopy: "© 2026 عصام حراز. مستضاف عبر GitHub Pages.",
         imgFallback: "📊 تعذر تحميل معاينة لوحة التحكم"
       },
@@ -1579,7 +1732,7 @@
           id: "hr-analytics",
           num: "01",
           repoUrl: "https://github.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance",
-          tags: ["SQL", "Power BI", "DAX", "Microsoft Excel"],
+          tags: ["SQL", "Power BI", "DAX", "Excel"],
           dashboards: [
             {
               label: "Power BI",
@@ -1595,17 +1748,18 @@
           en: {
             navTitle: "IBM HR Attrition",
             title: "IBM HR Analytics — Employee Attrition & Performance",
-            summary: "End-to-end HR analytics solution evaluating 1,470 employee records across SQL, Excel, and Power BI to pinpoint key turnover drivers across overtime, income levels, tenure, and job satisfaction.",
+            summary: "End-to-end HR analytics solution evaluating 1,470 employee records across SQL, Excel, and Power BI to pinpoint turnover drivers across overtime, income levels, tenure, and job satisfaction.",
             kpis: [
               { val: "1,470", lbl: "Total Employees" },
               { val: "16.12%", lbl: "Attrition Rate (237)" },
-              { val: "39.76%", lbl: "Sales Rep Risk" }
+              { val: "39.76%", lbl: "Sales Rep Attrition" }
             ],
             insights: [
-              "Overtime workers leave at 31% vs 10% for non-overtime staff — nearly a 3x turnover multiplier.",
-              "Sales Representatives carry the highest attrition risk (39.76%), nearly double the next role.",
-              "Employees who left earned a noticeably lower average monthly income ($4,787 vs $6,832 for retained staff)."
-            ]
+              "Overtime employees leave at a 31% rate compared to 10% for non-overtime staff (3.1x turnover rate).",
+              "Sales Representatives record the highest attrition rate across all roles at 39.76%, nearly double the next role.",
+              "Employees who left earned a lower average monthly income ($4,787) compared to retained employees ($6,832)."
+            ],
+            recommendation: "Cap monthly overtime hours and audit compensation/quota structures for Sales Representatives to reduce early-tenure turnover."
           },
           ar: {
             navTitle: "الموارد البشرية (HR)",
@@ -1614,13 +1768,14 @@
             kpis: [
               { val: "1,470", lbl: "إجمالي الموظفين" },
               { val: "16.12%", lbl: "معدل الترك (237)" },
-              { val: "39.76%", lbl: "خطر المبيعات" }
+              { val: "39.76%", lbl: "ترك مندوبي المبيعات" }
             ],
             insights: [
-              "العاملون لوقت إضافي (Overtime) يتركون العمل بنسبة 31% مقابل 10% فقط لغيرهم (3 أضعاف).",
-              "مندوبو المبيعات يسجلون أعلى نسبة تسرب وظيفي على الإطلاق بمعدل 39.76%.",
+              "العاملون لوقت إضافي (Overtime) يتركون العمل بنسبة 31% مقابل 10% فقط لغيرهم (أكثر من 3 أضعاف).",
+              "مندوبو المبيعات يسجلون أعلى نسبة تسرب وظيفي بين جميع الأدوار بمعدل 39.76%.",
               "الموظفون المغادرون كان متوسط دخلهم الشهري أقل بوضوح (4,787) مقارنة بالمستمرين في الشركة (6,832)."
-            ]
+            ],
+            recommendation: "وضع سقف لساعات العمل الإضافي الشهرية ومراجعة هيكل الحوافز والرواتب لمندوبي المبيعات للحد من التسرب الوظيفي."
           }
         },
         {
@@ -1643,17 +1798,18 @@
           en: {
             navTitle: "Pizza Sales & Ops",
             title: "Pizza Sales Performance & Operations Analytics",
-            summary: "Comprehensive retail sales & operations pipeline processing 21,350 orders ($817.86K revenue) using Power Query, SQL date conversion, and a 60-30-10 Power BI dashboard to optimize staffing and menu strategy.",
+            summary: "Retail sales & operations pipeline processing 21,350 orders ($817.86K revenue) using Power Query, SQL date conversion, and a 60-30-10 Power BI dashboard to guide staffing and menu strategy.",
             kpis: [
               { val: "$817.86K", lbl: "Total Revenue" },
               { val: "21,350", lbl: "Total Orders" },
               { val: "$38.31", lbl: "Avg Order Value" }
             ],
             insights: [
-              "Fridays and Thursdays record the highest order volumes, defining peak kitchen staffing windows.",
+              "Fridays and Thursdays record the highest weekly order volumes, defining peak kitchen operational windows.",
               "The Classic category leads total demand and revenue, while Large (L) size dominates customer preferences.",
-              "The Thai Chicken Pizza is the top revenue generator, whereas The Brie Carre Pizza is the lowest performer."
-            ]
+              "The Thai Chicken Pizza is the top revenue generator, whereas The Brie Carre Pizza records the lowest revenue."
+            ],
+            recommendation: "Concentrate kitchen staffing and prep inventory on Thursday/Friday rush hours, and bundle or replace low-performing items like The Brie Carre Pizza."
           },
           ar: {
             navTitle: "مبيعات البيتزا",
@@ -1665,10 +1821,11 @@
               { val: "$38.31", lbl: "متوسط الطلب" }
             ],
             insights: [
-              "يومي الجمعة والخميس يسجلان ذروة الطلبات الأسبوعية؛ مما يحدد أوقات تكثيف طاقم العمل والمخزون.",
+              "يومي الجمعة والخميس يسجلان أعلى كثافة في الطلبات الأسبوعية؛ مما يحدد أوقات الذروة التشغيلية للمطبخ.",
               "فئة Classic تتصدر المبيعات والإيرادات، والحجم الكبير (Large) هو الأكثر تفضيلاً لدى العملاء.",
               "بيتزا الدجاج التايلاندي (Thai Chicken) هي الأعلى إيراداً، بينما سجلت Brie Carre الأداء الأضعف."
-            ]
+            ],
+            recommendation: "تكثيف جدولة طاقم المطبخ والمخزون خلال ذروة الخميس والجمعة، وإعادة تسعير أو استبدال الأصناف ضعيفة الإيرادات مثل Brie Carre."
           }
         },
         {
@@ -1686,17 +1843,18 @@
           en: {
             navTitle: "Supply Chain",
             title: "Supply Chain & Shipment Deliveries Analysis",
-            summary: "Analyzed 25,000 shipment records using PostgreSQL and Excel to uncover delay drivers, cost scaling, and partner performance—including resolving primary key data quality issues via SERIAL keys.",
+            summary: "Analyzed 25,000 shipment records using PostgreSQL and Excel to uncover delay drivers, cost scaling, and partner performance—resolving duplicate/decimal primary key issues via SERIAL keys.",
             kpis: [
               { val: "25,000", lbl: "Total Shipments" },
               { val: "26.68%", lbl: "Overall Delay Rate" },
               { val: "41.45%", lbl: "Stormy Delay Rate" }
             ],
             insights: [
-              "Weather is the strongest delay driver: Stormy conditions cause a 41.45% delay rate vs 16.02% in cold weather.",
-              "Express delivery Paradox: Holds the lowest customer rating (2.72/5) despite being the fastest shipping mode.",
+              "Stormy weather produces a 41.45% delay rate compared to 16.02% in cold weather — nearly a 2.5x difference.",
+              "Express delivery recorded the lowest average customer rating (2.72 / 5) despite being the fastest shipping mode.",
               "Delivery cost scales linearly with distance from 239.64 (0–50 km) up to 1,365.76 (200+ km)."
-            ]
+            ],
+            recommendation: "Build weather buffer times into SLA estimates during stormy seasons, and investigate whether unmet speed expectations explain the low 2.72 Express rating."
           },
           ar: {
             navTitle: "سلاسل الإمداد",
@@ -1708,10 +1866,11 @@
               { val: "41.45%", lbl: "تأخير العواصف" }
             ],
             insights: [
-              "الطقس هو المحرك الأول للتأخير: الطقس العاصف يرفع التأخير إلى 41.45% مقارنة بـ 16.02% في الطقس البارد.",
-              "مفارقة الشحن السريع (Express): سجل أقل تقييم من العملاء (2.72 من 5) رغم كونه الأسرع بسبب سقف التوقعات المرتفع.",
+              "الطقس العاصف يرفع معدل تأخير الشحنات إلى 41.45% مقارنة بـ 16.02% في الطقس البارد (أكثر من الضعف).",
+              "الشحن السريع (Express) سجل أقل متوسط تقييم من العملاء (2.72 من 5) رغم كونه أسرع وسيلة توصيل.",
               "تزداد تكلفة التوصيل بعلاقة خطية منتظمة مع المسافة من 239.64 (0–50 كم) إلى 1,365.76 (+200 كم)."
-            ]
+            ],
+            recommendation: "إضافة هامش وقت احتياطي لمواعيد التسليم في المواسم العاصفة، ودراسة ما إذا كان ارتفاع سقف توقعات عملاء الشحن السريع يفسر انخفاض تقييمه (2.72)."
           }
         }
       ]
@@ -1719,10 +1878,22 @@
     /* END [JS-01: PORTFOLIO DATA STORE] */
 
     /* ==========================================================================
-       START [JS-02: SAFE LENIS, GSAP & MOUSE SPOTLIGHT INIT]
+       START [JS-02: SINGLE-TICKER LENIS, GSAP & MOUSE SPOTLIGHT INIT]
+       Fixed double-rAF issue: GSAP ticker drives Lenis when GSAP is present;
+       native requestAnimationFrame only runs as a fallback if GSAP fails.
        ========================================================================== */
     let currentLang = "en";
+    try {
+      const savedLang = localStorage.getItem("esam_portfolio_lang");
+      if (savedLang === "ar" || savedLang === "en") {
+        currentLang = savedLang;
+      } else if (navigator.language && navigator.language.toLowerCase().startsWith("ar")) {
+        currentLang = "ar";
+      }
+    } catch (e) {}
+
     let activeProjectIndex = 0;
+    let activeDashboardTabs = {}; // Persists selected dashboard tab per project across language switches
     let projectScrollTrigger = null;
     let lastFocusedElement = null;
 
@@ -1730,8 +1901,18 @@
       stop: () => { document.body.style.overflow = "hidden"; },
       start: () => { document.body.style.overflow = ""; },
       raf: () => {},
-      on: () => {}
+      on: () => {},
+      scrollTo: (target) => {
+        if (target === "top") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          const el = document.querySelector(target);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }
+      }
     };
+
+    const hasGSAP = typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined";
 
     if (typeof Lenis !== "undefined") {
       try {
@@ -1742,33 +1923,33 @@
           syncTouch: false
         });
 
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
+        if (hasGSAP) {
+          gsap.registerPlugin(ScrollTrigger);
+          lenis.on("scroll", ScrollTrigger.update);
+          gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+          });
+          gsap.ticker.lagSmoothing(0);
+        } else {
+          function fallbackRaf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(fallbackRaf);
+          }
+          requestAnimationFrame(fallbackRaf);
         }
-        requestAnimationFrame(raf);
       } catch (err) {
         console.warn("Lenis smooth scroll fallback:", err);
       }
-    }
-
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-      });
-      gsap.ticker.lagSmoothing(0);
     }
 
     window.addEventListener("pointermove", (e) => {
       document.documentElement.style.setProperty("--mouse-x", `${e.clientX}px`);
       document.documentElement.style.setProperty("--mouse-y", `${e.clientY}px`);
     }, { passive: true });
-    /* END [JS-02: SAFE LENIS, GSAP & MOUSE SPOTLIGHT INIT] */
+    /* END [JS-02: SINGLE-TICKER LENIS, GSAP & MOUSE SPOTLIGHT INIT] */
 
     /* ==========================================================================
-       START [JS-03: DOM RENDER ENGINE WITH SMART IMAGE FALLBACK]
+       START [JS-03: DOM RENDER ENGINE & STATE PERSISTENCE]
        ========================================================================== */
     function handleImageError(imgEl, backupUrl) {
       if (!imgEl.dataset.retried) {
@@ -1800,6 +1981,9 @@
       document.documentElement.dir = data.dir;
       document.body.dir = data.dir;
 
+      document.getElementById("btn-en").classList.toggle("active", lang === "en");
+      document.getElementById("btn-ar").classList.toggle("active", lang === "ar");
+
       document.getElementById("nav-name").textContent = data.name.toUpperCase();
       document.getElementById("curtain-text").textContent = data.name;
       document.getElementById("nav-projects").textContent = data.nav.projects;
@@ -1807,7 +1991,7 @@
       document.getElementById("nav-contact").textContent = data.nav.contact;
 
       document.getElementById("hero-role").textContent = data.role;
-      document.getElementById("hero-location").textContent = data.location;
+      document.getElementById("hero-availability").textContent = data.availability;
       document.getElementById("hero-headline").innerHTML = data.heroHeadline;
       document.getElementById("hero-summary").textContent = data.heroSummary;
       document.getElementById("cta-projects").textContent = data.ctaProjects;
@@ -1832,10 +2016,12 @@
         <button class="project-nav-btn ${idx === activeProjectIndex ? 'active' : ''}"
                 role="tab"
                 id="tab-${proj.id}"
+                tabindex="${idx === activeProjectIndex ? '0' : '-1'}"
                 aria-selected="${idx === activeProjectIndex}"
                 aria-controls="panel-${proj.id}"
                 aria-label="Select project ${proj.num}: ${proj[lang].navTitle}"
-                onclick="selectProjectManual(${idx})">
+                onclick="selectProjectManual(${idx})"
+                onkeydown="handleTabKeydown(event, ${idx})">
           <span class="proj-num">${proj.num}</span>
           <span class="proj-nav-name">${proj[lang].navTitle}</span>
         </button>
@@ -1844,10 +2030,13 @@
       const stage = document.getElementById("project-stage");
       stage.innerHTML = PORTFOLIO_DATA.projects.map((proj, idx) => {
         const pLang = proj[lang];
+        const savedTabIdx = activeDashboardTabs[proj.id] || 0;
+        const activeDash = proj.dashboards[savedTabIdx] || proj.dashboards[0];
+
         const dashButtons = proj.dashboards.map((d, dIdx) => `
-          <button class="dash-tab ${dIdx === 0 ? 'active' : ''}"
+          <button class="dash-tab ${dIdx === savedTabIdx ? 'active' : ''}"
                   aria-label="View ${d.label} dashboard"
-                  onclick="switchDashboardImage('${proj.id}', '${d.imgUrl}', '${d.backupUrl || ''}', this)">
+                  onclick="switchDashboardImage('${proj.id}', ${dIdx}, this)">
             ${d.label}
           </button>
         `).join("");
@@ -1863,6 +2052,7 @@
                 <div class="proj-meta-top">
                   <span class="proj-num" style="font-size:0.88rem;">#${proj.num}</span>
                   ${proj.tags.map(t => `<span class="tech-tag">${t}</span>`).join("")}
+                  <span class="source-tag">${data.sourceLabel}</span>
                 </div>
                 <h3 class="proj-title">${pLang.title}</h3>
                 <p class="proj-summary">${pLang.summary}</p>
@@ -1881,6 +2071,10 @@
                 ${pLang.insights.map(ins => `<li>${ins}</li>`).join("")}
               </ul>
 
+              <div class="proj-recommendation">
+                <strong>💡 ${data.recLabel}</strong>${pLang.recommendation}
+              </div>
+
               <a href="${proj.repoUrl}" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">
                 ${data.repoBtnText}
               </a>
@@ -1898,11 +2092,12 @@
               <div class="dashboard-img-wrap"
                    tabindex="0"
                    role="button"
+                   data-proj-index="${idx}"
                    aria-label="${lang === 'ar' ? 'تكبير لوحة التحكم: ' : 'Expand dashboard preview: '}${pLang.title}"
-                   onclick="openLightbox('img-${proj.id}', '${pLang.title}', this)"
-                   onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('img-${proj.id}', '${pLang.title}', this);}">
-                <img id="img-${proj.id}" src="${proj.dashboards[0].imgUrl}" alt="${pLang.title} Dashboard" loading="lazy"
-                     onerror="handleImageError(this, '${proj.dashboards[0].backupUrl || ''}')">
+                   onclick="openLightboxByIndex(${idx}, this)"
+                   onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightboxByIndex(${idx}, this);}">
+                <img id="img-${proj.id}" src="${activeDash.imgUrl}" alt="${pLang.title} Dashboard" loading="lazy"
+                     onerror="handleImageError(this, '${activeDash.backupUrl || ''}')">
                 <div class="img-fallback-msg">
                   <span>${data.imgFallback}</span>
                   <span style="color:var(--accent-secondary); font-size:0.75rem;">${proj.repoUrl}</span>
@@ -1913,6 +2108,10 @@
           </article>
         `;
       }).join("");
+
+      // Sync progress bar width with current active project
+      const total = PORTFOLIO_DATA.projects.length;
+      document.getElementById("scroll-progress-bar").style.width = `${((activeProjectIndex + 1) / total) * 100}%`;
 
       document.getElementById("skills-tag").textContent = data.skillsTag;
       document.getElementById("skills-title").textContent = data.skillsTitle;
@@ -1927,6 +2126,7 @@
 
       document.getElementById("edu-tag").textContent = data.eduTag;
       document.getElementById("edu-heading").textContent = data.eduHeading;
+      document.getElementById("about-story").textContent = data.aboutStory;
       document.getElementById("edu-degree").textContent = data.eduDegree;
       document.getElementById("edu-date").textContent = data.eduDate;
       document.getElementById("edu-desc").textContent = data.eduDesc;
@@ -1934,14 +2134,20 @@
       document.getElementById("contact-tag").textContent = data.contactTag;
       document.getElementById("contact-heading").textContent = data.contactHeading;
       document.getElementById("contact-sub").textContent = data.contactSub;
+      document.getElementById("contact-avail-badge").textContent = data.contactAvailBadge;
       document.getElementById("footer-copy").textContent = data.footerCopy;
     }
-    /* END [JS-03: DOM RENDER ENGINE WITH SMART IMAGE FALLBACK] */
+    /* END [JS-03: DOM RENDER ENGINE & STATE PERSISTENCE] */
 
     /* ==========================================================================
-       START [JS-04: DASHBOARD & ACCESSIBLE LIGHTBOX CONTROLS]
+       START [JS-04: DASHBOARD, KEYBOARD TABS & ACCESSIBLE LIGHTBOX]
        ========================================================================== */
-    function switchDashboardImage(projId, newUrl, backupUrl, btnEl) {
+    function switchDashboardImage(projId, dashIdx, btnEl) {
+      const proj = PORTFOLIO_DATA.projects.find(p => p.id === projId);
+      if (!proj || !proj.dashboards[dashIdx]) return;
+
+      activeDashboardTabs[projId] = dashIdx;
+      const targetDash = proj.dashboards[dashIdx];
       const imgEl = document.getElementById(`img-${projId}`);
       if (!imgEl) return;
 
@@ -1953,13 +2159,13 @@
       const fallback = imgEl.parentElement.querySelector(".img-fallback-msg");
       if (fallback) fallback.style.display = "none";
 
-      imgEl.onerror = function() { handleImageError(this, backupUrl); };
+      imgEl.onerror = function() { handleImageError(this, targetDash.backupUrl || ""); };
 
       imgEl.style.opacity = "0.25";
       setTimeout(() => {
         delete imgEl.dataset.retried;
         delete imgEl.dataset.backedUp;
-        imgEl.src = newUrl;
+        imgEl.src = targetDash.imgUrl;
         imgEl.style.opacity = "1";
       }, 150);
     }
@@ -1976,6 +2182,7 @@
         const isActive = idx === index;
         btn.classList.toggle("active", isActive);
         btn.setAttribute("aria-selected", isActive);
+        btn.setAttribute("tabindex", isActive ? "0" : "-1");
       });
 
       const total = PORTFOLIO_DATA.projects.length;
@@ -1987,8 +2194,37 @@
       setActiveProject(index);
     }
 
-    function openLightbox(imgElementId, titleText, triggerEl) {
-      const sourceImg = document.getElementById(imgElementId);
+    // ARIA Tablist Keyboard Arrow Navigation
+    function handleTabKeydown(event, idx) {
+      const total = PORTFOLIO_DATA.projects.length;
+      let nextIdx = null;
+
+      if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+        event.preventDefault();
+        nextIdx = (idx + 1) % total;
+      } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+        event.preventDefault();
+        nextIdx = (idx - 1 + total) % total;
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        nextIdx = 0;
+      } else if (event.key === "End") {
+        event.preventDefault();
+        nextIdx = total - 1;
+      }
+
+      if (nextIdx !== null) {
+        setActiveProject(nextIdx);
+        const btns = document.querySelectorAll(".project-nav-btn");
+        if (btns[nextIdx]) btns[nextIdx].focus();
+      }
+    }
+
+    function openLightboxByIndex(projIdx, triggerEl) {
+      const proj = PORTFOLIO_DATA.projects[projIdx];
+      if (!proj) return;
+
+      const sourceImg = document.getElementById(`img-${proj.id}`);
       if (!sourceImg || sourceImg.style.display === "none") return;
 
       lastFocusedElement = triggerEl || document.activeElement;
@@ -1999,8 +2235,10 @@
       const closeBtn = document.getElementById("lightbox-close-btn");
 
       modalImg.src = sourceImg.src;
-      caption.textContent = titleText;
+      caption.textContent = proj[currentLang].title;
       modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      closeBtn.setAttribute("tabindex", "0");
       lenis.stop();
 
       setTimeout(() => closeBtn.focus(), 50);
@@ -2008,9 +2246,12 @@
 
     function closeLightbox() {
       const modal = document.getElementById("lightbox-modal");
+      const closeBtn = document.getElementById("lightbox-close-btn");
       if (!modal.classList.contains("open")) return;
 
       modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      closeBtn.setAttribute("tabindex", "-1");
       lenis.start();
 
       if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
@@ -2021,11 +2262,23 @@
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeLightbox();
     });
-    /* END [JS-04: DASHBOARD & ACCESSIBLE LIGHTBOX CONTROLS] */
+    /* END [JS-04: DASHBOARD, KEYBOARD TABS & ACCESSIBLE LIGHTBOX] */
 
     /* ==========================================================================
-       START [JS-05: PINNED SCROLLTRIGGER LOGIC (DESKTOP + MOBILE)]
+       START [JS-05: PINNED SCROLLTRIGGER & SMOOTH ANCHOR NAVIGATION]
        ========================================================================== */
+    function scrollToSection(event, targetSelector) {
+      event.preventDefault();
+      if (targetSelector === "top") {
+        lenis.scrollTo(0);
+        return;
+      }
+      const targetEl = document.querySelector(targetSelector);
+      if (targetEl) {
+        lenis.scrollTo(targetEl);
+      }
+    }
+
     function initPinnedProjectsScroll() {
       if (typeof ScrollTrigger === "undefined") return;
 
@@ -2054,20 +2307,22 @@
         }
       });
     }
-    /* END [JS-05: PINNED SCROLLTRIGGER LOGIC (DESKTOP + MOBILE)] */
+    /* END [JS-05: PINNED SCROLLTRIGGER & SMOOTH ANCHOR NAVIGATION] */
 
     /* ==========================================================================
-       START [JS-06: CIRCULAR LANGUAGE SWITCH ANIMATION]
+       START [JS-06: CIRCULAR LANGUAGE SWITCH & LOCALSTORAGE]
        ========================================================================== */
     let isTransitioning = false;
 
     function triggerLanguageSwitch(targetLang, btnEl) {
       if (targetLang === currentLang || isTransitioning) return;
 
+      try {
+        localStorage.setItem("esam_portfolio_lang", targetLang);
+      } catch (e) {}
+
       if (typeof gsap === "undefined") {
         currentLang = targetLang;
-        document.getElementById("btn-en").classList.toggle("active", targetLang === "en");
-        document.getElementById("btn-ar").classList.toggle("active", targetLang === "ar");
         renderSite(currentLang);
         return;
       }
@@ -2117,9 +2372,6 @@
       }, 0.32)
       .add(() => {
         currentLang = targetLang;
-        document.getElementById("btn-en").classList.toggle("active", targetLang === "en");
-        document.getElementById("btn-ar").classList.toggle("active", targetLang === "ar");
-
         renderSite(currentLang);
         initPinnedProjectsScroll();
         if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
@@ -2151,6 +2403,9 @@
     window.addEventListener("DOMContentLoaded", () => {
       renderSite(currentLang);
       initPinnedProjectsScroll();
+      if (window.location.search.includes("generate-og=1")) {
+        setTimeout(generateOgCoverImage, 600);
+      }
     });
 
     window.addEventListener("resize", () => {
@@ -2159,7 +2414,105 @@
         initPinnedProjectsScroll();
       }
     });
-    /* END [JS-06: CIRCULAR LANGUAGE SWITCH ANIMATION] */
+    /* END [JS-06: CIRCULAR LANGUAGE SWITCH & LOCALSTORAGE] */
+
+    /* ==========================================================================
+       START [JS-07: BUILT-IN 1200x630 OG-COVER.PNG GENERATOR (Ctrl+Shift+O)]
+       Press Ctrl+Shift+O (or visit ?generate-og=1) to automatically render and
+       download a crisp 1200x630 og-cover.png social preview card.
+       ========================================================================== */
+    function generateOgCoverImage() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 1200;
+      canvas.height = 630;
+      const ctx = canvas.getContext("2d");
+
+      // Background Dark Navy
+      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 630);
+      bgGrad.addColorStop(0, "#040814");
+      bgGrad.addColorStop(0.55, "#081229");
+      bgGrad.addColorStop(1, "#061024");
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1200, 630);
+
+      // Ambient Blue Glow Orbs
+      const glow1 = ctx.createRadialGradient(200, 120, 10, 200, 120, 420);
+      glow1.addColorStop(0, "rgba(37, 99, 235, 0.35)");
+      glow1.addColorStop(1, "transparent");
+      ctx.fillStyle = glow1;
+      ctx.fillRect(0, 0, 1200, 630);
+
+      const glow2 = ctx.createRadialGradient(1020, 500, 10, 1020, 500, 400);
+      glow2.addColorStop(0, "rgba(56, 189, 248, 0.25)");
+      glow2.addColorStop(1, "transparent");
+      ctx.fillStyle = glow2;
+      ctx.fillRect(0, 0, 1200, 630);
+
+      // Card Frame Border
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.3)";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(48, 48, 1104, 534);
+
+      // Role Pill
+      ctx.fillStyle = "rgba(37, 99, 235, 0.22)";
+      ctx.fillRect(96, 105, 220, 42);
+      ctx.strokeStyle = "#38bdf8";
+      ctx.strokeRect(96, 105, 220, 42);
+      ctx.fillStyle = "#38bdf8";
+      ctx.font = "600 18px 'JetBrains Mono', monospace";
+      ctx.fillText("DATA ANALYST", 132, 132);
+
+      // Main Name & Headline
+      ctx.fillStyle = "#f8fafc";
+      ctx.font = "800 64px 'Inter', sans-serif";
+      ctx.fillText("Esam Haraz", 96, 230);
+
+      ctx.fillStyle = "#38bdf8";
+      ctx.font = "700 32px 'Inter', sans-serif";
+      ctx.fillText("End-to-End Analytics • SQL • Power BI • Excel • Python", 96, 288);
+
+      // 3 Impact Metric Boxes
+      const cards = [
+        { val: "3x Attrition", lbl: "31% vs 10% Overtime Turnover" },
+        { val: "$817.86K", lbl: "Retail Revenue Analyzed (21.3K Orders)" },
+        { val: "41.45% Delay", lbl: "Stormy Weather Impact (25K Shipments)" }
+      ];
+
+      cards.forEach((c, i) => {
+        const x = 96 + i * 345;
+        const y = 365;
+        ctx.fillStyle = "rgba(10, 20, 42, 0.85)";
+        ctx.fillRect(x, y, 320, 125);
+        ctx.strokeStyle = "rgba(148, 163, 184, 0.25)";
+        ctx.strokeRect(x, y, 320, 125);
+
+        ctx.fillStyle = "#38bdf8";
+        ctx.font = "700 34px 'JetBrains Mono', monospace";
+        ctx.fillText(c.val, x + 24, y + 55);
+
+        ctx.fillStyle = "#cbd5e1";
+        ctx.font = "500 16px 'Inter', sans-serif";
+        ctx.fillText(c.lbl, x + 24, y + 92);
+      });
+
+      // Footer URL
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "500 18px 'JetBrains Mono', monospace";
+      ctx.fillText("esam-haraz.github.io/portfolio", 96, 545);
+
+      const link = document.createElement("a");
+      link.download = "og-cover.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "o") {
+        e.preventDefault();
+        generateOgCoverImage();
+      }
+    });
+    /* END [JS-07: BUILT-IN 1200x630 OG-COVER.PNG GENERATOR (Ctrl+Shift+O)] */
   </script>
 </body>
 </html>
