@@ -9,7 +9,7 @@
   Hosting: Single-file static architecture optimized for GitHub Pages (index.html)
 
   BOOKMARK INDEX (Use Ctrl+F with these exact tags to locate/edit any section):
-  - [HTML-00: FAVICON DATA NODE]
+  - [HTML-00: META, SEO, OPEN GRAPH & FAVICON]
   - [CSS-01: THEME VARIABLES - BLUE GRADIENT]
   - [CSS-02: BASE, AURORA MESH & MOUSE SPOTLIGHT]
   - [CSS-03: CIRCULAR CORNER LANGUAGE REVEAL]
@@ -27,20 +27,32 @@
   - [HTML-05: SKILLS SECTION]
   - [HTML-06: FOOTER & CONTACT SECTION]
   - [JS-01: PORTFOLIO DATA STORE]
-  - [JS-02: LENIS, GSAP & MOUSE SPOTLIGHT INIT]
+  - [JS-02: SAFE LENIS, GSAP & MOUSE SPOTLIGHT INIT]
   - [JS-03: DOM RENDER ENGINE]
-  - [JS-04: DASHBOARD & LIGHTBOX CONTROLS]
+  - [JS-04: DASHBOARD & ACCESSIBLE LIGHTBOX CONTROLS]
   - [JS-05: PINNED SCROLLTRIGGER LOGIC (DESKTOP + MOBILE)]
   - [JS-06: CIRCULAR LANGUAGE SWITCH ANIMATION]
   ==============================================================================
   -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Esam Haraz | Data Analyst Portfolio</title>
 
-  <!-- START [HTML-00: FAVICON DATA NODE] -->
+  <!-- START [HTML-00: META, SEO, OPEN GRAPH & FAVICON] -->
+  <title>Esam Haraz | Data Analyst Portfolio</title>
+  <meta name="description" content="Bilingual Data Analyst Portfolio of Esam Haraz. Explore end-to-end analytics case studies in SQL (PostgreSQL), Power BI (DAX), Microsoft Excel, and Python.">
+  <meta name="author" content="Esam Haraz">
+
+  <!-- Open Graph / LinkedIn / WhatsApp Preview Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Esam Haraz | Data Analyst Portfolio">
+  <meta property="og:description" content="End-to-end data analytics projects analyzing 47,820+ records across HR Attrition, Retail Sales, and Supply Chain Logistics using SQL, Power BI, and Excel.">
+  <meta property="og:url" content="https://esam-haraz.github.io/portfolio/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance/main/Images/PowerBi_Dashboard.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Data Node SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%2338bdf8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%23050a18'/%3E%3Cpath d='M20 44 L32 20 L46 36 L20 44 Z' stroke='url(%23g)' stroke-width='3.5' fill='none' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='20' r='6' fill='%2338bdf8'/%3E%3Ccircle cx='20' cy='44' r='5.5' fill='%232563eb'/%3E%3Ccircle cx='46' cy='36' r='5.5' fill='%2360a5fa'/%3E%3C/svg%3E">
-  <!-- END [HTML-00: FAVICON DATA NODE] -->
+  <!-- END [HTML-00: META, SEO, OPEN GRAPH & FAVICON] -->
 
   <!-- Google Fonts: Inter (EN), Cairo (AR), JetBrains Mono (Technical Tags/Numbers) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,24 +67,27 @@
       --bg-primary: #040814;
       --bg-secondary: #081126;
       --bg-card: rgba(10, 20, 42, 0.72);
-      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-subtle: rgba(148, 163, 184, 0.16);
       --border-highlight: rgba(56, 189, 248, 0.5);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --accent-primary: #3b82f6;   /* Royal Blue */
-      --accent-secondary: #38bdf8; /* Electric Cyan */
-      --accent-deep: #1d4ed8;      /* Deep Sapphire */
+      --accent-primary: #3b82f6;
+      --accent-secondary: #38bdf8;
+      --accent-deep: #1d4ed8;
       --accent-gradient: linear-gradient(135deg, #1d4ed8 0%, #2563eb 45%, #38bdf8 100%);
       --font-en: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-ar: 'Cairo', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --mouse-x: 50vw;
-      --mouse-y: 50vh;
+      --mouse-y: 35vh;
     }
     /* END [CSS-01: THEME VARIABLES - BLUE GRADIENT] */
 
     /* ==========================================================================
        START [CSS-02: BASE, AURORA MESH & MOUSE SPOTLIGHT]
+       Fixed stacking context: html holds the dark base color, .ambient-bg sits
+       at z-index: 0, and main content sits at z-index: 1 so the mouse spotlight
+       and aurora glow are clearly visible everywhere.
        ========================================================================== */
     * {
       margin: 0;
@@ -88,7 +103,7 @@
 
     body {
       font-family: var(--font-en);
-      background-color: var(--bg-primary);
+      background-color: transparent;
       color: var(--text-main);
       line-height: 1.65;
       overflow-x: hidden;
@@ -106,48 +121,76 @@
       inset: 0;
       width: 100vw;
       height: 100vh;
-      z-index: -1;
+      z-index: 0;
       pointer-events: none;
       overflow: hidden;
       background:
-        radial-gradient(650px circle at var(--mouse-x) var(--mouse-y), rgba(56, 189, 248, 0.11), transparent 45%),
-        radial-gradient(circle at 12% 18%, rgba(29, 78, 216, 0.18) 0%, transparent 42%),
-        radial-gradient(circle at 88% 22%, rgba(56, 189, 248, 0.12) 0%, transparent 38%),
-        radial-gradient(circle at 50% 85%, rgba(37, 99, 235, 0.14) 0%, transparent 45%);
+        radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(56, 189, 248, 0.22), rgba(37, 99, 235, 0.08) 40%, transparent 70%),
+        radial-gradient(circle at 12% 18%, rgba(29, 78, 216, 0.26) 0%, transparent 45%),
+        radial-gradient(circle at 88% 22%, rgba(56, 189, 248, 0.18) 0%, transparent 42%),
+        radial-gradient(circle at 50% 85%, rgba(37, 99, 235, 0.20) 0%, transparent 48%);
     }
 
     .aurora-orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.35;
+      filter: blur(65px);
+      opacity: 0.42;
+      will-change: transform;
       animation: auroraFloat 18s infinite alternate ease-in-out;
     }
 
     .aurora-orb-1 {
-      width: 42vw;
-      height: 42vw;
-      max-width: 520px;
-      max-height: 520px;
-      background: radial-gradient(circle, #1d4ed8, transparent 70%);
+      width: 40vw;
+      height: 40vw;
+      max-width: 500px;
+      max-height: 500px;
+      background: radial-gradient(circle, #2563eb 0%, transparent 70%);
       top: -10%;
       left: -8%;
     }
 
     .aurora-orb-2 {
-      width: 38vw;
-      height: 38vw;
-      max-width: 460px;
-      max-height: 460px;
-      background: radial-gradient(circle, #0284c7, transparent 70%);
+      width: 36vw;
+      height: 36vw;
+      max-width: 450px;
+      max-height: 450px;
+      background: radial-gradient(circle, #0ea5e9 0%, transparent 70%);
       bottom: -12%;
       right: -6%;
       animation-delay: -7s;
     }
 
     @keyframes auroraFloat {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(40px, 30px) scale(1.12); }
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(35px, 25px, 0) scale(1.1); }
+    }
+
+    /* Performance & Accessibility: Respect reduced motion & optimize mobile GPU */
+    @media (max-width: 768px) {
+      .aurora-orb {
+        filter: blur(45px);
+        opacity: 0.32;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .aurora-orb {
+        animation: none !important;
+      }
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Ensure all content sections sit above the ambient background */
+    .hero,
+    .projects-pinned-section,
+    .skills-section,
+    .footer-section {
+      position: relative;
+      z-index: 1;
     }
 
     a {
@@ -333,14 +376,14 @@
     }
 
     .btn-secondary {
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(15, 23, 42, 0.65);
       color: var(--text-main);
       border-color: var(--border-subtle);
     }
 
     .btn-secondary:hover {
       border-color: var(--accent-secondary);
-      background: rgba(56, 189, 248, 0.1);
+      background: rgba(56, 189, 248, 0.12);
       transform: translateY(-2px);
     }
 
@@ -353,8 +396,8 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--accent-secondary);
-      background: rgba(37, 99, 235, 0.14);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(37, 99, 235, 0.16);
+      border: 1px solid rgba(56, 189, 248, 0.32);
       padding: 0.32rem 0.85rem;
       border-radius: 999px;
       margin-bottom: 0.85rem;
@@ -431,20 +474,21 @@
     }
 
     .metric-box {
-      background: rgba(10, 20, 42, 0.55);
+      background: rgba(10, 20, 42, 0.6);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
       padding: 1rem 1.15rem;
+      backdrop-filter: blur(8px);
       transition: border-color 0.25s ease;
     }
 
     .metric-box:hover {
-      border-color: rgba(56, 189, 248, 0.4);
+      border-color: rgba(56, 189, 248, 0.45);
     }
 
     .metric-val {
       font-family: var(--font-mono);
-      font-size: 1.55rem;
+      font-size: 1.5rem;
       font-weight: 700;
       background: var(--accent-gradient);
       -webkit-background-clip: text;
@@ -460,9 +504,6 @@
 
     /* ==========================================================================
        START [CSS-07: PINNED PROJECTS SHOWCASE & FLUID MOBILE]
-       Desktop layout remains untouched (>=1024px).
-       Mobile layout (<1024px) uses fluid dvh units so any phone screen size
-       displays the pinned card proportionally without overflow or empty gaps.
        ========================================================================== */
     .projects-pinned-section {
       position: relative;
@@ -538,9 +579,9 @@
 
     .project-nav-btn.active {
       border-color: var(--accent-secondary);
-      background: rgba(37, 99, 235, 0.18);
+      background: rgba(37, 99, 235, 0.2);
       color: var(--text-main);
-      box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.22);
     }
 
     .proj-num {
@@ -773,6 +814,19 @@
       transform: scale(1.02);
     }
 
+    .img-fallback-msg {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      gap: 0.5rem;
+    }
+
     .zoom-badge {
       position: absolute;
       bottom: 0.6rem;
@@ -924,7 +978,8 @@
         overflow: hidden;
       }
 
-      . insights-list li:nth-child(3) {
+      /* Fixed CSS selector (removed space after dot) */
+      .insights-list li:nth-child(3) {
         display: none;
       }
 
@@ -1057,6 +1112,7 @@
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
       padding: 1.75rem;
+      backdrop-filter: blur(10px);
       transition: border-color 0.25s ease, transform 0.25s ease;
     }
 
@@ -1193,8 +1249,8 @@
 </head>
 <body>
 
-  <!-- Ambient Aurora + Mouse Spotlight Background -->
-  <div class="ambient-bg">
+  <!-- Ambient Aurora + Interactive Mouse Spotlight Background -->
+  <div class="ambient-bg" aria-hidden="true">
     <div class="aurora-orb aurora-orb-1"></div>
     <div class="aurora-orb aurora-orb-2"></div>
   </div>
@@ -1202,7 +1258,7 @@
   <!-- ========================================================================
        START [HTML-01: CIRCULAR LANGUAGE CURTAIN & LIGHTBOX]
        ======================================================================== -->
-  <div class="transition-curtain" id="curtain">
+  <div class="transition-curtain" id="curtain" aria-hidden="true">
     <div class="curtain-circle curtain-circle-outer" id="curtain-outer"></div>
     <div class="curtain-circle curtain-circle-inner" id="curtain-inner">
       <span class="curtain-sub" id="curtain-lang-indicator">SWITCHING LANGUAGE</span>
@@ -1210,8 +1266,8 @@
     </div>
   </div>
 
-  <div class="lightbox-modal" id="lightbox-modal" onclick="closeLightbox()">
-    <button class="lightbox-close" onclick="closeLightbox()">✕ ESC</button>
+  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Fullscreen Dashboard Preview" onclick="closeLightbox()">
+    <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close fullscreen preview" onclick="closeLightbox()">✕ ESC</button>
     <img class="lightbox-img" id="lightbox-img" src="" alt="Fullscreen Dashboard Preview" onclick="event.stopPropagation()">
     <div class="lightbox-caption" id="lightbox-caption"></div>
   </div>
@@ -1221,21 +1277,21 @@
        START [HTML-02: NAVBAR]
        ======================================================================== -->
   <header class="navbar">
-    <a href="#" class="brand">
+    <a href="#" class="brand" aria-label="Esam Haraz Home">
       <span class="brand-dot"></span>
       <span id="nav-name">ESAM HARAZ</span>
     </a>
 
     <div class="nav-actions">
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Primary Navigation">
         <a href="#projects-anchor" id="nav-projects">Projects</a>
         <a href="#skills" id="nav-skills">Tech Stack</a>
         <a href="#contact" id="nav-contact">Contact</a>
       </nav>
 
       <div class="lang-toggle" id="lang-toggle-box" role="group" aria-label="Language Switcher">
-        <button class="lang-btn active" id="btn-en" onclick="triggerLanguageSwitch('en', this)">EN</button>
-        <button class="lang-btn" id="btn-ar" onclick="triggerLanguageSwitch('ar', this)">AR</button>
+        <button class="lang-btn active" id="btn-en" aria-label="Switch to English" onclick="triggerLanguageSwitch('en', this)">EN</button>
+        <button class="lang-btn" id="btn-ar" aria-label="التحويل إلى العربية" onclick="triggerLanguageSwitch('ar', this)">AR</button>
       </div>
     </div>
   </header>
@@ -1244,75 +1300,77 @@
   <!-- ========================================================================
        START [HTML-03: HERO SECTION]
        ======================================================================== -->
-  <section class="hero">
-    <div class="hero-main">
-      <div class="section-tag" id="hero-role">Data Analyst</div>
-      <div class="location-pill">
-        <span>📍</span>
-        <span id="hero-location">Damietta, Egypt</span>
+  <main>
+    <section class="hero">
+      <div class="hero-main">
+        <div class="section-tag" id="hero-role">Data Analyst</div>
+        <div class="location-pill">
+          <span aria-hidden="true">📍</span>
+          <span id="hero-location">Damietta, Egypt</span>
+        </div>
+        <h1 class="hero-title" id="hero-headline">
+          Transforming Raw Data Into <span class="highlight">Actionable Business Impact.</span>
+        </h1>
+        <p class="hero-subtitle" id="hero-summary">
+          Data Analyst specializing in building end-to-end analytics solutions using SQL (PostgreSQL), Microsoft Excel, and Power BI—from raw data cleaning and relational schema design to interactive executive dashboards, while expanding into Python data analysis (Pandas, Polars, NumPy).
+        </p>
+        <div class="hero-cta">
+          <a href="#projects-anchor" class="btn btn-primary" id="cta-projects">Explore Projects ↓</a>
+          <a href="https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link" target="_blank" rel="noopener" class="btn btn-secondary" id="cta-cv">Download CV (PDF) ↗</a>
+          <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="btn btn-secondary" aria-label="Visit Esam Haraz GitHub Profile">GitHub ↗</a>
+        </div>
       </div>
-      <h1 class="hero-title" id="hero-headline">
-        Transforming Raw Data Into <span class="highlight">Actionable Business Impact.</span>
-      </h1>
-      <p class="hero-subtitle" id="hero-summary">
-        Entry-Level Data Analyst experienced in building end-to-end analytics solutions using SQL (PostgreSQL), Microsoft Excel, and Power BI—from schema design and data cleaning to interactive executive dashboards, while expanding into Python data analysis.
-      </p>
-      <div class="hero-cta">
-        <a href="#projects-anchor" class="btn btn-primary" id="cta-projects">Explore Projects ↓</a>
-        <a href="https://drive.google.com/file/d/1Nvp8LGj5I9xcJgomfNOWV6uqoiPpZJ56/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary" id="cta-cv">Download CV (PDF) ↗</a>
-        <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="btn btn-secondary">GitHub ↗</a>
-      </div>
-    </div>
 
-    <div class="metrics-strip" id="metrics-container">
-      <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
-    </div>
-  </section>
-  <!-- END [HTML-03: HERO SECTION] -->
-
-  <!-- ========================================================================
-       START [HTML-04: PINNED PROJECTS SECTION]
-       ======================================================================== -->
-  <div id="projects-anchor"></div>
-  <section class="projects-pinned-section" id="projects-pinned">
-    <div class="projects-container">
-      
-      <aside class="projects-sidebar">
-        <div>
-          <span class="section-tag" id="proj-section-tag">Featured Case Studies</span>
-          <h2 class="projects-heading" id="proj-section-heading">End-to-End Analytics</h2>
-        </div>
-        <div class="scroll-hint" id="proj-scroll-hint">
-          <span>🖱️ Scroll or click to switch category</span>
-        </div>
-        <div class="project-nav-list" id="project-nav-list">
-          <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="scroll-progress-bar"></div>
-        </div>
-      </aside>
-
-      <div class="project-stage" id="project-stage">
+      <div class="metrics-strip" id="metrics-container">
         <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
       </div>
+    </section>
+    <!-- END [HTML-03: HERO SECTION] -->
 
-    </div>
-  </section>
-  <!-- END [HTML-04: PINNED PROJECTS SECTION] -->
+    <!-- ========================================================================
+         START [HTML-04: PINNED PROJECTS SECTION]
+         ======================================================================== -->
+    <div id="projects-anchor"></div>
+    <section class="projects-pinned-section" id="projects-pinned">
+      <div class="projects-container">
+        
+        <aside class="projects-sidebar">
+          <div>
+            <span class="section-tag" id="proj-section-tag">Featured Case Studies</span>
+            <h2 class="projects-heading" id="proj-section-heading">End-to-End Analytics</h2>
+          </div>
+          <div class="scroll-hint" id="proj-scroll-hint">
+            <span>🖱️ Scroll or click to switch category</span>
+          </div>
+          <div class="project-nav-list" id="project-nav-list" role="tablist" aria-label="Project Categories">
+            <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="scroll-progress-bar"></div>
+          </div>
+        </aside>
 
-  <!-- ========================================================================
-       START [HTML-05: SKILLS SECTION]
-       ======================================================================== -->
-  <section class="skills-section" id="skills">
-    <div class="section-header">
-      <span class="section-tag" id="skills-tag">Capabilities</span>
-      <h2 class="section-title" id="skills-title">Technical Stack & Tools</h2>
-    </div>
-    <div class="skills-grid" id="skills-grid">
-      <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
-    </div>
-  </section>
+        <div class="project-stage" id="project-stage">
+          <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
+        </div>
+
+      </div>
+    </section>
+    <!-- END [HTML-04: PINNED PROJECTS SECTION] -->
+
+    <!-- ========================================================================
+         START [HTML-05: SKILLS SECTION]
+         ======================================================================== -->
+    <section class="skills-section" id="skills">
+      <div class="section-header">
+        <span class="section-tag" id="skills-tag">Capabilities</span>
+        <h2 class="section-title" id="skills-title">Technical Stack & Tools</h2>
+      </div>
+      <div class="skills-grid" id="skills-grid">
+        <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
+      </div>
+    </section>
+  </main>
   <!-- END [HTML-05: SKILLS SECTION] -->
 
   <!-- ========================================================================
@@ -1326,7 +1384,7 @@
         <h2 class="section-title" id="edu-heading">Education & Foundation</h2>
         <div class="edu-box">
           <div class="edu-degree" id="edu-degree">Bachelor of Education (B.Ed.) — Damietta University</div>
-          <div class="edu-meta" id="edu-date">Sep 2022 – Jul 2026 | Damietta, Egypt</div>
+          <div class="edu-meta" id="edu-date">Graduated Jul 2026 | Damietta, Egypt</div>
           <p style="color: var(--text-muted); font-size: 0.92rem;" id="edu-desc">
             Focused on research methodologies and quantitative data processing, applying structured analytical thinking to solve real-world business problems.
           </p>
@@ -1343,15 +1401,15 @@
         </div>
 
         <div class="contact-links-list">
-          <a href="mailto:esamv20@gmail.com" class="contact-link-item">
+          <a href="mailto:esamv20@gmail.com" class="contact-link-item" aria-label="Send email to esamv20@gmail.com">
             <span>✉️ esamv20@gmail.com</span>
             <span style="color: var(--accent-secondary); font-family: var(--font-mono);">Email ↗</span>
           </a>
-          <a href="https://www.linkedin.com/in/esam-haraz-459925402" target="_blank" rel="noopener" class="contact-link-item">
+          <a href="https://www.linkedin.com/in/esam-haraz-459925402" target="_blank" rel="noopener" class="contact-link-item" aria-label="Visit Esam Haraz LinkedIn Profile">
             <span>💼 linkedin.com/in/esam-haraz</span>
             <span style="color: var(--accent-secondary); font-family: var(--font-mono);">LinkedIn ↗</span>
           </a>
-          <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="contact-link-item">
+          <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="contact-link-item" aria-label="Visit Esam Haraz GitHub Profile">
             <span>💻 github.com/Esam-Haraz</span>
             <span style="color: var(--accent-secondary); font-family: var(--font-mono);">GitHub ↗</span>
           </a>
@@ -1361,23 +1419,25 @@
     </div>
 
     <div class="copyright-bar">
-      <span id="footer-copy">© 2026 Esam Haraz. Built for GitHub Pages.</span>
+      <span id="footer-copy">© 2026 Esam Haraz. Hosted on GitHub Pages.</span>
       <span style="font-family: var(--font-mono);">SQL • Excel • Power BI • Python</span>
     </div>
   </footer>
   <!-- END [HTML-06: FOOTER & CONTACT SECTION] -->
 
-  <!-- External Animation Libraries: Lenis + GSAP & ScrollTrigger -->
-  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <!-- External Animation Libraries: Reliable jsDelivr / Cloudflare CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <script>
     /* ==========================================================================
        START [JS-01: PORTFOLIO DATA STORE]
-       Edit this object to update texts, skills, links, or add new projects.
+       Edit this object to update CV link, texts, skills, or add new projects.
        ========================================================================== */
     const PORTFOLIO_DATA = {
+      cvUrl: "https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link",
+
       en: {
         dir: "ltr",
         name: "Esam Haraz",
@@ -1385,13 +1445,13 @@
         location: "Damietta, Egypt",
         nav: { projects: "Projects", skills: "Tech Stack", contact: "Contact" },
         heroHeadline: 'Transforming Raw Data Into <span class="highlight">Actionable Business Impact.</span>',
-        heroSummary: "Entry-Level Data Analyst experienced in building end-to-end analytics projects using SQL (PostgreSQL), Microsoft Excel, and Power BI—from raw data cleaning and schema design to interactive dashboards, while expanding into Python data analysis (Pandas, Polars, NumPy).",
+        heroSummary: "Data Analyst specializing in building end-to-end analytics solutions using SQL (PostgreSQL), Microsoft Excel, and Power BI—from raw data cleaning and relational schema design to interactive executive dashboards, while expanding into Python data analysis (Pandas, Polars, NumPy).",
         ctaProjects: "Explore Projects ↓",
         ctaCv: "Download CV (PDF) ↗",
         metrics: [
           { val: "3", lbl: "End-to-End Case Studies (SQL, Excel, Power BI)" },
-          { val: "47.8K+", lbl: "Business Records Analyzed Across Domains" },
-          { val: "250+", lbl: "Python Practice Exercises & Small Scripts" },
+          { val: "47,820", lbl: "Business Records Analyzed Across Domains" },
+          { val: "SQL • BI", lbl: "Schema Design, DAX & Interactive Dashboards" },
           { val: "EN / AR", lbl: "Bilingual Technical Documentation" }
         ],
         projSectionTag: "Featured Case Studies",
@@ -1431,9 +1491,9 @@
           {
             category: "Python & Workflow Tools",
             items: [
-              "Core Python Foundation (250+ Exercises)",
               "Data Manipulation: Pandas, Polars & NumPy",
               "File Handling & Regular Expressions (Regex)",
+              "Strong Algorithmic Foundation (250+ Practice Scripts)",
               "Git, GitHub & Bilingual Markdown Documentation"
             ]
           }
@@ -1441,7 +1501,7 @@
         eduTag: "Academic Background",
         eduHeading: "Education & Foundation",
         eduDegree: "Bachelor of Education (B.Ed.) — Damietta University",
-        eduDate: "Sep 2022 – Jul 2026 | Damietta, Egypt",
+        eduDate: "Graduated Jul 2026 (Sep 2022 – Jul 2026) | Damietta, Egypt",
         eduDesc: "Focused on research methodologies and quantitative data processing, applying structured analytical skills to derive insights and solve real-world problems.",
         contactTag: "Get In Touch",
         contactHeading: "Ready to Contribute to Data-Driven Teams",
@@ -1456,13 +1516,13 @@
         location: "دمياط، مصر",
         nav: { projects: "المشاريع", skills: "المهارات التقنية", contact: "تواصل معي" },
         heroHeadline: 'تحويل البيانات الخام إلى <span class="highlight">رؤى وقرارات أعمال فعالة.</span>',
-        heroSummary: "محلل بيانات (Entry-Level) ذو خبرة عملية في بناء مشاريع تحليل بيانات متكاملة باستخدام SQL (PostgreSQL) وExcel وPower BI — بدءاً من تنظيف البيانات وتصميم الجداول وحتى بناء لوحات التحكم التفاعلية، مع التوسع في تحليل البيانات بلغة Python (Pandas, Polars, NumPy).",
+        heroSummary: "محلل بيانات متخصص في بناء مشاريع تحليلية متكاملة باستخدام SQL (PostgreSQL) وExcel وPower BI — بدءاً من تنظيف البيانات وتصميم الجداول وحتى بناء لوحات التحكم التفاعلية، مع التوسع في تحليل البيانات بلغة Python (Pandas, Polars, NumPy).",
         ctaProjects: "استكشف المشاريع ↓",
         ctaCv: "تحميل السيرة الذاتية (CV) ↗",
         metrics: [
           { val: "3", lbl: "مشاريع تحليلية متكاملة (SQL, Excel, Power BI)" },
-          { val: "+47.8K", lbl: "سجل بيانات تم تحليله في المبيعات والموارد البشرية والشحن" },
-          { val: "+250", lbl: "تطبيق وتمرين برمجي عملي بلغة Python" },
+          { val: "47,820", lbl: "سجل بيانات تم تحليله في الموارد البشرية والمبيعات والشحن" },
+          { val: "SQL • BI", lbl: "تصميم قواعد البيانات ومقاييس DAX ولوحات التحكم" },
           { val: "AR / EN", lbl: "توثيق تقني شامل باللغتين العربية والإنجليزية" }
         ],
         projSectionTag: "أبرز المشاريع التطبيقية",
@@ -1502,9 +1562,9 @@
           {
             category: "البرمجة بـ Python وأدوات العمل",
             items: [
-              "أساس قوي في Python عبر أكثر من 250+ تمرين وتطبيق",
               "مكتبات تحليل البيانات: Pandas و Polars و NumPy",
               "معالجة الملفات النصية والتعبيرات النمطية (Regex)",
+              "أساس برمجي متين في Python (أكثر من 250 تطبيق عملي)",
               "إدارة المشاريع عبر Git و GitHub والتوثيق بـ Markdown"
             ]
           }
@@ -1512,7 +1572,7 @@
         eduTag: "الخلفية الأكاديمية",
         eduHeading: "التعليم والأساس البحثي",
         eduDegree: "بكالوريوس التربية — جامعة دمياط",
-        eduDate: "سبتمبر 2022 – يوليو 2026 | دمياط، مصر",
+        eduDate: "تخرج في يوليو 2026 (سبتمبر 2022 – يوليو 2026) | دمياط، مصر",
         eduDesc: "التركيز على مناهج البحث ومعالجة البيانات الكمية، وتوظيف المهارات التحليلية لاستخلاص الرؤى وحل المشكلات العملية.",
         contactTag: "تواصل معي",
         contactHeading: "جاهز للانضمام والمساهمة في فرق البيانات",
@@ -1660,42 +1720,71 @@
     /* END [JS-01: PORTFOLIO DATA STORE] */
 
     /* ==========================================================================
-       START [JS-02: LENIS, GSAP & MOUSE SPOTLIGHT INIT]
+       START [JS-02: SAFE LENIS, GSAP & MOUSE SPOTLIGHT INIT]
+       Includes fallback protection so if CDN fails, native scroll still works.
        ========================================================================== */
     let currentLang = "en";
     let activeProjectIndex = 0;
     let projectScrollTrigger = null;
+    let lastFocusedElement = null;
 
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      syncTouch: false
-    });
+    // Safe Lenis Initialization with Fallback
+    let lenis = {
+      stop: () => { document.body.style.overflow = "hidden"; },
+      start: () => { document.body.style.overflow = ""; },
+      raf: () => {},
+      on: () => {}
+    };
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    if (typeof Lenis !== "undefined") {
+      try {
+        lenis = new Lenis({
+          duration: 1.15,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          syncTouch: false
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      } catch (err) {
+        console.warn("Lenis smooth scroll fallback to native scroll:", err);
+      }
     }
-    requestAnimationFrame(raf);
 
-    gsap.registerPlugin(ScrollTrigger);
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+    }
 
     // Interactive Mouse Spotlight Tracker
     window.addEventListener("pointermove", (e) => {
       document.documentElement.style.setProperty("--mouse-x", `${e.clientX}px`);
       document.documentElement.style.setProperty("--mouse-y", `${e.clientY}px`);
-    });
-    /* END [JS-02: LENIS, GSAP & MOUSE SPOTLIGHT INIT] */
+    }, { passive: true });
+    /* END [JS-02: SAFE LENIS, GSAP & MOUSE SPOTLIGHT INIT] */
 
     /* ==========================================================================
        START [JS-03: DOM RENDER ENGINE]
        ========================================================================== */
+    function handleImageError(imgEl) {
+      if (!imgEl.dataset.retried) {
+        imgEl.dataset.retried = "true";
+        imgEl.src = imgEl.src.replace("/main/", "/master/");
+      } else {
+        imgEl.style.display = "none";
+        const fallback = imgEl.parentElement.querySelector(".img-fallback-msg");
+        if (fallback) fallback.style.display = "flex";
+      }
+    }
+
     function renderSite(lang) {
       const data = PORTFOLIO_DATA[lang];
       document.documentElement.lang = lang;
@@ -1713,7 +1802,9 @@
       document.getElementById("hero-headline").innerHTML = data.heroHeadline;
       document.getElementById("hero-summary").textContent = data.heroSummary;
       document.getElementById("cta-projects").textContent = data.ctaProjects;
-      document.getElementById("cta-cv").textContent = data.ctaCv;
+      const cvBtn = document.getElementById("cta-cv");
+      cvBtn.textContent = data.ctaCv;
+      cvBtn.href = PORTFOLIO_DATA.cvUrl;
 
       const metricsContainer = document.getElementById("metrics-container");
       metricsContainer.innerHTML = data.metrics.map(m => `
@@ -1729,7 +1820,11 @@
 
       const navList = document.getElementById("project-nav-list");
       navList.innerHTML = PORTFOLIO_DATA.projects.map((proj, idx) => `
-        <button class="project-nav-btn ${idx === activeProjectIndex ? 'active' : ''}" onclick="selectProjectManual(${idx})">
+        <button class="project-nav-btn ${idx === activeProjectIndex ? 'active' : ''}"
+                role="tab"
+                aria-selected="${idx === activeProjectIndex}"
+                aria-label="Select project ${proj.num}: ${proj[lang].navTitle}"
+                onclick="selectProjectManual(${idx})">
           <span class="proj-num">${proj.num}</span>
           <span class="proj-nav-name">${proj[lang].navTitle}</span>
         </button>
@@ -1739,13 +1834,15 @@
       stage.innerHTML = PORTFOLIO_DATA.projects.map((proj, idx) => {
         const pLang = proj[lang];
         const dashButtons = proj.dashboards.map((d, dIdx) => `
-          <button class="dash-tab ${dIdx === 0 ? 'active' : ''}" onclick="switchDashboardImage('${proj.id}', '${d.imgUrl}', this)">
+          <button class="dash-tab ${dIdx === 0 ? 'active' : ''}"
+                  aria-label="View ${d.label} dashboard"
+                  onclick="switchDashboardImage('${proj.id}', '${d.imgUrl}', this)">
             ${d.label}
           </button>
         `).join("");
 
         return `
-          <article class="project-slide ${idx === activeProjectIndex ? 'active' : ''}" data-index="${idx}">
+          <article class="project-slide ${idx === activeProjectIndex ? 'active' : ''}" data-index="${idx}" role="tabpanel">
             <div class="project-details">
               <div>
                 <div class="proj-meta-top">
@@ -1776,16 +1873,25 @@
 
             <div class="dashboard-showcase">
               <div class="dashboard-toolbar">
-                <div class="window-dots">
+                <div class="window-dots" aria-hidden="true">
                   <span></span><span></span><span></span>
                 </div>
-                <div class="dash-switcher">
+                <div class="dash-switcher" role="group" aria-label="Dashboard View Switcher">
                   ${dashButtons}
                 </div>
               </div>
-              <div class="dashboard-img-wrap" onclick="openLightbox('img-${proj.id}', '${pLang.title}')">
+              <div class="dashboard-img-wrap"
+                   tabindex="0"
+                   role="button"
+                   aria-label="${lang === 'ar' ? 'تكبير لوحة التحكم: ' : 'Expand dashboard preview: '}${pLang.title}"
+                   onclick="openLightbox('img-${proj.id}', '${pLang.title}', this)"
+                   onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('img-${proj.id}', '${pLang.title}', this);}">
                 <img id="img-${proj.id}" src="${proj.dashboards[0].imgUrl}" alt="${pLang.title} Dashboard" loading="lazy"
-                     onerror="if(!this.dataset.retried){this.dataset.retried='true'; this.src=this.src.replace('/main/','/master/');}">
+                     onerror="handleImageError(this)">
+                <div class="img-fallback-msg">
+                  <span>📊 Dashboard preview hosted on GitHub</span>
+                  <span style="color:var(--accent-secondary);">${pLang.title}</span>
+                </div>
                 <span class="zoom-badge">🔍 ${lang === 'ar' ? 'اضغط للتكبير' : 'Click to Expand'}</span>
               </div>
             </div>
@@ -1818,7 +1924,7 @@
     /* END [JS-03: DOM RENDER ENGINE] */
 
     /* ==========================================================================
-       START [JS-04: DASHBOARD & LIGHTBOX CONTROLS]
+       START [JS-04: DASHBOARD & ACCESSIBLE LIGHTBOX CONTROLS]
        ========================================================================== */
     function switchDashboardImage(projId, newUrl, btnEl) {
       const imgEl = document.getElementById(`img-${projId}`);
@@ -1827,6 +1933,10 @@
       const parentSwitcher = btnEl.parentElement;
       parentSwitcher.querySelectorAll(".dash-tab").forEach(b => b.classList.remove("active"));
       btnEl.classList.add("active");
+
+      imgEl.style.display = "";
+      const fallback = imgEl.parentElement.querySelector(".img-fallback-msg");
+      if (fallback) fallback.style.display = "none";
 
       imgEl.style.opacity = "0.25";
       setTimeout(() => {
@@ -1845,7 +1955,9 @@
       });
 
       document.querySelectorAll(".project-nav-btn").forEach((btn, idx) => {
-        btn.classList.toggle("active", idx === index);
+        const isActive = idx === index;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-selected", isActive);
       });
 
       const total = PORTFOLIO_DATA.projects.length;
@@ -1857,36 +1969,48 @@
       setActiveProject(index);
     }
 
-    function openLightbox(imgElementId, titleText) {
+    function openLightbox(imgElementId, titleText, triggerEl) {
       const sourceImg = document.getElementById(imgElementId);
-      if (!sourceImg) return;
+      if (!sourceImg || sourceImg.style.display === "none") return;
+
+      lastFocusedElement = triggerEl || document.activeElement;
 
       const modal = document.getElementById("lightbox-modal");
       const modalImg = document.getElementById("lightbox-img");
       const caption = document.getElementById("lightbox-caption");
+      const closeBtn = document.getElementById("lightbox-close-btn");
 
       modalImg.src = sourceImg.src;
       caption.textContent = titleText;
       modal.classList.add("open");
       lenis.stop();
+
+      setTimeout(() => closeBtn.focus(), 50);
     }
 
     function closeLightbox() {
       const modal = document.getElementById("lightbox-modal");
+      if (!modal.classList.contains("open")) return;
+
       modal.classList.remove("open");
       lenis.start();
+
+      if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+        lastFocusedElement.focus();
+      }
     }
 
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeLightbox();
     });
-    /* END [JS-04: DASHBOARD & LIGHTBOX CONTROLS] */
+    /* END [JS-04: DASHBOARD & ACCESSIBLE LIGHTBOX CONTROLS] */
 
     /* ==========================================================================
        START [JS-05: PINNED SCROLLTRIGGER LOGIC (DESKTOP + MOBILE)]
-       Works seamlessly on both desktop and mobile viewports.
        ========================================================================== */
     function initPinnedProjectsScroll() {
+      if (typeof ScrollTrigger === "undefined") return;
+
       if (projectScrollTrigger) {
         projectScrollTrigger.kill();
       }
@@ -1916,13 +2040,21 @@
 
     /* ==========================================================================
        START [JS-06: CIRCULAR LANGUAGE SWITCH ANIMATION]
-       Expands a blue gradient circle from the exact corner of the clicked button
-       diagonally across the screen, swaps the language, and collapses smoothly.
        ========================================================================== */
     let isTransitioning = false;
 
     function triggerLanguageSwitch(targetLang, btnEl) {
       if (targetLang === currentLang || isTransitioning) return;
+
+      // Fallback if GSAP fails to load
+      if (typeof gsap === "undefined") {
+        currentLang = targetLang;
+        document.getElementById("btn-en").classList.toggle("active", targetLang === "en");
+        document.getElementById("btn-ar").classList.toggle("active", targetLang === "ar");
+        renderSite(currentLang);
+        return;
+      }
+
       isTransitioning = true;
 
       const outerCircle = document.getElementById("curtain-outer");
@@ -1931,7 +2063,6 @@
       const curtainSub = document.getElementById("curtain-lang-indicator");
       const toggleBox = document.getElementById("lang-toggle-box");
 
-      // Calculate exact origin coordinates from the language button before switch
       const rect = (btnEl || toggleBox).getBoundingClientRect();
       const startX = Math.round(((rect.left + rect.width / 2) / window.innerWidth) * 100);
       const startY = Math.round(((rect.top + rect.height / 2) / window.innerHeight) * 100);
@@ -1949,7 +2080,6 @@
       gsap.set([outerCircle, innerCircle], { clipPath: `circle(0% at ${startX}% ${startY}%)` });
       gsap.set([curtainText, curtainSub], { opacity: 0, scale: 0.9, y: 12 });
 
-      // 1. Expand dual blue gradient circles from button corner to cover entire screen
       tl.to(outerCircle, {
         clipPath: `circle(155% at ${startX}% ${startY}%)`,
         duration: 0.65,
@@ -1968,8 +2098,6 @@
         stagger: 0.05,
         ease: "back.out(1.5)"
       }, 0.32)
-
-      // 2. Swap language state & RTL/LTR layout while screen is covered
       .add(() => {
         currentLang = targetLang;
         document.getElementById("btn-en").classList.toggle("active", targetLang === "en");
@@ -1977,14 +2105,8 @@
 
         renderSite(currentLang);
         initPinnedProjectsScroll();
-        ScrollTrigger.refresh();
+        if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
 
-        // Calculate new button corner position after RTL/LTR mirror flip
-        const newRect = toggleBox.getBoundingClientRect();
-        const endX = Math.round(((newRect.left + newRect.width / 2) / window.innerWidth) * 100);
-        const endY = Math.round(((newRect.top + newRect.height / 2) / window.innerHeight) * 100);
-
-        // Collapse circle towards the opposite diagonal corner
         const diagX = 100 - startX;
         const diagY = 100;
 
@@ -2014,7 +2136,6 @@
       initPinnedProjectsScroll();
     });
 
-    // Only re-init ScrollTrigger if horizontal width changes (prevents mobile address bar jump)
     window.addEventListener("resize", () => {
       if (window.innerWidth !== lastWidth) {
         lastWidth = window.innerWidth;
