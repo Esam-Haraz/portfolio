@@ -9,32 +9,38 @@
   Hosting: Single-file static architecture optimized for GitHub Pages (index.html)
 
   BOOKMARK INDEX (Use Ctrl+F with these exact tags to locate/edit any section):
-  - [CSS-01: THEME VARIABLES]
-  - [CSS-02: BASE & RESET]
-  - [CSS-03: LANGUAGE CURTAIN ANIMATION]
+  - [HTML-00: FAVICON DATA NODE]
+  - [CSS-01: THEME VARIABLES - BLUE GRADIENT]
+  - [CSS-02: BASE, AURORA MESH & MOUSE SPOTLIGHT]
+  - [CSS-03: CIRCULAR CORNER LANGUAGE REVEAL]
   - [CSS-04: NAVBAR]
   - [CSS-05: BUTTONS & TAGS]
   - [CSS-06: HERO & METRICS]
-  - [CSS-07: PINNED PROJECTS SHOWCASE]
+  - [CSS-07: PINNED PROJECTS SHOWCASE & FLUID MOBILE]
+  - [CSS-07B: FULLSCREEN LIGHTBOX MODAL]
   - [CSS-08: SKILLS GRID]
   - [CSS-09: EDUCATION & CONTACT FOOTER]
-  - [HTML-01: LANGUAGE CURTAIN]
+  - [HTML-01: CIRCULAR LANGUAGE CURTAIN & LIGHTBOX]
   - [HTML-02: NAVBAR]
   - [HTML-03: HERO SECTION]
   - [HTML-04: PINNED PROJECTS SECTION]
   - [HTML-05: SKILLS SECTION]
   - [HTML-06: FOOTER & CONTACT SECTION]
   - [JS-01: PORTFOLIO DATA STORE]
-  - [JS-02: LENIS & GSAP INITIALIZATION]
+  - [JS-02: LENIS, GSAP & MOUSE SPOTLIGHT INIT]
   - [JS-03: DOM RENDER ENGINE]
-  - [JS-04: DASHBOARD & PROJECT CONTROLS]
-  - [JS-05: PINNED SCROLLTRIGGER LOGIC]
-  - [JS-06: LANGUAGE SWITCH ANIMATION]
+  - [JS-04: DASHBOARD & LIGHTBOX CONTROLS]
+  - [JS-05: PINNED SCROLLTRIGGER LOGIC (DESKTOP + MOBILE)]
+  - [JS-06: CIRCULAR LANGUAGE SWITCH ANIMATION]
   ==============================================================================
   -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Esam Haraz | Data Analyst Portfolio</title>
+
+  <!-- START [HTML-00: FAVICON DATA NODE] -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%2338bdf8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%23050a18'/%3E%3Cpath d='M20 44 L32 20 L46 36 L20 44 Z' stroke='url(%23g)' stroke-width='3.5' fill='none' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='20' r='6' fill='%2338bdf8'/%3E%3Ccircle cx='20' cy='44' r='5.5' fill='%232563eb'/%3E%3Ccircle cx='46' cy='36' r='5.5' fill='%2360a5fa'/%3E%3C/svg%3E">
+  <!-- END [HTML-00: FAVICON DATA NODE] -->
 
   <!-- Google Fonts: Inter (EN), Cairo (AR), JetBrains Mono (Technical Tags/Numbers) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,27 +49,30 @@
 
   <style>
     /* ==========================================================================
-       START [CSS-01: THEME VARIABLES]
+       START [CSS-01: THEME VARIABLES - BLUE GRADIENT]
        ========================================================================== */
     :root {
-      --bg-primary: #060911;
-      --bg-secondary: #0c1220;
-      --bg-card: rgba(15, 23, 42, 0.75);
+      --bg-primary: #040814;
+      --bg-secondary: #081126;
+      --bg-card: rgba(10, 20, 42, 0.72);
       --border-subtle: rgba(148, 163, 184, 0.14);
-      --border-highlight: rgba(16, 185, 129, 0.45);
+      --border-highlight: rgba(56, 189, 248, 0.5);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --accent-primary: #10b981;
-      --accent-secondary: #38bdf8;
-      --accent-glow: rgba(16, 185, 129, 0.18);
+      --accent-primary: #3b82f6;   /* Royal Blue */
+      --accent-secondary: #38bdf8; /* Electric Cyan */
+      --accent-deep: #1d4ed8;      /* Deep Sapphire */
+      --accent-gradient: linear-gradient(135deg, #1d4ed8 0%, #2563eb 45%, #38bdf8 100%);
       --font-en: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-ar: 'Cairo', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+      --mouse-x: 50vw;
+      --mouse-y: 50vh;
     }
-    /* END [CSS-01: THEME VARIABLES] */
+    /* END [CSS-01: THEME VARIABLES - BLUE GRADIENT] */
 
     /* ==========================================================================
-       START [CSS-02: BASE & RESET]
+       START [CSS-02: BASE, AURORA MESH & MOUSE SPOTLIGHT]
        ========================================================================== */
     * {
       margin: 0;
@@ -80,30 +89,75 @@
     body {
       font-family: var(--font-en);
       background-color: var(--bg-primary);
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.06) 0%, transparent 35%),
-        radial-gradient(circle at 85% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 35%),
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
       color: var(--text-main);
       line-height: 1.65;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      position: relative;
     }
 
     body[dir="rtl"] {
       font-family: var(--font-ar);
     }
 
+    /* Ambient Aurora Mesh + Interactive Mouse Spotlight Layer */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+      background:
+        radial-gradient(650px circle at var(--mouse-x) var(--mouse-y), rgba(56, 189, 248, 0.11), transparent 45%),
+        radial-gradient(circle at 12% 18%, rgba(29, 78, 216, 0.18) 0%, transparent 42%),
+        radial-gradient(circle at 88% 22%, rgba(56, 189, 248, 0.12) 0%, transparent 38%),
+        radial-gradient(circle at 50% 85%, rgba(37, 99, 235, 0.14) 0%, transparent 45%);
+    }
+
+    .aurora-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.35;
+      animation: auroraFloat 18s infinite alternate ease-in-out;
+    }
+
+    .aurora-orb-1 {
+      width: 42vw;
+      height: 42vw;
+      max-width: 520px;
+      max-height: 520px;
+      background: radial-gradient(circle, #1d4ed8, transparent 70%);
+      top: -10%;
+      left: -8%;
+    }
+
+    .aurora-orb-2 {
+      width: 38vw;
+      height: 38vw;
+      max-width: 460px;
+      max-height: 460px;
+      background: radial-gradient(circle, #0284c7, transparent 70%);
+      bottom: -12%;
+      right: -6%;
+      animation-delay: -7s;
+    }
+
+    @keyframes auroraFloat {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.12); }
+    }
+
     a {
       color: inherit;
       text-decoration: none;
     }
-    /* END [CSS-02: BASE & RESET] */
+    /* END [CSS-02: BASE, AURORA MESH & MOUSE SPOTLIGHT] */
 
     /* ==========================================================================
-       START [CSS-03: LANGUAGE CURTAIN ANIMATION]
+       START [CSS-03: CIRCULAR CORNER LANGUAGE REVEAL]
        ========================================================================== */
     .transition-curtain {
       position: fixed;
@@ -115,52 +169,52 @@
       overflow: hidden;
     }
 
-    .curtain-panel {
+    .curtain-circle {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      transform: translateY(100%);
-      will-change: transform;
-    }
-
-    .curtain-panel-accent {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      z-index: 1;
-    }
-
-    .curtain-panel-dark {
-      background: #060911;
-      border-top: 1px solid rgba(16, 185, 129, 0.35);
-      border-bottom: 1px solid rgba(16, 185, 129, 0.35);
-      z-index: 2;
+      clip-path: circle(0% at 92% 4%);
+      will-change: clip-path;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
+    }
+
+    .curtain-circle-outer {
+      background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #1e3a8a 100%);
+      z-index: 1;
+    }
+
+    .curtain-circle-inner {
+      background: radial-gradient(circle at center, #081229 0%, #040814 100%);
+      z-index: 2;
     }
 
     .curtain-label {
       font-family: var(--font-mono);
-      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-size: clamp(1.5rem, 3.5vw, 2.5rem);
       font-weight: 800;
-      color: var(--text-main);
-      letter-spacing: 0.18em;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       opacity: 0;
-      transform: translateY(20px);
+      transform: scale(0.9);
     }
 
     .curtain-sub {
       font-family: var(--font-mono);
       font-size: 0.8rem;
-      color: var(--accent-primary);
-      letter-spacing: 0.25em;
+      color: var(--accent-secondary);
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       opacity: 0;
     }
-    /* END [CSS-03: LANGUAGE CURTAIN ANIMATION] */
+    /* END [CSS-03: CIRCULAR CORNER LANGUAGE REVEAL] */
 
     /* ==========================================================================
        START [CSS-04: NAVBAR]
@@ -171,13 +225,13 @@
       left: 0;
       width: 100%;
       z-index: 1000;
-      padding: 1.1rem 5%;
+      padding: 0.95rem 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(6, 9, 17, 0.78);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(4, 8, 20, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-subtle);
     }
 
@@ -186,7 +240,7 @@
       align-items: center;
       gap: 0.65rem;
       font-weight: 800;
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       letter-spacing: -0.02em;
     }
 
@@ -194,8 +248,8 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background-color: var(--accent-primary);
-      box-shadow: 0 0 12px var(--accent-primary);
+      background: var(--accent-gradient);
+      box-shadow: 0 0 14px var(--accent-secondary);
     }
 
     .nav-actions {
@@ -219,14 +273,14 @@
     }
 
     .nav-links a:hover {
-      color: var(--accent-primary);
+      color: var(--accent-secondary);
     }
 
     .lang-toggle {
       display: inline-flex;
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(10, 20, 42, 0.9);
       border: 1px solid var(--border-subtle);
-      border-radius: 8px;
+      border-radius: 999px;
       padding: 0.2rem;
     }
 
@@ -235,17 +289,18 @@
       border: none;
       color: var(--text-muted);
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      padding: 0.35rem 0.65rem;
-      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .lang-btn.active {
-      background: var(--accent-primary);
-      color: #060911;
+      background: var(--accent-gradient);
+      color: #ffffff;
+      box-shadow: 0 2px 12px rgba(37, 99, 235, 0.45);
     }
     /* END [CSS-04: NAVBAR] */
 
@@ -256,35 +311,36 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.4rem;
-      border-radius: 8px;
+      padding: 0.72rem 1.35rem;
+      border-radius: 9px;
       font-weight: 600;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       transition: all 0.25s ease;
       cursor: pointer;
       border: 1px solid transparent;
     }
 
     .btn-primary {
-      background: var(--accent-primary);
-      color: #060911;
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+      background: var(--accent-gradient);
+      color: #ffffff;
+      box-shadow: 0 4px 22px rgba(37, 99, 235, 0.35);
     }
 
     .btn-primary:hover {
-      background: #34d399;
+      filter: brightness(1.12);
       transform: translateY(-2px);
+      box-shadow: 0 6px 26px rgba(56, 189, 248, 0.45);
     }
 
     .btn-secondary {
-      background: rgba(30, 41, 59, 0.55);
+      background: rgba(15, 23, 42, 0.6);
       color: var(--text-main);
       border-color: var(--border-subtle);
     }
 
     .btn-secondary:hover {
-      border-color: var(--accent-primary);
-      background: rgba(16, 185, 129, 0.08);
+      border-color: var(--accent-secondary);
+      background: rgba(56, 189, 248, 0.1);
       transform: translateY(-2px);
     }
 
@@ -293,15 +349,15 @@
       align-items: center;
       gap: 0.5rem;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: var(--accent-primary);
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      padding: 0.35rem 0.85rem;
+      color: var(--accent-secondary);
+      background: rgba(37, 99, 235, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.32rem 0.85rem;
       border-radius: 999px;
-      margin-bottom: 1rem;
+      margin-bottom: 0.85rem;
     }
     /* END [CSS-05: BUTTONS & TAGS] */
 
@@ -309,8 +365,8 @@
        START [CSS-06: HERO & METRICS]
        ========================================================================== */
     .hero {
-      min-height: 100vh;
-      padding: 8.5rem 5% 4rem;
+      min-height: 100dvh;
+      padding: 7.5rem 5% 3.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -322,7 +378,7 @@
       max-width: 880px;
       margin-top: auto;
       margin-bottom: auto;
-      padding: 2rem 0;
+      padding: 1.5rem 0;
     }
 
     .location-pill {
@@ -331,15 +387,15 @@
       gap: 0.5rem;
       color: var(--text-muted);
       font-size: 0.88rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
     .hero-title {
-      font-size: clamp(2.3rem, 5.2vw, 4.4rem);
+      font-size: clamp(2.2rem, 5.2vw, 4.3rem);
       font-weight: 800;
       line-height: 1.12;
       letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.35rem;
     }
 
     body[dir="rtl"] .hero-title {
@@ -348,64 +404,74 @@
     }
 
     .hero-title .highlight {
-      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      background: linear-gradient(90deg, #60a5fa 0%, #38bdf8 55%, #93c5fd 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero-subtitle {
-      font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+      font-size: clamp(1rem, 1.7vw, 1.2rem);
       color: var(--text-muted);
-      max-width: 700px;
-      margin-bottom: 2.25rem;
+      max-width: 720px;
+      margin-bottom: 2rem;
     }
 
     .hero-cta {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.85rem;
     }
 
     .metrics-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 1rem;
-      padding-top: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.85rem;
+      padding-top: 2rem;
       border-top: 1px solid var(--border-subtle);
     }
 
     .metric-box {
-      background: rgba(15, 23, 42, 0.45);
+      background: rgba(10, 20, 42, 0.55);
       border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 1.15rem 1.25rem;
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+      transition: border-color 0.25s ease;
+    }
+
+    .metric-box:hover {
+      border-color: rgba(56, 189, 248, 0.4);
     }
 
     .metric-val {
       font-family: var(--font-mono);
-      font-size: 1.65rem;
+      font-size: 1.55rem;
       font-weight: 700;
-      color: var(--accent-primary);
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       display: block;
     }
 
     .metric-lbl {
-      font-size: 0.85rem;
+      font-size: 0.83rem;
       color: var(--text-muted);
     }
     /* END [CSS-06: HERO & METRICS] */
 
     /* ==========================================================================
-       START [CSS-07: PINNED PROJECTS SHOWCASE]
+       START [CSS-07: PINNED PROJECTS SHOWCASE & FLUID MOBILE]
+       Desktop layout remains untouched (>=1024px).
+       Mobile layout (<1024px) uses fluid dvh units so any phone screen size
+       displays the pinned card proportionally without overflow or empty gaps.
        ========================================================================== */
     .projects-pinned-section {
       position: relative;
       width: 100%;
-      min-height: 100vh;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 5.5rem 5% 3rem;
+      padding: 4.5rem 5% 1.5rem;
       overflow: hidden;
     }
 
@@ -415,32 +481,35 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 1.25rem;
       align-items: center;
+      height: 100%;
+      max-height: 860px;
     }
 
     @media (min-width: 1024px) {
       .projects-container {
-        grid-template-columns: 240px 1fr;
+        grid-template-columns: 245px 1fr;
         gap: 2.5rem;
+        height: auto;
       }
     }
 
     .projects-sidebar {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1rem;
     }
 
     .projects-heading {
-      font-size: 1.75rem;
+      font-size: clamp(1.3rem, 2.2vw, 1.75rem);
       font-weight: 800;
       line-height: 1.2;
     }
 
     .scroll-hint {
       font-family: var(--font-mono);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       color: var(--text-muted);
       display: flex;
       align-items: center;
@@ -450,56 +519,55 @@
     .project-nav-list {
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
-      position: relative;
+      gap: 0.6rem;
     }
 
     .project-nav-btn {
-      background: rgba(15, 23, 42, 0.5);
+      background: rgba(10, 20, 42, 0.55);
       border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 0.85rem 1rem;
+      border-radius: 9px;
+      padding: 0.8rem 0.95rem;
       text-align: start;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
       color: var(--text-muted);
     }
 
     .project-nav-btn.active {
-      border-color: var(--accent-primary);
-      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--accent-secondary);
+      background: rgba(37, 99, 235, 0.18);
       color: var(--text-main);
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.12);
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
     }
 
     .proj-num {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      color: var(--accent-primary);
+      color: var(--accent-secondary);
     }
 
     .proj-nav-name {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 600;
+      white-space: nowrap;
     }
 
     .progress-track {
       width: 100%;
       height: 4px;
-      background: rgba(148, 163, 184, 0.15);
+      background: rgba(148, 163, 184, 0.16);
       border-radius: 99px;
       overflow: hidden;
-      margin-top: 0.5rem;
     }
 
     .progress-fill {
       height: 100%;
       width: 33.33%;
-      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      background: var(--accent-gradient);
       transition: width 0.2s ease;
     }
 
@@ -508,39 +576,34 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
-      padding: 1.75rem;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    }
-
-    @media (min-width: 768px) {
-      .project-stage {
-        padding: 2.25rem;
-      }
+      padding: 2rem;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
     }
 
     .project-slide {
       display: none;
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 1.75rem;
       align-items: center;
-      animation: slideFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: slideFadeIn 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .project-slide.active {
       display: grid;
     }
 
-    @media (min-width: 960px) {
+    @media (min-width: 1024px) {
       .project-slide {
         grid-template-columns: 1.05fr 1.15fr;
+        gap: 2rem;
       }
     }
 
     @keyframes slideFadeIn {
       from {
         opacity: 0;
-        transform: translateY(18px);
+        transform: translateY(14px);
       }
       to {
         opacity: 1;
@@ -552,94 +615,94 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.85rem;
+      gap: 0.45rem;
+      margin-bottom: 0.7rem;
     }
 
     .tech-tag {
       font-family: var(--font-mono);
-      font-size: 0.74rem;
-      padding: 0.25rem 0.65rem;
+      font-size: 0.72rem;
+      padding: 0.22rem 0.6rem;
       border-radius: 6px;
-      background: rgba(56, 189, 248, 0.1);
+      background: rgba(56, 189, 248, 0.11);
       color: var(--accent-secondary);
-      border: 1px solid rgba(56, 189, 248, 0.22);
+      border: 1px solid rgba(56, 189, 248, 0.25);
     }
 
     .proj-title {
-      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+      font-size: clamp(1.25rem, 2.1vw, 1.8rem);
       font-weight: 800;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.65rem;
       line-height: 1.25;
     }
 
     .proj-summary {
       color: var(--text-muted);
-      font-size: 0.94rem;
-      margin-bottom: 1.15rem;
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
     }
 
     .proj-kpis {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.6rem;
-      margin-bottom: 1.15rem;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
     }
 
     .kpi-mini {
-      background: rgba(6, 9, 17, 0.65);
+      background: rgba(4, 8, 20, 0.68);
       border: 1px solid var(--border-subtle);
-      padding: 0.6rem 0.75rem;
+      padding: 0.55rem 0.7rem;
       border-radius: 8px;
     }
 
     .kpi-mini strong {
       display: block;
       font-family: var(--font-mono);
-      font-size: 0.95rem;
-      color: var(--accent-primary);
+      font-size: 0.92rem;
+      color: var(--accent-secondary);
     }
 
     .kpi-mini span {
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
     }
 
     .insights-list {
       list-style: none;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.45rem;
+      gap: 0.4rem;
     }
 
     .insights-list li {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       color: #cbd5e1;
       position: relative;
-      padding-inline-start: 1.2rem;
+      padding-inline-start: 1.15rem;
     }
 
     .insights-list li::before {
       content: "▹";
       position: absolute;
       inset-inline-start: 0;
-      color: var(--accent-primary);
+      color: var(--accent-secondary);
       font-weight: bold;
     }
 
     .dashboard-showcase {
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
+      gap: 0.75rem;
     }
 
     .dashboard-toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(6, 9, 17, 0.8);
-      padding: 0.5rem 0.85rem;
+      background: rgba(4, 8, 20, 0.82);
+      padding: 0.45rem 0.8rem;
       border-radius: 10px;
       border: 1px solid var(--border-subtle);
     }
@@ -653,18 +716,17 @@
       width: 9px;
       height: 9px;
       border-radius: 50%;
-      background: #334155;
     }
 
     .window-dots span:nth-child(1) { background: #ef4444; }
     .window-dots span:nth-child(2) { background: #f59e0b; }
-    .window-dots span:nth-child(3) { background: #10b981; }
+    .window-dots span:nth-child(3) { background: #38bdf8; }
 
     .dash-switcher {
       display: inline-flex;
-      gap: 0.35rem;
-      background: rgba(15, 23, 42, 0.95);
-      padding: 0.2rem;
+      gap: 0.3rem;
+      background: rgba(10, 20, 42, 0.95);
+      padding: 0.18rem;
       border-radius: 7px;
       border: 1px solid var(--border-subtle);
     }
@@ -674,17 +736,17 @@
       background: transparent;
       color: var(--text-muted);
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.3rem 0.7rem;
+      padding: 0.28rem 0.65rem;
       border-radius: 5px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .dash-tab.active {
-      background: var(--accent-primary);
-      color: #060911;
+      background: var(--accent-gradient);
+      color: #ffffff;
     }
 
     .dashboard-img-wrap {
@@ -692,11 +754,12 @@
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--border-subtle);
-      background: #060911;
+      background: #040814;
       aspect-ratio: 16 / 10;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: zoom-in;
     }
 
     .dashboard-img-wrap img {
@@ -709,7 +772,261 @@
     .dashboard-img-wrap:hover img {
       transform: scale(1.02);
     }
-    /* END [CSS-07: PINNED PROJECTS SHOWCASE] */
+
+    .zoom-badge {
+      position: absolute;
+      bottom: 0.6rem;
+      inset-inline-end: 0.6rem;
+      background: rgba(4, 8, 20, 0.86);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      pointer-events: none;
+      backdrop-filter: blur(6px);
+      transition: all 0.25s ease;
+    }
+
+    .dashboard-img-wrap:hover .zoom-badge {
+      border-color: var(--accent-secondary);
+      color: var(--accent-secondary);
+    }
+
+    /* FLUID DYNAMIC MOBILE ADAPTATION (<1024px) */
+    @media (max-width: 1023px) {
+      .projects-pinned-section {
+        padding: 4.2rem 4% 0.8rem;
+        height: 100dvh;
+      }
+
+      .projects-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        gap: 0.6vh;
+      }
+
+      .projects-sidebar {
+        width: 100%;
+        gap: 0.5vh;
+        flex-shrink: 0;
+      }
+
+      .projects-sidebar .section-tag,
+      .scroll-hint {
+        display: none;
+      }
+
+      .projects-heading {
+        font-size: clamp(1.05rem, 2.2dvh, 1.35rem);
+      }
+
+      .project-nav-list {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0.4rem;
+        padding-bottom: 0.2rem;
+        scrollbar-width: none;
+      }
+
+      .project-nav-list::-webkit-scrollbar {
+        display: none;
+      }
+
+      .project-nav-btn {
+        padding: 0.4rem 0.7rem;
+        flex: 1;
+        justify-content: center;
+      }
+
+      .proj-nav-name {
+        font-size: clamp(0.72rem, 1.5dvh, 0.82rem);
+      }
+
+      .project-stage {
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: clamp(0.75rem, 1.8dvh, 1.25rem);
+        overflow: hidden;
+      }
+
+      .project-slide.active {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        gap: 0.8dvh;
+      }
+
+      .project-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.5dvh;
+      }
+
+      .proj-meta-top {
+        margin-bottom: 0.2dvh;
+      }
+
+      .tech-tag {
+        font-size: clamp(0.62rem, 1.2dvh, 0.72rem);
+        padding: 0.15rem 0.45rem;
+      }
+
+      .proj-title {
+        font-size: clamp(0.98rem, 2.1dvh, 1.25rem);
+        margin-bottom: 0.2dvh;
+      }
+
+      .proj-summary {
+        font-size: clamp(0.75rem, 1.55dvh, 0.86rem);
+        margin-bottom: 0.4dvh;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .proj-kpis {
+        margin-bottom: 0.4dvh;
+        gap: 0.4rem;
+      }
+
+      .kpi-mini {
+        padding: clamp(0.3rem, 0.8dvh, 0.5rem) 0.5rem;
+      }
+
+      .kpi-mini strong {
+        font-size: clamp(0.78rem, 1.65dvh, 0.92rem);
+      }
+
+      .kpi-mini span {
+        font-size: clamp(0.62rem, 1.2dvh, 0.7rem);
+      }
+
+      .insights-list {
+        margin-bottom: 0.5dvh;
+        gap: 0.25dvh;
+      }
+
+      .insights-list li {
+        font-size: clamp(0.72rem, 1.45dvh, 0.82rem);
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      . insights-list li:nth-child(3) {
+        display: none;
+      }
+
+      .project-details .btn {
+        padding: clamp(0.42rem, 1.1dvh, 0.65rem) 0.9rem;
+        font-size: clamp(0.76rem, 1.5dvh, 0.86rem);
+      }
+
+      .dashboard-showcase {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4dvh;
+      }
+
+      .dashboard-toolbar {
+        padding: 0.3rem 0.6rem;
+        flex-shrink: 0;
+      }
+
+      .dashboard-img-wrap {
+        flex: 1;
+        min-height: 0;
+        aspect-ratio: auto;
+        height: 100%;
+      }
+    }
+    /* END [CSS-07: PINNED PROJECTS SHOWCASE & FLUID MOBILE] */
+
+    /* ==========================================================================
+       START [CSS-07B: FULLSCREEN LIGHTBOX MODAL]
+       ========================================================================== */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(4, 8, 20, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 9500;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      cursor: zoom-out;
+    }
+
+    .lightbox-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.25rem;
+      inset-inline-end: 1.5rem;
+      background: rgba(10, 20, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lightbox-close:hover {
+      border-color: var(--accent-secondary);
+      color: var(--accent-secondary);
+    }
+
+    .lightbox-img {
+      max-width: 94vw;
+      max-height: 84vh;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      transform: scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: default;
+    }
+
+    .lightbox-modal.open .lightbox-img {
+      transform: scale(1);
+    }
+
+    .lightbox-caption {
+      margin-top: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    /* END [CSS-07B: FULLSCREEN LIGHTBOX MODAL] */
 
     /* ==========================================================================
        START [CSS-08: SKILLS GRID]
@@ -744,15 +1061,15 @@
     }
 
     .skill-card:hover {
-      border-color: var(--accent-primary);
+      border-color: var(--accent-secondary);
       transform: translateY(-4px);
     }
 
     .skill-card-title {
-      font-size: 1.12rem;
+      font-size: 1.1rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      color: var(--accent-primary);
+      color: var(--accent-secondary);
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -778,7 +1095,7 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--accent-secondary);
+      background: var(--accent-primary);
       flex-shrink: 0;
     }
     /* END [CSS-08: SKILLS GRID] */
@@ -788,7 +1105,7 @@
        ========================================================================== */
     .footer-section {
       border-top: 1px solid var(--border-subtle);
-      background: rgba(12, 18, 32, 0.6);
+      background: rgba(8, 17, 38, 0.65);
       padding: 5rem 5% 3rem;
     }
 
@@ -807,7 +1124,7 @@
     }
 
     .edu-box {
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(10, 20, 42, 0.65);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
       padding: 1.5rem;
@@ -823,7 +1140,7 @@
     .edu-meta {
       font-family: var(--font-mono);
       font-size: 0.82rem;
-      color: var(--accent-primary);
+      color: var(--accent-secondary);
       margin: 0.25rem 0 0.5rem;
     }
 
@@ -850,14 +1167,14 @@
       align-items: center;
       padding: 0.9rem 1.15rem;
       border-radius: 10px;
-      background: rgba(6, 9, 17, 0.65);
+      background: rgba(4, 8, 20, 0.7);
       border: 1px solid var(--border-subtle);
       transition: all 0.25s ease;
     }
 
     .contact-link-item:hover {
-      border-color: var(--accent-primary);
-      background: rgba(16, 185, 129, 0.08);
+      border-color: var(--accent-secondary);
+      background: rgba(37, 99, 235, 0.12);
     }
 
     .copyright-bar {
@@ -876,17 +1193,29 @@
 </head>
 <body>
 
+  <!-- Ambient Aurora + Mouse Spotlight Background -->
+  <div class="ambient-bg">
+    <div class="aurora-orb aurora-orb-1"></div>
+    <div class="aurora-orb aurora-orb-2"></div>
+  </div>
+
   <!-- ========================================================================
-       START [HTML-01: LANGUAGE CURTAIN]
+       START [HTML-01: CIRCULAR LANGUAGE CURTAIN & LIGHTBOX]
        ======================================================================== -->
   <div class="transition-curtain" id="curtain">
-    <div class="curtain-panel curtain-panel-accent" id="curtain-accent"></div>
-    <div class="curtain-panel curtain-panel-dark" id="curtain-dark">
+    <div class="curtain-circle curtain-circle-outer" id="curtain-outer"></div>
+    <div class="curtain-circle curtain-circle-inner" id="curtain-inner">
       <span class="curtain-sub" id="curtain-lang-indicator">SWITCHING LANGUAGE</span>
       <span class="curtain-label" id="curtain-text">ESAM HARAZ</span>
     </div>
   </div>
-  <!-- END [HTML-01: LANGUAGE CURTAIN] -->
+
+  <div class="lightbox-modal" id="lightbox-modal" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕ ESC</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Fullscreen Dashboard Preview" onclick="event.stopPropagation()">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+  <!-- END [HTML-01: CIRCULAR LANGUAGE CURTAIN & LIGHTBOX] -->
 
   <!-- ========================================================================
        START [HTML-02: NAVBAR]
@@ -904,9 +1233,9 @@
         <a href="#contact" id="nav-contact">Contact</a>
       </nav>
 
-      <div class="lang-toggle" role="group" aria-label="Language Switcher">
-        <button class="lang-btn active" id="btn-en" onclick="triggerLanguageSwitch('en')">EN</button>
-        <button class="lang-btn" id="btn-ar" onclick="triggerLanguageSwitch('ar')">AR</button>
+      <div class="lang-toggle" id="lang-toggle-box" role="group" aria-label="Language Switcher">
+        <button class="lang-btn active" id="btn-en" onclick="triggerLanguageSwitch('en', this)">EN</button>
+        <button class="lang-btn" id="btn-ar" onclick="triggerLanguageSwitch('ar', this)">AR</button>
       </div>
     </div>
   </header>
@@ -930,7 +1259,7 @@
       </p>
       <div class="hero-cta">
         <a href="#projects-anchor" class="btn btn-primary" id="cta-projects">Explore Projects ↓</a>
-        <a href="https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link" target="_blank" rel="noopener" class="btn btn-secondary" id="cta-cv">Download CV (PDF) ↗</a>
+        <a href="https://drive.google.com/file/d/1Nvp8LGj5I9xcJgomfNOWV6uqoiPpZJ56/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary" id="cta-cv">Download CV (PDF) ↗</a>
         <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="btn btn-secondary">GitHub ↗</a>
       </div>
     </div>
@@ -1016,15 +1345,15 @@
         <div class="contact-links-list">
           <a href="mailto:esamv20@gmail.com" class="contact-link-item">
             <span>✉️ esamv20@gmail.com</span>
-            <span style="color: var(--accent-primary); font-family: var(--font-mono);">Email ↗</span>
+            <span style="color: var(--accent-secondary); font-family: var(--font-mono);">Email ↗</span>
           </a>
           <a href="https://www.linkedin.com/in/esam-haraz-459925402" target="_blank" rel="noopener" class="contact-link-item">
             <span>💼 linkedin.com/in/esam-haraz</span>
-            <span style="color: var(--accent-primary); font-family: var(--font-mono);">LinkedIn ↗</span>
+            <span style="color: var(--accent-secondary); font-family: var(--font-mono);">LinkedIn ↗</span>
           </a>
           <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="contact-link-item">
             <span>💻 github.com/Esam-Haraz</span>
-            <span style="color: var(--accent-primary); font-family: var(--font-mono);">GitHub ↗</span>
+            <span style="color: var(--accent-secondary); font-family: var(--font-mono);">GitHub ↗</span>
           </a>
         </div>
       </div>
@@ -1223,13 +1552,13 @@
             ]
           },
           ar: {
-            navTitle: "تحليل الموارد البشرية (IBM HR)",
+            navTitle: "الموارد البشرية (HR)",
             title: "تحليل تسرب الموظفين والأداء — IBM HR Analytics",
             summary: "مشروع متكامل لتحليل بيانات 1,470 موظفاً باستخدام SQL وExcel وPower BI لتحديد الأسباب الرئيسية لترك العمل عبر ساعات العمل الإضافي، فجوات الرواتب، والرضا الوظيفي.",
             kpis: [
               { val: "1,470", lbl: "إجمالي الموظفين" },
               { val: "16.12%", lbl: "معدل الترك (237)" },
-              { val: "39.76%", lbl: "خطر مندوبي المبيعات" }
+              { val: "39.76%", lbl: "خطر المبيعات" }
             ],
             insights: [
               "العاملون لوقت إضافي (Overtime) يتركون العمل بنسبة 31% مقابل 10% فقط لغيرهم (3 أضعاف).",
@@ -1269,13 +1598,13 @@
             ]
           },
           ar: {
-            navTitle: "تحليل مبيعات البيتزا",
+            navTitle: "مبيعات البيتزا",
             title: "تحليل أداء المبيعات والعمليات التشغيلية — Pizza Sales",
             summary: "تحليل شامل للمبيعات والعمليات على 21,350 طلباً بإجمالي إيرادات 817.86 ألف دولار باستخدام Power Query وSQL ولوحة Power BI مصممة بقاعدة 60-30-10 لتحسين جدولة العمالة وقائمة المنتجات.",
             kpis: [
               { val: "$817.86K", lbl: "إجمالي الإيرادات" },
               { val: "21,350", lbl: "إجمالي الطلبات" },
-              { val: "$38.31", lbl: "متوسط قيمة الطلب" }
+              { val: "$38.31", lbl: "متوسط الطلب" }
             ],
             insights: [
               "يومي الجمعة والخميس يسجلان ذروة الطلبات الأسبوعية؛ مما يحدد أوقات تكثيف طاقم العمل والمخزون.",
@@ -1296,7 +1625,7 @@
             }
           ],
           en: {
-            navTitle: "Supply Chain Logistics",
+            navTitle: "Supply Chain",
             title: "Supply Chain & Shipment Deliveries Analysis",
             summary: "Analyzed 25,000 shipment records using PostgreSQL and Excel to uncover delay drivers, cost scaling, and partner performance—including resolving primary key data quality issues via SERIAL keys.",
             kpis: [
@@ -1311,13 +1640,13 @@
             ]
           },
           ar: {
-            navTitle: "سلاسل الإمداد والشحن",
+            navTitle: "سلاسل الإمداد",
             title: "تحليل سلاسل الإمداد وتوصيل الشحنات — Supply Chain",
             summary: "تحليل 25,000 سجل شحنة باستخدام PostgreSQL وExcel لاكتشاف أسباب التأخير وأنماط التكلفة، مع معالجة مشكلات جودة البيانات في المعرفات المكررة والعشرية عبر SERIAL PRIMARY KEY.",
             kpis: [
               { val: "25,000", lbl: "إجمالي الشحنات" },
-              { val: "26.68%", lbl: "نسبة التأخير العامة" },
-              { val: "41.45%", lbl: "تأخير الطقس العاصف" }
+              { val: "26.68%", lbl: "نسبة التأخير" },
+              { val: "41.45%", lbl: "تأخير العواصف" }
             ],
             insights: [
               "الطقس هو المحرك الأول للتأخير: الطقس العاصف يرفع التأخير إلى 41.45% مقارنة بـ 16.02% في الطقس البارد.",
@@ -1331,7 +1660,7 @@
     /* END [JS-01: PORTFOLIO DATA STORE] */
 
     /* ==========================================================================
-       START [JS-02: LENIS & GSAP INITIALIZATION]
+       START [JS-02: LENIS, GSAP & MOUSE SPOTLIGHT INIT]
        ========================================================================== */
     let currentLang = "en";
     let activeProjectIndex = 0;
@@ -1340,7 +1669,8 @@
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true
+      smoothWheel: true,
+      syncTouch: false
     });
 
     function raf(time) {
@@ -1355,7 +1685,13 @@
       lenis.raf(time * 1000);
     });
     gsap.ticker.lagSmoothing(0);
-    /* END [JS-02: LENIS & GSAP INITIALIZATION] */
+
+    // Interactive Mouse Spotlight Tracker
+    window.addEventListener("pointermove", (e) => {
+      document.documentElement.style.setProperty("--mouse-x", `${e.clientX}px`);
+      document.documentElement.style.setProperty("--mouse-y", `${e.clientY}px`);
+    });
+    /* END [JS-02: LENIS, GSAP & MOUSE SPOTLIGHT INIT] */
 
     /* ==========================================================================
        START [JS-03: DOM RENDER ENGINE]
@@ -1411,12 +1747,14 @@
         return `
           <article class="project-slide ${idx === activeProjectIndex ? 'active' : ''}" data-index="${idx}">
             <div class="project-details">
-              <div class="proj-meta-top">
-                <span class="proj-num" style="font-size:0.9rem;">#${proj.num}</span>
-                ${proj.tags.map(t => `<span class="tech-tag">${t}</span>`).join("")}
+              <div>
+                <div class="proj-meta-top">
+                  <span class="proj-num" style="font-size:0.88rem;">#${proj.num}</span>
+                  ${proj.tags.map(t => `<span class="tech-tag">${t}</span>`).join("")}
+                </div>
+                <h3 class="proj-title">${pLang.title}</h3>
+                <p class="proj-summary">${pLang.summary}</p>
               </div>
-              <h3 class="proj-title">${pLang.title}</h3>
-              <p class="proj-summary">${pLang.summary}</p>
               
               <div class="proj-kpis">
                 ${pLang.kpis.map(k => `
@@ -1445,9 +1783,10 @@
                   ${dashButtons}
                 </div>
               </div>
-              <div class="dashboard-img-wrap">
+              <div class="dashboard-img-wrap" onclick="openLightbox('img-${proj.id}', '${pLang.title}')">
                 <img id="img-${proj.id}" src="${proj.dashboards[0].imgUrl}" alt="${pLang.title} Dashboard" loading="lazy"
                      onerror="if(!this.dataset.retried){this.dataset.retried='true'; this.src=this.src.replace('/main/','/master/');}">
+                <span class="zoom-badge">🔍 ${lang === 'ar' ? 'اضغط للتكبير' : 'Click to Expand'}</span>
               </div>
             </div>
           </article>
@@ -1479,7 +1818,7 @@
     /* END [JS-03: DOM RENDER ENGINE] */
 
     /* ==========================================================================
-       START [JS-04: DASHBOARD & PROJECT CONTROLS]
+       START [JS-04: DASHBOARD & LIGHTBOX CONTROLS]
        ========================================================================== */
     function switchDashboardImage(projId, newUrl, btnEl) {
       const imgEl = document.getElementById(`img-${projId}`);
@@ -1517,88 +1856,120 @@
     function selectProjectManual(index) {
       setActiveProject(index);
     }
-    /* END [JS-04: DASHBOARD & PROJECT CONTROLS] */
+
+    function openLightbox(imgElementId, titleText) {
+      const sourceImg = document.getElementById(imgElementId);
+      if (!sourceImg) return;
+
+      const modal = document.getElementById("lightbox-modal");
+      const modalImg = document.getElementById("lightbox-img");
+      const caption = document.getElementById("lightbox-caption");
+
+      modalImg.src = sourceImg.src;
+      caption.textContent = titleText;
+      modal.classList.add("open");
+      lenis.stop();
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById("lightbox-modal");
+      modal.classList.remove("open");
+      lenis.start();
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeLightbox();
+    });
+    /* END [JS-04: DASHBOARD & LIGHTBOX CONTROLS] */
 
     /* ==========================================================================
-       START [JS-05: PINNED SCROLLTRIGGER LOGIC]
+       START [JS-05: PINNED SCROLLTRIGGER LOGIC (DESKTOP + MOBILE)]
+       Works seamlessly on both desktop and mobile viewports.
        ========================================================================== */
     function initPinnedProjectsScroll() {
       if (projectScrollTrigger) {
         projectScrollTrigger.kill();
       }
 
-      if (window.innerWidth >= 1024) {
-        const totalProjects = PORTFOLIO_DATA.projects.length;
-        projectScrollTrigger = ScrollTrigger.create({
-          trigger: "#projects-pinned",
-          start: "top top",
-          end: () => `+=${window.innerHeight * (totalProjects * 0.95)}`,
-          pin: true,
-          scrub: 0.3,
-          onUpdate: (self) => {
-            const progress = self.progress;
-            const targetIndex = Math.min(
-              totalProjects - 1,
-              Math.floor(progress * totalProjects)
-            );
-            setActiveProject(targetIndex);
-            document.getElementById("scroll-progress-bar").style.width = `${Math.max(15, progress * 100)}%`;
-          }
-        });
-      }
+      const totalProjects = PORTFOLIO_DATA.projects.length;
+      const scrollMultiplier = window.innerWidth < 1024 ? 0.85 : 0.95;
+
+      projectScrollTrigger = ScrollTrigger.create({
+        trigger: "#projects-pinned",
+        start: "top top",
+        end: () => `+=${window.innerHeight * (totalProjects * scrollMultiplier)}`,
+        pin: true,
+        scrub: 0.3,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const targetIndex = Math.min(
+            totalProjects - 1,
+            Math.floor(progress * totalProjects)
+          );
+          setActiveProject(targetIndex);
+          document.getElementById("scroll-progress-bar").style.width = `${Math.max(15, progress * 100)}%`;
+        }
+      });
     }
-    /* END [JS-05: PINNED SCROLLTRIGGER LOGIC] */
+    /* END [JS-05: PINNED SCROLLTRIGGER LOGIC (DESKTOP + MOBILE)] */
 
     /* ==========================================================================
-       START [JS-06: LANGUAGE SWITCH ANIMATION]
+       START [JS-06: CIRCULAR LANGUAGE SWITCH ANIMATION]
+       Expands a blue gradient circle from the exact corner of the clicked button
+       diagonally across the screen, swaps the language, and collapses smoothly.
        ========================================================================== */
     let isTransitioning = false;
 
-    function triggerLanguageSwitch(targetLang) {
+    function triggerLanguageSwitch(targetLang, btnEl) {
       if (targetLang === currentLang || isTransitioning) return;
       isTransitioning = true;
 
-      const accentPanel = document.getElementById("curtain-accent");
-      const darkPanel = document.getElementById("curtain-dark");
+      const outerCircle = document.getElementById("curtain-outer");
+      const innerCircle = document.getElementById("curtain-inner");
       const curtainText = document.getElementById("curtain-text");
       const curtainSub = document.getElementById("curtain-lang-indicator");
-      const pageContent = document.querySelectorAll(".hero, .projects-pinned-section, .skills-section, .footer-section");
+      const toggleBox = document.getElementById("lang-toggle-box");
+
+      // Calculate exact origin coordinates from the language button before switch
+      const rect = (btnEl || toggleBox).getBoundingClientRect();
+      const startX = Math.round(((rect.left + rect.width / 2) / window.innerWidth) * 100);
+      const startY = Math.round(((rect.top + rect.height / 2) / window.innerHeight) * 100);
 
       curtainSub.textContent = targetLang === "ar" ? "التحويل إلى العربية" : "SWITCHING TO ENGLISH";
+      curtainText.textContent = PORTFOLIO_DATA[targetLang].name;
 
       const tl = gsap.timeline({
         onComplete: () => {
-          gsap.set([accentPanel, darkPanel], { yPercent: 100, clearProps: "transform" });
+          gsap.set([outerCircle, innerCircle], { clipPath: `circle(0% at ${startX}% ${startY}%)` });
           isTransitioning = false;
         }
       });
 
-      gsap.set([accentPanel, darkPanel], { yPercent: 100, y: 0 });
-      gsap.set([curtainText, curtainSub], { opacity: 0, y: 20 });
+      gsap.set([outerCircle, innerCircle], { clipPath: `circle(0% at ${startX}% ${startY}%)` });
+      gsap.set([curtainText, curtainSub], { opacity: 0, scale: 0.9, y: 12 });
 
-      tl.to(pageContent, {
-        y: -30,
-        opacity: 0.2,
-        duration: 0.45,
-        ease: "power2.in"
+      // 1. Expand dual blue gradient circles from button corner to cover entire screen
+      tl.to(outerCircle, {
+        clipPath: `circle(155% at ${startX}% ${startY}%)`,
+        duration: 0.65,
+        ease: "power3.inOut"
       }, 0)
-      .to(accentPanel, {
-        yPercent: 0,
-        duration: 0.55,
-        ease: "expo.inOut"
-      }, 0)
-      .to(darkPanel, {
-        yPercent: 0,
-        duration: 0.55,
-        ease: "expo.inOut"
+      .to(innerCircle, {
+        clipPath: `circle(155% at ${startX}% ${startY}%)`,
+        duration: 0.65,
+        ease: "power3.inOut"
       }, 0.08)
       .to([curtainSub, curtainText], {
         opacity: 1,
+        scale: 1,
         y: 0,
         duration: 0.3,
-        stagger: 0.06,
-        ease: "power2.out"
-      }, 0.35)
+        stagger: 0.05,
+        ease: "back.out(1.5)"
+      }, 0.32)
+
+      // 2. Swap language state & RTL/LTR layout while screen is covered
       .add(() => {
         currentLang = targetLang;
         document.getElementById("btn-en").classList.toggle("active", targetLang === "en");
@@ -1607,42 +1978,50 @@
         renderSite(currentLang);
         initPinnedProjectsScroll();
         ScrollTrigger.refresh();
-        gsap.set(pageContent, { y: 35, opacity: 0 });
-      }, "+=0.15")
-      .to([curtainSub, curtainText], {
-        opacity: 0,
-        y: -20,
-        duration: 0.25,
-        ease: "power2.in"
-      })
-      .to(darkPanel, {
-        yPercent: -100,
-        duration: 0.6,
-        ease: "expo.inOut"
-      }, "-=0.05")
-      .to(accentPanel, {
-        yPercent: -100,
-        duration: 0.6,
-        ease: "expo.inOut"
-      }, "-=0.52")
-      .to(pageContent, {
-        y: 0,
-        opacity: 1,
-        duration: 0.55,
-        ease: "power3.out",
-        clearProps: "transform,opacity"
-      }, "-=0.45");
+
+        // Calculate new button corner position after RTL/LTR mirror flip
+        const newRect = toggleBox.getBoundingClientRect();
+        const endX = Math.round(((newRect.left + newRect.width / 2) / window.innerWidth) * 100);
+        const endY = Math.round(((newRect.top + newRect.height / 2) / window.innerHeight) * 100);
+
+        // Collapse circle towards the opposite diagonal corner
+        const diagX = 100 - startX;
+        const diagY = 100;
+
+        gsap.set([outerCircle, innerCircle], { clipPath: `circle(155% at ${diagX}% ${diagY}%)` });
+        tl.to([curtainSub, curtainText], {
+          opacity: 0,
+          scale: 0.92,
+          duration: 0.2,
+          ease: "power2.in"
+        })
+        .to(innerCircle, {
+          clipPath: `circle(0% at ${diagX}% ${diagY}%)`,
+          duration: 0.62,
+          ease: "power3.inOut"
+        }, "-=0.05")
+        .to(outerCircle, {
+          clipPath: `circle(0% at ${diagX}% ${diagY}%)`,
+          duration: 0.62,
+          ease: "power3.inOut"
+        }, "-=0.52");
+      }, "+=0.15");
     }
 
+    let lastWidth = window.innerWidth;
     window.addEventListener("DOMContentLoaded", () => {
       renderSite(currentLang);
       initPinnedProjectsScroll();
     });
 
+    // Only re-init ScrollTrigger if horizontal width changes (prevents mobile address bar jump)
     window.addEventListener("resize", () => {
-      initPinnedProjectsScroll();
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        initPinnedProjectsScroll();
+      }
     });
-    /* END [JS-06: LANGUAGE SWITCH ANIMATION] */
+    /* END [JS-06: CIRCULAR LANGUAGE SWITCH ANIMATION] */
   </script>
 </body>
 </html>
