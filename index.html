@@ -28,7 +28,7 @@
   - [HTML-06: FOOTER & CONTACT SECTION]
   - [JS-01: PORTFOLIO DATA STORE]
   - [JS-02: SAFE LENIS, GSAP & MOUSE SPOTLIGHT INIT]
-  - [JS-03: DOM RENDER ENGINE]
+  - [JS-03: DOM RENDER ENGINE WITH SMART IMAGE FALLBACK]
   - [JS-04: DASHBOARD & ACCESSIBLE LIGHTBOX CONTROLS]
   - [JS-05: PINNED SCROLLTRIGGER LOGIC (DESKTOP + MOBILE)]
   - [JS-06: CIRCULAR LANGUAGE SWITCH ANIMATION]
@@ -85,9 +85,6 @@
 
     /* ==========================================================================
        START [CSS-02: BASE, AURORA MESH & MOUSE SPOTLIGHT]
-       Fixed stacking context: html holds the dark base color, .ambient-bg sits
-       at z-index: 0, and main content sits at z-index: 1 so the mouse spotlight
-       and aurora glow are clearly visible everywhere.
        ========================================================================== */
     * {
       margin: 0;
@@ -115,7 +112,6 @@
       font-family: var(--font-ar);
     }
 
-    /* Ambient Aurora Mesh + Interactive Mouse Spotlight Layer */
     .ambient-bg {
       position: fixed;
       inset: 0;
@@ -166,7 +162,6 @@
       100% { transform: translate3d(35px, 25px, 0) scale(1.1); }
     }
 
-    /* Performance & Accessibility: Respect reduced motion & optimize mobile GPU */
     @media (max-width: 768px) {
       .aurora-orb {
         filter: blur(45px);
@@ -184,7 +179,6 @@
       }
     }
 
-    /* Ensure all content sections sit above the ambient background */
     .hero,
     .projects-pinned-section,
     .skills-section,
@@ -1284,7 +1278,7 @@
 
     <div class="nav-actions">
       <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="#projects-anchor" id="nav-projects">Projects</a>
+        <a href="#projects-pinned" id="nav-projects">Projects</a>
         <a href="#skills" id="nav-skills">Tech Stack</a>
         <a href="#contact" id="nav-contact">Contact</a>
       </nav>
@@ -1315,7 +1309,7 @@
           Data Analyst specializing in building end-to-end analytics solutions using SQL (PostgreSQL), Microsoft Excel, and Power BI—from raw data cleaning and relational schema design to interactive executive dashboards, while expanding into Python data analysis (Pandas, Polars, NumPy).
         </p>
         <div class="hero-cta">
-          <a href="#projects-anchor" class="btn btn-primary" id="cta-projects">Explore Projects ↓</a>
+          <a href="#projects-pinned" class="btn btn-primary" id="cta-projects">Explore Projects ↓</a>
           <a href="https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link" target="_blank" rel="noopener" class="btn btn-secondary" id="cta-cv">Download CV (PDF) ↗</a>
           <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="btn btn-secondary" aria-label="Visit Esam Haraz GitHub Profile">GitHub ↗</a>
         </div>
@@ -1330,7 +1324,6 @@
     <!-- ========================================================================
          START [HTML-04: PINNED PROJECTS SECTION]
          ======================================================================== -->
-    <div id="projects-anchor"></div>
     <section class="projects-pinned-section" id="projects-pinned">
       <div class="projects-container">
         
@@ -1433,7 +1426,6 @@
   <script>
     /* ==========================================================================
        START [JS-01: PORTFOLIO DATA STORE]
-       Edit this object to update CV link, texts, skills, or add new projects.
        ========================================================================== */
     const PORTFOLIO_DATA = {
       cvUrl: "https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link",
@@ -1506,7 +1498,8 @@
         contactTag: "Get In Touch",
         contactHeading: "Ready to Contribute to Data-Driven Teams",
         contactSub: "Looking to secure an internship or entry-level Data Analyst role to apply analytical and problem-solving skills.",
-        footerCopy: "© 2026 Esam Haraz. Hosted on GitHub Pages."
+        footerCopy: "© 2026 Esam Haraz. Hosted on GitHub Pages.",
+        imgFallback: "📊 Dashboard preview failed to load"
       },
 
       ar: {
@@ -1577,7 +1570,8 @@
         contactTag: "تواصل معي",
         contactHeading: "جاهز للانضمام والمساهمة في فرق البيانات",
         contactSub: "متاح لفرص التدريب (Internships) والوظائف التأسيسية في مجال تحليل البيانات.",
-        footerCopy: "© 2026 عصام حراز. مستضاف عبر GitHub Pages."
+        footerCopy: "© 2026 عصام حراز. مستضاف عبر GitHub Pages.",
+        imgFallback: "📊 تعذر تحميل معاينة لوحة التحكم"
       },
 
       projects: [
@@ -1589,11 +1583,13 @@
           dashboards: [
             {
               label: "Power BI",
-              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance/main/Images/PowerBi_Dashboard.png"
+              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance/main/Images/PowerBi_Dashboard.png",
+              backupUrl: "assets/images/hr-powerbi.png"
             },
             {
               label: "Excel",
-              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance/main/Images/Excel_Dashboard.png"
+              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance/main/Images/Excel_Dashboard.png",
+              backupUrl: "assets/images/hr-excel.png"
             }
           ],
           en: {
@@ -1635,11 +1631,13 @@
           dashboards: [
             {
               label: "Power BI",
-              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Pizza_Sales/main/Images/Power_Bi_Dashboard.png"
+              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Pizza_Sales/main/Images/Power_Bi_Dashboard.png",
+              backupUrl: "assets/images/pizza-powerbi.png"
             },
             {
               label: "Excel",
-              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Pizza_Sales/main/Images/Excel_Dashboard.png"
+              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Pizza_Sales/main/Images/Excel_Dashboard.png",
+              backupUrl: "assets/images/pizza-excel.png"
             }
           ],
           en: {
@@ -1681,7 +1679,8 @@
           dashboards: [
             {
               label: "Excel Dashboard",
-              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Supply-Chain---Shipment-Deliveries/main/Images/Excel_Dashboard.png"
+              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Supply-Chain---Shipment-Deliveries/main/Images/Excel_Dashboard.png",
+              backupUrl: "assets/images/supply-excel.png"
             }
           ],
           en: {
@@ -1721,14 +1720,12 @@
 
     /* ==========================================================================
        START [JS-02: SAFE LENIS, GSAP & MOUSE SPOTLIGHT INIT]
-       Includes fallback protection so if CDN fails, native scroll still works.
        ========================================================================== */
     let currentLang = "en";
     let activeProjectIndex = 0;
     let projectScrollTrigger = null;
     let lastFocusedElement = null;
 
-    // Safe Lenis Initialization with Fallback
     let lenis = {
       stop: () => { document.body.style.overflow = "hidden"; },
       start: () => { document.body.style.overflow = ""; },
@@ -1751,7 +1748,7 @@
         }
         requestAnimationFrame(raf);
       } catch (err) {
-        console.warn("Lenis smooth scroll fallback to native scroll:", err);
+        console.warn("Lenis smooth scroll fallback:", err);
       }
     }
 
@@ -1764,7 +1761,6 @@
       gsap.ticker.lagSmoothing(0);
     }
 
-    // Interactive Mouse Spotlight Tracker
     window.addEventListener("pointermove", (e) => {
       document.documentElement.style.setProperty("--mouse-x", `${e.clientX}px`);
       document.documentElement.style.setProperty("--mouse-y", `${e.clientY}px`);
@@ -1772,17 +1768,30 @@
     /* END [JS-02: SAFE LENIS, GSAP & MOUSE SPOTLIGHT INIT] */
 
     /* ==========================================================================
-       START [JS-03: DOM RENDER ENGINE]
+       START [JS-03: DOM RENDER ENGINE WITH SMART IMAGE FALLBACK]
        ========================================================================== */
-    function handleImageError(imgEl) {
+    function handleImageError(imgEl, backupUrl) {
       if (!imgEl.dataset.retried) {
         imgEl.dataset.retried = "true";
-        imgEl.src = imgEl.src.replace("/main/", "/master/");
+        if (imgEl.src.includes("/main/")) {
+          imgEl.src = imgEl.src.replace("/main/", "/master/");
+        } else if (backupUrl) {
+          imgEl.src = backupUrl;
+        } else {
+          showFallbackMessage(imgEl);
+        }
+      } else if (!imgEl.dataset.backedUp && backupUrl && imgEl.src !== backupUrl) {
+        imgEl.dataset.backedUp = "true";
+        imgEl.src = backupUrl;
       } else {
-        imgEl.style.display = "none";
-        const fallback = imgEl.parentElement.querySelector(".img-fallback-msg");
-        if (fallback) fallback.style.display = "flex";
+        showFallbackMessage(imgEl);
       }
+    }
+
+    function showFallbackMessage(imgEl) {
+      imgEl.style.display = "none";
+      const fallback = imgEl.parentElement.querySelector(".img-fallback-msg");
+      if (fallback) fallback.style.display = "flex";
     }
 
     function renderSite(lang) {
@@ -1822,7 +1831,9 @@
       navList.innerHTML = PORTFOLIO_DATA.projects.map((proj, idx) => `
         <button class="project-nav-btn ${idx === activeProjectIndex ? 'active' : ''}"
                 role="tab"
+                id="tab-${proj.id}"
                 aria-selected="${idx === activeProjectIndex}"
+                aria-controls="panel-${proj.id}"
                 aria-label="Select project ${proj.num}: ${proj[lang].navTitle}"
                 onclick="selectProjectManual(${idx})">
           <span class="proj-num">${proj.num}</span>
@@ -1836,13 +1847,17 @@
         const dashButtons = proj.dashboards.map((d, dIdx) => `
           <button class="dash-tab ${dIdx === 0 ? 'active' : ''}"
                   aria-label="View ${d.label} dashboard"
-                  onclick="switchDashboardImage('${proj.id}', '${d.imgUrl}', this)">
+                  onclick="switchDashboardImage('${proj.id}', '${d.imgUrl}', '${d.backupUrl || ''}', this)">
             ${d.label}
           </button>
         `).join("");
 
         return `
-          <article class="project-slide ${idx === activeProjectIndex ? 'active' : ''}" data-index="${idx}" role="tabpanel">
+          <article class="project-slide ${idx === activeProjectIndex ? 'active' : ''}"
+                   id="panel-${proj.id}"
+                   data-index="${idx}"
+                   role="tabpanel"
+                   aria-labelledby="tab-${proj.id}">
             <div class="project-details">
               <div>
                 <div class="proj-meta-top">
@@ -1887,10 +1902,10 @@
                    onclick="openLightbox('img-${proj.id}', '${pLang.title}', this)"
                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('img-${proj.id}', '${pLang.title}', this);}">
                 <img id="img-${proj.id}" src="${proj.dashboards[0].imgUrl}" alt="${pLang.title} Dashboard" loading="lazy"
-                     onerror="handleImageError(this)">
+                     onerror="handleImageError(this, '${proj.dashboards[0].backupUrl || ''}')">
                 <div class="img-fallback-msg">
-                  <span>📊 Dashboard preview hosted on GitHub</span>
-                  <span style="color:var(--accent-secondary);">${pLang.title}</span>
+                  <span>${data.imgFallback}</span>
+                  <span style="color:var(--accent-secondary); font-size:0.75rem;">${proj.repoUrl}</span>
                 </div>
                 <span class="zoom-badge">🔍 ${lang === 'ar' ? 'اضغط للتكبير' : 'Click to Expand'}</span>
               </div>
@@ -1921,12 +1936,12 @@
       document.getElementById("contact-sub").textContent = data.contactSub;
       document.getElementById("footer-copy").textContent = data.footerCopy;
     }
-    /* END [JS-03: DOM RENDER ENGINE] */
+    /* END [JS-03: DOM RENDER ENGINE WITH SMART IMAGE FALLBACK] */
 
     /* ==========================================================================
        START [JS-04: DASHBOARD & ACCESSIBLE LIGHTBOX CONTROLS]
        ========================================================================== */
-    function switchDashboardImage(projId, newUrl, btnEl) {
+    function switchDashboardImage(projId, newUrl, backupUrl, btnEl) {
       const imgEl = document.getElementById(`img-${projId}`);
       if (!imgEl) return;
 
@@ -1938,9 +1953,12 @@
       const fallback = imgEl.parentElement.querySelector(".img-fallback-msg");
       if (fallback) fallback.style.display = "none";
 
+      imgEl.onerror = function() { handleImageError(this, backupUrl); };
+
       imgEl.style.opacity = "0.25";
       setTimeout(() => {
         delete imgEl.dataset.retried;
+        delete imgEl.dataset.backedUp;
         imgEl.src = newUrl;
         imgEl.style.opacity = "1";
       }, 150);
@@ -2046,7 +2064,6 @@
     function triggerLanguageSwitch(targetLang, btnEl) {
       if (targetLang === currentLang || isTransitioning) return;
 
-      // Fallback if GSAP fails to load
       if (typeof gsap === "undefined") {
         currentLang = targetLang;
         document.getElementById("btn-en").classList.toggle("active", targetLang === "en");
