@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark" data-site="portfolio">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Single Site Configuration Block -->
+  <script>
+    window.SITE_CONFIG = {
+      HUB_URL: "https://esam-haraz.github.io/hub/",
+      AUTODEPLOY_URL: "https://esam-haraz.github.io/AutoDeploy/",
+      DATA_URL: "https://esam-haraz.github.io/Data-Analysis/",
+      PORTFOLIO_URL: "https://esam-haraz.github.io/portfolio/",
+      CV_URL: "https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link",
+      EMAIL: "esamv20@gmail.com",
+      LINKEDIN: "https://www.linkedin.com/in/esam-haraz-459925402",
+      GITHUB: "https://github.com/Esam-Haraz"
+    };
+
+    /* Apply saved theme and language preferences before first paint */
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem("esam_ds_theme_v1");
+        if (savedTheme === "light" || savedTheme === "dark") {
+          document.documentElement.setAttribute("data-theme", savedTheme);
+        }
+        var savedLang = localStorage.getItem("esam_portfolio_lang");
+        if (savedLang === "ar" || savedLang === "en") {
+          document.documentElement.lang = savedLang;
+          document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
+        }
+      } catch (_) {}
+    })();
+  </script>
+
+  <title>404 — Page Not Found | Esam Haraz</title>
+  <meta name="robots" content="noindex">
+
+  <!-- Inline Vector Favicon (Portfolio Lavender #BE9CF2) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='%230A0A10' stroke='%23BE9CF2' stroke-width='3'/%3E%3Crect x='16' y='34' width='8' height='16' rx='4' fill='%23BE9CF2'/%3E%3Crect x='28' y='24' width='8' height='26' rx='4' fill='%23BE9CF2'/%3E%3Crect x='40' y='15' width='8' height='35' rx='4' fill='%23BE9CF2'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts (Design System v1.1 Stack) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=DM+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared Design System v1.1 + Portfolio Extensions -->
+  <link rel="stylesheet" href="./assets/ds.css">
+  <link rel="stylesheet" href="./assets/portfolio.css">
+</head>
+<body>
+  <a href="#main-content" class="ds-skip-link" data-i18n="skipToMain">Skip to main content</a>
+
+  <!-- Circular Language Transition Curtain -->
+  <div class="ds-curtain" id="ds-curtain" aria-hidden="true">
+    <div class="ds-curtain-layer ds-curtain-outer" id="ds-curtain-outer"></div>
+    <div class="ds-curtain-layer ds-curtain-inner" id="ds-curtain-inner">
+      <span class="ds-curtain-sub" id="ds-curtain-sub">SWITCHING TO ENGLISH</span>
+      <span class="ds-curtain-label" id="ds-curtain-label">ESAM HARAZ</span>
+    </div>
+  </div>
+
+  <!-- Unified Fixed Glass Header -->
+  <header class="pf-header" id="pf-header">
+    <a href="./" class="pf-brand" aria-label="Esam Haraz Home">
+      <span class="pf-monogram" aria-hidden="true">EH</span>
+      <span class="pf-brand-text" data-i18n="brandName">Esam Haraz</span>
+    </a>
+
+    <!-- Desktop Ecosystem Mini Node-Graph -->
+    <nav class="ds-mini-graph" aria-label="Sites network navigation">
+      <a href="https://esam-haraz.github.io/hub/" class="ds-mini-node">
+        <span class="ds-mini-dot" aria-hidden="true"></span>
+        <span data-site-label="hub">Services Hub</span>
+      </a>
+      <span class="ds-mini-edge" aria-hidden="true"></span>
+      <a href="https://esam-haraz.github.io/AutoDeploy/" class="ds-mini-node">
+        <span class="ds-mini-dot" aria-hidden="true"></span>
+        <span data-site-label="autodeploy">AutoDeploy</span>
+      </a>
+      <span class="ds-mini-edge" aria-hidden="true"></span>
+      <a href="https://esam-haraz.github.io/Data-Analysis/" class="ds-mini-node">
+        <span class="ds-mini-dot" aria-hidden="true"></span>
+        <span data-site-label="data">Data Analysis</span>
+      </a>
+      <span class="ds-mini-edge" aria-hidden="true"></span>
+      <a href="./" class="ds-mini-node is-current" aria-current="page">
+        <span class="ds-mini-dot" aria-hidden="true"></span>
+        <span data-site-label="portfolio">Portfolio</span>
+      </a>
+    </nav>
+
+    <!-- Header Controls -->
+    <div class="pf-header-actions">
+      <div class="pf-header-desktop-controls">
+        <button type="button" class="ds-icon-btn" data-pf-lang-toggle aria-label="التبديل إلى اللغة العربية">
+          عربي
+        </button>
+        <button type="button" class="ds-icon-btn" data-pf-theme-toggle aria-pressed="true" aria-label="Switch to light mode">
+          <span data-theme-label>Light</span>
+        </button>
+      </div>
+
+      <a href="https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="ds-btn ds-btn-primary pf-cv-btn"
+         data-i18n="ctaCv">
+        Download CV (PDF) ↗
+      </a>
+
+      <button type="button"
+              class="pf-menu-btn"
+              id="pf-menu-btn"
+              aria-expanded="false"
+              aria-controls="pf-mobile-drawer"
+              aria-label="Open navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="17" x2="20" y2="17"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="pf-mobile-drawer" id="pf-mobile-drawer" role="dialog" aria-label="Navigation menu">
+    <div>
+      <span class="pf-drawer-label" data-i18n="drawerSites">Ecosystem sites</span>
+      <div class="pf-drawer-links">
+        <a href="https://esam-haraz.github.io/hub/" class="pf-drawer-link">
+          <span data-site-label="hub">Services Hub</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="https://esam-haraz.github.io/AutoDeploy/" class="pf-drawer-link">
+          <span data-site-label="autodeploy">AutoDeploy</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="https://esam-haraz.github.io/Data-Analysis/" class="pf-drawer-link">
+          <span data-site-label="data">Data Analysis</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="./" class="pf-drawer-link is-current" aria-current="page">
+          <span data-site-label="portfolio">Portfolio</span>
+          <span aria-hidden="true">●</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="pf-drawer-controls">
+      <button type="button" class="ds-icon-btn" data-pf-lang-toggle aria-label="التبديل إلى اللغة العربية">
+        عربي
+      </button>
+      <button type="button" class="ds-icon-btn" data-pf-theme-toggle aria-pressed="true" aria-label="Switch to light mode">
+        <span data-theme-label>Light</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main 404 Content -->
+  <main id="main-content" class="ds-container">
+    <section class="ds-section" style="border-block-end: none;" aria-labelledby="err-title">
+      <div class="ds-node">
+        <div class="ds-node-header">
+          <span>HTTP 404</span>
+          <span data-i18n="errStatus">Page not found</span>
+        </div>
+        <div class="ds-node-body" style="display: flex; flex-direction: column; gap: var(--space-4);">
+          <h1 id="err-title" style="font-size: var(--text-hero); line-height: 1.15;" data-i18n="errTitle">
+            Page not found (404)
+          </h1>
+          <p style="color: var(--ink-muted);" data-i18n="errDesc">
+            The requested page does not exist in this portfolio. Return to the main page or jump directly to the analytics case studies.
+          </p>
+          <div class="ds-chips-row">
+            <a href="./" class="ds-btn ds-btn-primary" data-i18n="btnHome">← Back to Portfolio</a>
+            <a href="./#projects" class="ds-btn ds-btn-secondary" data-i18n="btnProjects">Case Studies</a>
+            <a href="https://esam-haraz.github.io/Data-Analysis/" class="ds-btn ds-btn-secondary" data-i18n="btnData">Data Analysis ↗</a>
+            <a href="https://esam-haraz.github.io/hub/" class="ds-btn ds-btn-secondary" data-i18n="btnHub">Services Hub ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="ds-footer">
+    <div class="ds-container">
+      <div class="ds-footer-bottom" style="padding-block-start: 0; border-block-start: none;">
+        <span data-i18n="footerCopy">© 2026 Esam Haraz. Hosted on GitHub Pages.</span>
+        <a href="mailto:esamv20@gmail.com">esamv20@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var I18N_404 = {
+        en: {
+          skipToMain: "Skip to main content",
+          brandName: "Esam Haraz",
+          ctaCv: "Download CV (PDF) ↗",
+          drawerSites: "Ecosystem sites",
+          errStatus: "Page not found",
+          errTitle: "Page not found (404)",
+          errDesc: "The requested page does not exist in this portfolio. Return to the main page or jump directly to the analytics case studies.",
+          btnHome: "← Back to Portfolio",
+          btnProjects: "Case Studies",
+          btnData: "Data Analysis ↗",
+          btnHub: "Services Hub ↗",
+          footerCopy: "© 2026 Esam Haraz. Hosted on GitHub Pages."
+        },
+        ar: {
+          skipToMain: "تخطي إلى المحتوى الرئيسي",
+          brandName: "عصام حراز",
+          ctaCv: "تحميل السيرة الذاتية (CV) ↗",
+          drawerSites: "مواقع الشبكة",
+          errStatus: "الصفحة غير موجودة",
+          errTitle: "الصفحة غير موجودة (404)",
+          errDesc: "المسار المطلوب غير موجود في معرض الأعمال. يمكنك العودة إلى الصفحة الرئيسية أو الانتقال مباشرة إلى دراسات الحالة.",
+          btnHome: "→ العودة إلى معرض الأعمال",
+          btnProjects: "دراسات الحالة",
+          btnData: "تحليل البيانات ↗",
+          btnHub: "المركز الرئيسي ↗",
+          footerCopy: "© 2026 عصام حراز. مستضاف عبر GitHub Pages."
+        }
+      };
+
+      var lang = document.documentElement.lang === "ar" ? "ar" : "en";
+      var theme = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+      var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var wiping = false;
+
+      function applyTheme(nextTheme, persist) {
+        theme = nextTheme === "light" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+        if (persist) {
+          try { localStorage.setItem("esam_ds_theme_v1", theme); } catch (_) {}
+        }
+        var isDark = theme === "dark";
+        document.querySelectorAll("[data-pf-theme-toggle]").forEach(function (btn) {
+          btn.setAttribute("aria-pressed", String(isDark));
+          var lbl = btn.querySelector("[data-theme-label]");
+          if (lbl) {
+            lbl.textContent = lang === "ar" ? (isDark ? "فاتح" : "داكن") : (isDark ? "Light" : "Dark");
+          }
+        });
+      }
+
+      function applyLang(nextLang, persist) {
+        lang = nextLang === "ar" ? "ar" : "en";
+        var dir = lang === "ar" ? "rtl" : "ltr";
+        document.documentElement.lang = lang;
+        document.documentElement.dir = dir;
+        if (document.body) document.body.dir = dir;
+        if (persist) {
+          try { localStorage.setItem("esam_portfolio_lang", lang); } catch (_) {}
+        }
+
+        var dict = I18N_404[lang];
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n");
+          if (dict[key]) el.textContent = dict[key];
+        });
+
+        var siteLabels = {
+          hub: lang === "ar" ? "المركز الرئيسي" : "Services Hub",
+          autodeploy: "AutoDeploy",
+          data: lang === "ar" ? "تحليل البيانات" : "Data Analysis",
+          portfolio: lang === "ar" ? "معرض الأعمال" : "Portfolio"
+        };
+        document.querySelectorAll("[data-site-label]").forEach(function (el) {
+          var id = el.getAttribute("data-site-label");
+          if (siteLabels[id]) el.textContent = siteLabels[id];
+        });
+
+        document.querySelectorAll("[data-pf-lang-toggle]").forEach(function (btn) {
+          btn.textContent = lang === "ar" ? "EN" : "عربي";
+        });
+
+        applyTheme(theme, false);
+      }
+
+      function switchLangWithWipe(triggerEl) {
+        if (wiping) return;
+        var next = lang === "ar" ? "en" : "ar";
+        var curtain = document.getElementById("ds-curtain");
+        var outer = document.getElementById("ds-curtain-outer");
+        var inner = document.getElementById("ds-curtain-inner");
+        var labelEl = document.getElementById("ds-curtain-label");
+        var subEl = document.getElementById("ds-curtain-sub");
+
+        if (reducedMotion || !curtain || !outer || !inner || typeof outer.animate !== "function") {
+          applyLang(next, true);
+          return;
+        }
+
+        wiping = true;
+        var rect = (triggerEl || document.body).getBoundingClientRect();
+        var sx = Math.round(((rect.left + rect.width / 2) / Math.max(window.innerWidth, 1)) * 100);
+        var sy = Math.round(((rect.top + rect.height / 2) / Math.max(window.innerHeight, 1)) * 100);
+        var ex = 100 - sx;
+
+        if (labelEl) labelEl.textContent = next === "ar" ? "عصام حراز" : "ESAM HARAZ";
+        if (subEl) subEl.textContent = next === "ar" ? "التحويل إلى العربية" : "SWITCHING TO ENGLISH";
+
+        var dur = 400;
+        var easing = "cubic-bezier(0.76, 0, 0.24, 1)";
+        var o1 = outer.animate([{ clipPath: "circle(0% at " + sx + "% " + sy + "%)" }, { clipPath: "circle(155% at " + sx + "% " + sy + "%)" }], { duration: dur, easing: easing, fill: "forwards" });
+        var i1 = inner.animate([{ clipPath: "circle(0% at " + sx + "% " + sy + "%)" }, { clipPath: "circle(155% at " + sx + "% " + sy + "%)" }], { duration: dur, delay: 50, easing: easing, fill: "forwards" });
+
+        i1.onfinish = function () {
+          applyLang(next, true);
+          var i2 = inner.animate([{ clipPath: "circle(155% at " + ex + "% 100%)" }, { clipPath: "circle(0% at " + ex + "% 100%)" }], { duration: dur, delay: 50, easing: easing, fill: "forwards" });
+          var o2 = outer.animate([{ clipPath: "circle(155% at " + ex + "% 100%)" }, { clipPath: "circle(0% at " + ex + "% 100%)" }], { duration: dur, delay: 100, easing: easing, fill: "forwards" });
+          o2.onfinish = function () {
+            o1.cancel(); i1.cancel(); i2.cancel(); o2.cancel();
+            outer.style.clipPath = "circle(0% at " + sx + "% " + sy + "%)";
+            inner.style.clipPath = "circle(0% at " + sx + "% " + sy + "%)";
+            wiping = false;
+          };
+        };
+      }
+
+      var header = document.getElementById("pf-header");
+      window.addEventListener("scroll", function () {
+        if (header) header.classList.toggle("is-scrolled", (window.scrollY || 0) > 24);
+      }, { passive: true });
+
+      var menuBtn = document.getElementById("pf-menu-btn");
+      var drawer = document.getElementById("pf-mobile-drawer");
+      if (menuBtn && drawer) {
+        menuBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          var open = !drawer.classList.contains("is-open");
+          drawer.classList.toggle("is-open", open);
+          menuBtn.setAttribute("aria-expanded", String(open));
+        });
+        document.addEventListener("click", function (e) {
+          if (drawer.classList.contains("is-open") && !drawer.contains(e.target) && !menuBtn.contains(e.target)) {
+            drawer.classList.remove("is-open");
+            menuBtn.setAttribute("aria-expanded", "false");
+          }
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && drawer.classList.contains("is-open")) {
+            drawer.classList.remove("is-open");
+            menuBtn.setAttribute("aria-expanded", "false");
+            menuBtn.focus();
+          }
+        });
+      }
+
+      document.querySelectorAll("[data-pf-theme-toggle]").forEach(function (btn) {
+        btn.addEventListener("click", function () { applyTheme(theme === "dark" ? "light" : "dark", true); });
+      });
+      document.querySelectorAll("[data-pf-lang-toggle]").forEach(function (btn) {
+        btn.addEventListener("click", function () { switchLangWithWipe(btn); });
+      });
+
+      applyLang(lang, false);
+    })();
+  </script>
+</body>
+</html>
