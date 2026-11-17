@@ -12,7 +12,8 @@
      -------------------------------------------------------------------------- */
   const DEFAULT_CFG = {
     HUB_URL: "https://esam-haraz.github.io/hub/",
-    AUTODEPLOY_URL: "https://esam-haraz.github.io/AutoDeploy/",
+    DESKTOP_TOOLS_URL: "https://esam-haraz.github.io/Desktop-Tools/",
+    AUTODEPLOY_URL: "https://esam-haraz.github.io/Desktop-Tools/assets/projects/autodeploy/",
     DATA_URL: "https://esam-haraz.github.io/Data-Analysis/",
     PORTFOLIO_URL: "https://esam-haraz.github.io/portfolio/",
     CV_URL: "https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link",
@@ -755,7 +756,7 @@
     // Update site navigation labels in desktop mini-graph & mobile drawer
     const siteLabels = {
       hub: currentLang === "ar" ? "المركز الرئيسي" : "Services Hub",
-      autodeploy: "AutoDeploy",
+      "desktop-tools": currentLang === "ar" ? "أدوات سطح المكتب" : "Desktop Tools",
       data: currentLang === "ar" ? "تحليل البيانات" : "Data Analysis",
       portfolio: currentLang === "ar" ? "معرض الأعمال" : "Portfolio"
     };
