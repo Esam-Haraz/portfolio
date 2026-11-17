@@ -1,0 +1,980 @@
+/* ============================================================================
+   PORTFOLIO SITE EXTENSIONS — DESIGN SYSTEM v1.1 (DATA ANALYST EDITION)
+   Author: Esam Haraz
+   Path: portfolio/assets/portfolio.css
+   Scope: All overrides & new components scoped under html[data-site="portfolio"]
+   ============================================================================
+
+   VERIFIED WCAG 2.1 CONTRAST TABLE (Computed via Relative Luminance):
+   ----------------------------------------------------------------------------
+   Pair                                                Hex Values           Ratio
+   ----------------------------------------------------------------------------
+   [DARK THEME - Default]
+   --ink on --bg-paper                                 #ECEBF4 / #0A0A10   16.52:1 (AAA)
+   --ink on --bg-surface                               #ECEBF4 / #12121A   15.48:1 (AAA)
+   --ink-muted on --bg-paper                           #A19FB5 / #0A0A10    7.74:1 (AAA)
+   --ink-muted on --bg-surface                         #A19FB5 / #12121A    7.25:1 (AAA)
+   --rule-strong on --bg-paper (non-text >= 3.0)       #67648A / #0A0A10    3.51:1 (AA)
+   --rule-strong on --bg-surface (non-text >= 3.0)     #67648A / #12121A    3.29:1 (AA)
+   --ink-on-accent on --accent-folio                   #0E0A1F / #BE9CF2    8.36:1 (AAA)
+   --ink-on-accent on --accent-folio-hover             #0E0A1F / #CDB1F6    9.87:1 (AAA)
+   --accent-folio (text/line) on --bg-paper            #BE9CF2 / #0A0A10    9.06:1 (AAA)
+   --accent-folio (text/line) on --bg-surface          #BE9CF2 / #12121A    8.49:1 (AAA)
+
+   [LIGHT THEME]
+   --ink on --bg-paper                                 #131022 / #F7F6FB   17.28:1 (AAA)
+   --ink on --bg-surface                               #131022 / #FFFFFF   18.54:1 (AAA)
+   --ink-muted on --bg-paper                           #4B4666 / #F7F6FB    8.31:1 (AAA)
+   --ink-muted on --bg-surface                         #4B4666 / #FFFFFF    8.91:1 (AAA)
+   --rule-strong on --bg-paper (non-text >= 3.0)       #767096 / #F7F6FB    4.31:1 (AA)
+   --rule-strong on --bg-surface (non-text >= 3.0)     #767096 / #FFFFFF    4.62:1 (AA)
+   --accent-line (text/line) on --bg-paper             #7339C2 / #F7F6FB    6.32:1 (AA)
+   --accent-line (text/line) on --bg-surface           #7339C2 / #FFFFFF    6.78:1 (AA)
+   --ink-on-accent on --accent-folio (+1px --ink border) #0E0A1F / #BE9CF2  8.36:1 (AAA)
+   ---------------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------------
+   1. SITE TOKENS (DARK DEFAULT & LIGHT MODE OVERRIDES)
+   ---------------------------------------------------------------------------- */
+html[data-site="portfolio"] {
+  /* Dark Theme Default Tokens */
+  --bg-paper: #0A0A10;
+  --bg-surface: #12121A;
+  --bg-sunken: #07070C;
+  --ink: #ECEBF4;
+  --ink-muted: #A19FB5;
+  --rule: #1E1E2A;
+  --rule-strong: #67648A;
+
+  /* Portfolio Lavender Accent Tokens */
+  --accent-folio: #BE9CF2;
+  --accent-folio-hover: #CDB1F6;
+  --ink-on-accent: #0E0A1F;
+  --site-accent: var(--accent-folio);
+  --accent-line: #BE9CF2;
+
+  /* Route links & focus rings to portfolio accent instead of cobalt */
+  --cobalt: var(--accent-line);
+
+  /* Header Glass Tokens */
+  --header-glass-bg: rgba(10, 10, 16, 0.84);
+  --header-solid-bg: #0A0A10;
+}
+
+html[data-site="portfolio"][data-theme="light"] {
+  --bg-paper: #F7F6FB;
+  --bg-surface: #FFFFFF;
+  --bg-sunken: #EFEBF8;
+  --ink: #131022;
+  --ink-muted: #4B4666;
+  --rule: #DDD8EC;
+  --rule-strong: #767096;
+
+  --accent-folio: #BE9CF2;
+  --accent-folio-hover: #CDB1F6;
+  --ink-on-accent: #0E0A1F;
+  --site-accent: var(--accent-folio);
+  --accent-line: #7339C2;
+  --cobalt: var(--accent-line);
+
+  --header-glass-bg: rgba(247, 246, 251, 0.86);
+  --header-solid-bg: #F7F6FB;
+}
+
+html[data-site="portfolio"] body {
+  padding-block-start: var(--header-h);
+}
+
+html[data-site="portfolio"] a:not(.ds-btn):not(.ds-mini-node):not(.pf-brand):not(.pf-hbar-card):not(.pf-drawer-link):hover {
+  color: var(--accent-line);
+}
+
+html[data-site="portfolio"] .ds-btn-primary:hover {
+  background-color: var(--accent-folio-hover);
+}
+
+/* Enforce 1px --ink border on progress/bar fills for >= 3:1 light-mode contrast */
+html[data-site="portfolio"] .ds-progress-fill,
+html[data-site="portfolio"] .ds-bar-fill {
+  border: 1px solid var(--ink);
+}
+
+/* ----------------------------------------------------------------------------
+   2. FIXED TRANSPARENT-TO-BLUR HEADER & MOBILE DRAWER (<= 320px SAFE)
+   ---------------------------------------------------------------------------- */
+html[data-site="portfolio"] .pf-header {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 900;
+  block-size: var(--header-h);
+  padding-inline: clamp(0.75rem, 3vw, 2.25rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  background-color: transparent;
+  border-block-end: 1px solid transparent;
+  transition: background-color 220ms ease, border-color 220ms ease;
+}
+
+html[data-site="portfolio"] .pf-header.is-scrolled {
+  background-color: var(--header-glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-block-end-color: var(--rule);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  html[data-site="portfolio"] .pf-header.is-scrolled {
+    background-color: var(--header-solid-bg);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html[data-site="portfolio"] .pf-header.is-scrolled {
+    background-color: var(--header-solid-bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+html[data-site="portfolio"] .pf-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 44px;
+  padding-inline: var(--space-1);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+html[data-site="portfolio"] .pf-monogram {
+  inline-size: 28px;
+  block-size: 28px;
+  border-radius: var(--radius-sm);
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  border: 1.5px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+html[data-site="portfolio"] .pf-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+html[data-site="portfolio"] .pf-header-desktop-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-cv-btn {
+  min-block-size: 44px;
+  padding-inline: var(--space-3);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+html[data-site="portfolio"] .pf-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  background-color: var(--bg-surface);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+html[data-site="portfolio"] .pf-menu-btn:hover {
+  border-color: var(--ink);
+  background-color: var(--bg-sunken);
+}
+
+/* Compact desktop spacing between 1024px and 1280px so header never overflows */
+@media (min-width: 960px) and (max-width: 1280px) {
+  html[data-site="portfolio"] .pf-header {
+    padding-inline: 1rem;
+    gap: var(--space-1);
+  }
+  html[data-site="portfolio"] .ds-mini-node {
+    padding-inline: 0.5rem;
+    font-size: 0.8125rem;
+  }
+  html[data-site="portfolio"] .ds-mini-edge {
+    inline-size: 10px;
+  }
+  html[data-site="portfolio"] .pf-cv-btn {
+    padding-inline: 0.65rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* Mobile Header Layout (< 960px): [EH] ... [Download CV] [☰] */
+@media (max-width: 959px) {
+  html[data-site="portfolio"] .ds-mini-graph,
+  html[data-site="portfolio"] .pf-header-desktop-controls {
+    display: none;
+  }
+  html[data-site="portfolio"] .pf-menu-btn {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 360px) {
+  html[data-site="portfolio"] .pf-brand-text {
+    display: none;
+  }
+  html[data-site="portfolio"] .pf-cv-btn {
+    padding-inline: 0.6rem;
+    font-size: 0.78rem;
+  }
+}
+
+/* Mobile Navigation Drawer */
+html[data-site="portfolio"] .pf-mobile-drawer {
+  position: fixed;
+  inset-block-start: var(--header-h);
+  inset-inline: 0;
+  z-index: 890;
+  background-color: var(--bg-surface);
+  border-block-end: 1.5px solid var(--rule-strong);
+  padding: var(--space-4);
+  display: none;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-block-size: calc(100dvh - var(--header-h));
+  overflow-y: auto;
+}
+
+html[data-site="portfolio"] .pf-mobile-drawer.is-open {
+  display: flex;
+}
+
+html[data-site="portfolio"] .pf-drawer-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-block-end: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+html[data-site="portfolio"] .pf-drawer-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: 44px;
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--rule);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+html[data-site="portfolio"] .pf-drawer-link:hover {
+  background-color: var(--bg-sunken);
+  border-color: var(--rule-strong);
+}
+
+html[data-site="portfolio"] .pf-drawer-link.is-current {
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  border-color: var(--ink);
+  font-weight: 700;
+}
+
+html[data-site="portfolio"] .pf-drawer-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-block-start: var(--space-2);
+  border-block-start: 1px solid var(--rule);
+}
+
+html[data-site="portfolio"] .pf-drawer-controls .ds-icon-btn {
+  flex: 1 1 120px;
+}
+
+/* ----------------------------------------------------------------------------
+   3. LINE-BY-LINE READING-DIRECTION HEADING WIPE (H1 & H2)
+   ---------------------------------------------------------------------------- */
+@property --pf-wipe {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+html[data-site="portfolio"].pf-js-ready .pf-reveal-heading {
+  --pf-wipe: 0%;
+  -webkit-mask-image: linear-gradient(90deg, #000 var(--pf-wipe), transparent var(--pf-wipe));
+  mask-image: linear-gradient(90deg, #000 var(--pf-wipe), transparent var(--pf-wipe));
+  clip-path: inset(0 calc(100% - var(--pf-wipe)) 0 0);
+  transition: --pf-wipe var(--motion-wipe-dur) var(--motion-wipe-ease),
+              clip-path var(--motion-wipe-dur) var(--motion-wipe-ease);
+}
+
+html[data-site="portfolio"][dir="rtl"].pf-js-ready .pf-reveal-heading {
+  -webkit-mask-image: linear-gradient(270deg, #000 var(--pf-wipe), transparent var(--pf-wipe));
+  mask-image: linear-gradient(270deg, #000 var(--pf-wipe), transparent var(--pf-wipe));
+  clip-path: inset(0 0 0 calc(100% - var(--pf-wipe)));
+}
+
+html[data-site="portfolio"].pf-js-ready .pf-reveal-heading.is-revealed {
+  --pf-wipe: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-site="portfolio"].pf-js-ready .pf-reveal-heading {
+    --pf-wipe: 100% !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   4. HERO SECTION & NUMBERS-FIRST HORIZONTAL BAR CHART (0-100% FIXED SCALE)
+   ---------------------------------------------------------------------------- */
+html[data-site="portfolio"] .pf-hero {
+  padding-block: clamp(2.25rem, 5vw, 4rem) clamp(2.75rem, 6vw, 4.5rem);
+  border-block-end: 1px solid var(--rule);
+}
+
+html[data-site="portfolio"] .pf-hero-top {
+  max-inline-size: 860px;
+}
+
+html[data-site="portfolio"] .pf-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-block-end: var(--space-4);
+}
+
+html[data-site="portfolio"] .pf-avail-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.28rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--rule-strong);
+  font-size: 0.8125rem;
+  color: var(--ink);
+}
+
+html[data-site="portfolio"] .pf-avail-dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: var(--radius-pill);
+  background-color: var(--site-accent);
+  border: 1px solid var(--ink);
+  flex-shrink: 0;
+}
+
+html[data-site="portfolio"] .pf-hero-title {
+  font-size: var(--text-hero);
+  line-height: 1.15;
+  margin-block-end: var(--space-4);
+}
+
+html[data-site="portfolio"][dir="rtl"] .pf-hero-title {
+  line-height: 1.28;
+}
+
+html[data-site="portfolio"] .pf-hero-summary {
+  font-size: clamp(0.98rem, 1.4vw, 1.1rem);
+  color: var(--ink-muted);
+  margin-block-end: var(--space-5);
+}
+
+html[data-site="portfolio"] .pf-hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block-end: var(--space-6);
+}
+
+/* Numbers-First Hero Chart Grid */
+html[data-site="portfolio"] .pf-hero-bars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  gap: var(--space-4);
+  padding-block-start: var(--space-5);
+  border-block-start: 1px solid var(--rule);
+}
+
+html[data-site="portfolio"] .pf-hbar-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+html[data-site="portfolio"] .pf-hbar-card:hover,
+html[data-site="portfolio"] .pf-hbar-card:focus-visible {
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+html[data-site="portfolio"] .pf-hbar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-hbar-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+html[data-site="portfolio"] .pf-hbar-arrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  color: var(--accent-line);
+  font-weight: 700;
+}
+
+html[data-site="portfolio"] .pf-hbar-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-hbar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+html[data-site="portfolio"] .pf-hbar-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+}
+
+html[data-site="portfolio"] .pf-hbar-lbl {
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+html[data-site="portfolio"] .pf-hbar-val {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Fixed 0-100% Scale Track */
+html[data-site="portfolio"] .pf-hbar-track {
+  inline-size: 100%;
+  block-size: 14px;
+  background-color: var(--bg-sunken);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-pill);
+  padding: 2px;
+  overflow: hidden;
+}
+
+html[data-site="portfolio"] .pf-hbar-fill {
+  block-size: 100%;
+  inline-size: calc(var(--pct, 0) * 1%);
+  background-color: var(--site-accent);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-pill);
+  transition: inline-size var(--motion-fill-dur) var(--motion-fill-ease);
+}
+
+html[data-site="portfolio"].pf-js-ready .pf-hero-bars:not(.is-visible) .pf-hbar-fill {
+  inline-size: 0%;
+}
+
+html[data-site="portfolio"] .pf-hbar-fill.is-muted {
+  background-color: var(--rule-strong);
+  border-color: var(--ink);
+}
+
+html[data-site="portfolio"] .pf-hbar-big {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2.8vw, 2.25rem);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+html[data-site="portfolio"] .pf-hbar-sub {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+html[data-site="portfolio"] .pf-hbar-caption {
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+/* ----------------------------------------------------------------------------
+   5. STACKED CASE STUDIES, DEVICE FRAMES, TABS & KEYBOARD LIGHTBOX
+   ---------------------------------------------------------------------------- */
+html[data-site="portfolio"] .pf-cases-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+html[data-site="portfolio"] .pf-case-card {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (min-width: 980px) {
+  html[data-site="portfolio"] .pf-case-card {
+    grid-template-columns: 1.05fr 1.1fr;
+    gap: var(--space-6);
+  }
+}
+
+html[data-site="portfolio"] .pf-case-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-block-end: var(--space-3);
+}
+
+html[data-site="portfolio"] .pf-case-title {
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  line-height: 1.25;
+  margin-block-end: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-case-summary {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  margin-block-end: var(--space-4);
+}
+
+html[data-site="portfolio"] .pf-case-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  margin-block-end: var(--space-4);
+}
+
+@media (max-width: 420px) {
+  html[data-site="portfolio"] .pf-case-kpis {
+    grid-template-columns: 1fr;
+  }
+}
+
+html[data-site="portfolio"] .pf-kpi-box {
+  background-color: var(--bg-sunken);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+}
+
+html[data-site="portfolio"] .pf-kpi-box strong {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent-line);
+}
+
+html[data-site="portfolio"] .pf-kpi-box span {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+html[data-site="portfolio"] .pf-insights-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-block-end: var(--space-4);
+}
+
+html[data-site="portfolio"] .pf-insights-list li {
+  position: relative;
+  padding-inline-start: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--ink);
+}
+
+html[data-site="portfolio"] .pf-insights-list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.58em;
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: var(--radius-pill);
+  background-color: var(--accent-line);
+}
+
+html[data-site="portfolio"] .pf-rec-box {
+  background-color: var(--bg-sunken);
+  border: 1px solid var(--rule-strong);
+  border-inline-start: 4px solid var(--accent-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--ink);
+  margin-block-end: var(--space-4);
+}
+
+html[data-site="portfolio"] .pf-rec-box strong {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-line);
+  margin-inline-end: var(--space-1);
+}
+
+html[data-site="portfolio"] .pf-case-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-case-actions .ds-btn {
+  flex: 1 1 200px;
+}
+
+/* Device Frame & Dashboard Switcher */
+html[data-site="portfolio"] .pf-device-frame {
+  background-color: var(--bg-sunken);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+html[data-site="portfolio"] .pf-device-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--bg-paper);
+  border-block-end: 1px solid var(--rule);
+}
+
+html[data-site="portfolio"] .pf-device-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+html[data-site="portfolio"] .pf-device-dots span {
+  inline-size: 9px;
+  block-size: 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--rule-strong);
+  background-color: var(--bg-surface);
+}
+
+html[data-site="portfolio"] .pf-device-dots span:first-child {
+  background-color: var(--site-accent);
+  border-color: var(--ink);
+}
+
+html[data-site="portfolio"] .pf-dash-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+html[data-site="portfolio"] .pf-dash-tab {
+  min-block-size: 44px;
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--rule-strong);
+  background-color: var(--bg-surface);
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+html[data-site="portfolio"] .pf-dash-tab:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+html[data-site="portfolio"] .pf-dash-tab.is-active {
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  border-color: var(--ink);
+  font-weight: 700;
+}
+
+html[data-site="portfolio"] .pf-dash-trigger {
+  position: relative;
+  display: block;
+  inline-size: 100%;
+  background-color: var(--bg-sunken);
+  border: none;
+  padding: 0;
+  cursor: zoom-in;
+  text-align: start;
+}
+
+html[data-site="portfolio"] .pf-dash-trigger img {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  background-color: var(--bg-sunken);
+}
+
+html[data-site="portfolio"] .pf-zoom-hint {
+  position: absolute;
+  inset-block-end: var(--space-2);
+  inset-inline-end: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.22rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  pointer-events: none;
+}
+
+/* ----------------------------------------------------------------------------
+   6. SKILLS GRID (NO PERCENTAGES, NO STARS, SVG ICONS ONLY)
+   ---------------------------------------------------------------------------- */
+html[data-site="portfolio"] .pf-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: var(--space-4);
+}
+
+html[data-site="portfolio"] .pf-skill-card {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+html[data-site="portfolio"] .pf-skill-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--accent-line);
+}
+
+html[data-site="portfolio"] .pf-skill-title {
+  font-size: var(--text-h3);
+  color: var(--ink);
+}
+
+html[data-site="portfolio"] .pf-skill-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-skill-list li {
+  position: relative;
+  padding-inline-start: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+html[data-site="portfolio"] .pf-skill-list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.6em;
+  inline-size: 5px;
+  block-size: 5px;
+  border-radius: var(--radius-pill);
+  background-color: var(--accent-line);
+}
+
+/* ----------------------------------------------------------------------------
+   7. BEYOND ANALYSIS (COMPACT AUTODEPLOY CARD + SERVICES HUB TEXT LINK)
+   ---------------------------------------------------------------------------- */
+html[data-site="portfolio"] .pf-beyond-intro {
+  color: var(--ink-muted);
+  margin-block-end: var(--space-4);
+}
+
+html[data-site="portfolio"] .pf-beyond-card {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-block-end: var(--space-4);
+}
+
+html[data-site="portfolio"] .pf-beyond-body {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-beyond-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-beyond-desc {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+html[data-site="portfolio"] .pf-hub-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-block-size: 44px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--accent-line);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ----------------------------------------------------------------------------
+   8. ABOUT, EDUCATION & CONTACT SECTION
+   ---------------------------------------------------------------------------- */
+html[data-site="portfolio"] .pf-about-edu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 820px) {
+  html[data-site="portfolio"] .pf-about-edu-grid {
+    grid-template-columns: 1.15fr 1fr;
+  }
+}
+
+html[data-site="portfolio"] .pf-info-card {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-edu-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--accent-line);
+  font-weight: 600;
+}
+
+html[data-site="portfolio"] .pf-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (min-width: 860px) {
+  html[data-site="portfolio"] .pf-contact-grid {
+    grid-template-columns: 1fr 1.15fr;
+  }
+}
+
+html[data-site="portfolio"] .pf-contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-block-size: 48px;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+html[data-site="portfolio"] .pf-contact-row:hover,
+html[data-site="portfolio"] .pf-contact-row:focus-visible {
+  border-color: var(--ink);
+  background-color: var(--bg-sunken);
+}
+
+html[data-site="portfolio"] .pf-contact-left {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+html[data-site="portfolio"] .pf-contact-left svg {
+  color: var(--accent-line);
+  flex-shrink: 0;
+}
