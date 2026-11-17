@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://esam-haraz.github.io/portfolio/sitemap.xml
