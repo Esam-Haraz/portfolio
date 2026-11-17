@@ -1,50 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-theme="dark" data-site="portfolio">
 <head>
-  <!--
-  ==============================================================================
-  AI CONTEXT & ARCHITECTURE GUIDE (FOR FUTURE LLM / AI SESSIONS)
-  ==============================================================================
-  Project: Bilingual Data Analyst Portfolio for Esam Haraz
-  Hosting: Single-file static architecture optimized for GitHub Pages (index.html)
-
-  BOOKMARK INDEX (Use Ctrl+F with these exact tags to locate/edit any section):
-  - [HTML-00: META, SEO, CANONICAL, OPEN GRAPH & FAVICON]
-  - [CSS-01: THEME VARIABLES - BLUE GRADIENT]
-  - [CSS-02: BASE, AURORA MESH & MOUSE SPOTLIGHT]
-  - [CSS-03: CIRCULAR CORNER LANGUAGE REVEAL]
-  - [CSS-04: NAVBAR]
-  - [CSS-05: BUTTONS & TAGS]
-  - [CSS-06: HERO & 3-CARD IMPACT METRICS]
-  - [CSS-07: PINNED PROJECTS SHOWCASE (SHORT LAPTOP & FLUID MOBILE SAFE)]
-  - [CSS-07B: ACCESSIBLE FULLSCREEN LIGHTBOX MODAL]
-  - [CSS-08: SKILLS GRID]
-  - [CSS-09: ABOUT, EDUCATION & CONTACT FOOTER]
-  - [HTML-01: CIRCULAR LANGUAGE CURTAIN & LIGHTBOX]
-  - [HTML-02: NAVBAR]
-  - [HTML-03: HERO SECTION]
-  - [HTML-04: PINNED PROJECTS SECTION]
-  - [HTML-05: SKILLS SECTION]
-  - [HTML-06: ABOUT, EDUCATION & CONTACT FOOTER]
-  - [JS-01: PORTFOLIO DATA STORE]
-  - [JS-02: SINGLE-TICKER LENIS, GSAP & MOUSE SPOTLIGHT INIT]
-  - [JS-03: DOM RENDER ENGINE & STATE PERSISTENCE]
-  - [JS-04: DASHBOARD, KEYBOARD TABS & ACCESSIBLE LIGHTBOX]
-  - [JS-05: PINNED SCROLLTRIGGER & SMOOTH ANCHOR NAVIGATION]
-  - [JS-06: CIRCULAR LANGUAGE SWITCH & LOCALSTORAGE]
-  - [JS-07: BUILT-IN 1200x630 OG-COVER.PNG GENERATOR (Ctrl+Shift+O)]
-  ==============================================================================
-  -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- START [HTML-00: META, SEO, CANONICAL, OPEN GRAPH & FAVICON] -->
+  <!-- Single Site Configuration Block -->
+  <script>
+    window.SITE_CONFIG = {
+      HUB_URL: "https://esam-haraz.github.io/hub/",
+      AUTODEPLOY_URL: "https://esam-haraz.github.io/AutoDeploy/",
+      DATA_URL: "https://esam-haraz.github.io/Data-Analysis/",
+      PORTFOLIO_URL: "https://esam-haraz.github.io/portfolio/",
+      CV_URL: "https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link",
+      EMAIL: "esamv20@gmail.com",
+      LINKEDIN: "https://www.linkedin.com/in/esam-haraz-459925402",
+      GITHUB: "https://github.com/Esam-Haraz"
+    };
+
+    /* Apply saved theme and language preferences before first paint */
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem("esam_ds_theme_v1");
+        if (savedTheme === "light" || savedTheme === "dark") {
+          document.documentElement.setAttribute("data-theme", savedTheme);
+        }
+        var savedLang = localStorage.getItem("esam_portfolio_lang");
+        if (savedLang === "ar" || savedLang === "en") {
+          document.documentElement.lang = savedLang;
+          document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
+        }
+      } catch (_) {}
+    })();
+  </script>
+
+  <!-- Primary SEO, Canonical & Open Graph Metadata -->
   <title>Esam Haraz | Data Analyst Portfolio</title>
   <meta name="description" content="Bilingual Data Analyst Portfolio of Esam Haraz. End-to-end analytics case studies in SQL (PostgreSQL), Power BI (DAX), Microsoft Excel, and Python.">
   <meta name="author" content="Esam Haraz">
   <link rel="canonical" href="https://esam-haraz.github.io/portfolio/">
 
-  <!-- Open Graph / LinkedIn / WhatsApp Preview Tags -->
+  <!-- Open Graph / Social Sharing Metadata -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ar_EG">
@@ -59,2460 +54,838 @@
   <meta name="twitter:description" content="End-to-end data analytics projects in SQL (PostgreSQL), Power BI (DAX), and Excel.">
   <meta name="twitter:image" content="https://esam-haraz.github.io/portfolio/assets/og-cover.png">
 
-  <!-- Data Node SVG Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%2338bdf8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%23050a18'/%3E%3Cpath d='M20 44 L32 20 L46 36 L20 44 Z' stroke='url(%23g)' stroke-width='3.5' fill='none' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='20' r='6' fill='%2338bdf8'/%3E%3Ccircle cx='20' cy='44' r='5.5' fill='%232563eb'/%3E%3Ccircle cx='46' cy='36' r='5.5' fill='%2360a5fa'/%3E%3C/svg%3E">
-  <!-- END [HTML-00: META, SEO, CANONICAL, OPEN GRAPH & FAVICON] -->
+  <!-- Structured Data (JSON-LD Person) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Esam Haraz",
+      "jobTitle": "Data Analyst",
+      "url": "https://esam-haraz.github.io/portfolio/",
+      "email": "mailto:esamv20@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Damietta",
+        "addressCountry": "Egypt"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Damietta University"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/esam-haraz-459925402",
+        "https://github.com/Esam-Haraz"
+      ]
+    }
+  </script>
 
-  <!-- Google Fonts: Inter (EN), Cairo (AR), JetBrains Mono (Technical Tags/Numbers) -->
+  <!-- Inline Vector Favicon (Portfolio Lavender #BE9CF2) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='%230A0A10' stroke='%23BE9CF2' stroke-width='3'/%3E%3Crect x='16' y='34' width='8' height='16' rx='4' fill='%23BE9CF2'/%3E%3Crect x='28' y='24' width='8' height='26' rx='4' fill='%23BE9CF2'/%3E%3Crect x='40' y='15' width='8' height='35' rx='4' fill='%23BE9CF2'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts (Design System v1.1 Stack) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    /* ==========================================================================
-       START [CSS-01: THEME VARIABLES - BLUE GRADIENT]
-       ========================================================================== */
-    :root {
-      --bg-primary: #040814;
-      --bg-secondary: #081126;
-      --bg-card: rgba(10, 20, 42, 0.74);
-      --border-subtle: rgba(148, 163, 184, 0.16);
-      --border-highlight: rgba(56, 189, 248, 0.5);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent-primary: #3b82f6;
-      --accent-secondary: #38bdf8;
-      --accent-deep: #1d4ed8;
-      --accent-gradient: linear-gradient(135deg, #1d4ed8 0%, #2563eb 45%, #38bdf8 100%);
-      --font-en: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-ar: 'Cairo', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-      --mouse-x: 50vw;
-      --mouse-y: 35vh;
-    }
-    /* END [CSS-01: THEME VARIABLES - BLUE GRADIENT] */
-
-    /* ==========================================================================
-       START [CSS-02: BASE, AURORA MESH & MOUSE SPOTLIGHT]
-       ========================================================================== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      scroll-behavior: auto;
-    }
-
-    body {
-      font-family: var(--font-en);
-      background-color: transparent;
-      color: var(--text-main);
-      line-height: 1.65;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      position: relative;
-    }
-
-    body[dir="rtl"] {
-      font-family: var(--font-ar);
-    }
-
-    .ambient-bg {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-      background:
-        radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(56, 189, 248, 0.20), rgba(37, 99, 235, 0.07) 40%, transparent 70%),
-        radial-gradient(circle at 12% 18%, rgba(29, 78, 216, 0.25) 0%, transparent 45%),
-        radial-gradient(circle at 88% 22%, rgba(56, 189, 248, 0.16) 0%, transparent 42%),
-        radial-gradient(circle at 50% 85%, rgba(37, 99, 235, 0.18) 0%, transparent 48%);
-    }
-
-    .aurora-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(65px);
-      opacity: 0.4;
-      will-change: transform;
-      animation: auroraFloat 18s infinite alternate ease-in-out;
-    }
-
-    .aurora-orb-1 {
-      width: 40vw;
-      height: 40vw;
-      max-width: 500px;
-      max-height: 500px;
-      background: radial-gradient(circle, #2563eb 0%, transparent 70%);
-      top: -10%;
-      left: -8%;
-    }
-
-    .aurora-orb-2 {
-      width: 36vw;
-      height: 36vw;
-      max-width: 450px;
-      max-height: 450px;
-      background: radial-gradient(circle, #0ea5e9 0%, transparent 70%);
-      bottom: -12%;
-      right: -6%;
-      animation-delay: -7s;
-    }
-
-    @keyframes auroraFloat {
-      0% { transform: translate3d(0, 0, 0) scale(1); }
-      100% { transform: translate3d(35px, 25px, 0) scale(1.1); }
-    }
-
-    @media (max-width: 768px) {
-      .aurora-orb {
-        filter: blur(40px);
-        opacity: 0.3;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .aurora-orb {
-        animation: none !important;
-      }
-      * {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
-    main,
-    .footer-section {
-      position: relative;
-      z-index: 1;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-    /* END [CSS-02: BASE, AURORA MESH & MOUSE SPOTLIGHT] */
-
-    /* ==========================================================================
-       START [CSS-03: CIRCULAR CORNER LANGUAGE REVEAL]
-       ========================================================================== */
-    .transition-curtain {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 9999;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .curtain-circle {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      clip-path: circle(0% at 92% 4%);
-      will-change: clip-path;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.65rem;
-    }
-
-    .curtain-circle-outer {
-      background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #1e3a8a 100%);
-      z-index: 1;
-    }
-
-    .curtain-circle-inner {
-      background: radial-gradient(circle at center, #081229 0%, #040814 100%);
-      z-index: 2;
-    }
-
-    .curtain-label {
-      font-family: var(--font-mono);
-      font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-      font-weight: 800;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: scale(0.9);
-    }
-
-    .curtain-sub {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--accent-secondary);
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      opacity: 0;
-    }
-    /* END [CSS-03: CIRCULAR CORNER LANGUAGE REVEAL] */
-
-    /* ==========================================================================
-       START [CSS-04: NAVBAR]
-       ========================================================================== */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      padding: 0.95rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(4, 8, 20, 0.8);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      font-weight: 800;
-      font-size: 1.12rem;
-      letter-spacing: -0.02em;
-    }
-
-    .brand-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent-gradient);
-      box-shadow: 0 0 14px var(--accent-secondary);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .nav-links {
-      display: none;
-      gap: 1.75rem;
-      margin-inline-end: 1.5rem;
-      font-size: 0.92rem;
-      color: var(--text-muted);
-    }
-
-    @media (min-width: 768px) {
-      .nav-links {
-        display: flex;
-      }
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-secondary);
-    }
-
-    .lang-toggle {
-      display: inline-flex;
-      background: rgba(10, 20, 42, 0.9);
-      border: 1px solid var(--border-subtle);
-      border-radius: 999px;
-      padding: 0.2rem;
-    }
-
-    .lang-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      font-weight: 600;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    .lang-btn.active {
-      background: var(--accent-gradient);
-      color: #ffffff;
-      box-shadow: 0 2px 12px rgba(37, 99, 235, 0.45);
-    }
-    /* END [CSS-04: NAVBAR] */
-
-    /* ==========================================================================
-       START [CSS-05: BUTTONS & TAGS]
-       ========================================================================== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.72rem 1.35rem;
-      border-radius: 9px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.25s ease;
-      cursor: pointer;
-      border: 1px solid transparent;
-    }
-
-    .btn-primary {
-      background: var(--accent-gradient);
-      color: #ffffff;
-      box-shadow: 0 4px 22px rgba(37, 99, 235, 0.35);
-    }
-
-    .btn-primary:hover {
-      filter: brightness(1.12);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 26px rgba(56, 189, 248, 0.45);
-    }
-
-    .btn-secondary {
-      background: rgba(15, 23, 42, 0.65);
-      color: var(--text-main);
-      border-color: var(--border-subtle);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--accent-secondary);
-      background: rgba(56, 189, 248, 0.12);
-      transform: translateY(-2px);
-    }
-
-    .section-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent-secondary);
-      background: rgba(37, 99, 235, 0.16);
-      border: 1px solid rgba(56, 189, 248, 0.32);
-      padding: 0.32rem 0.85rem;
-      border-radius: 999px;
-      margin-bottom: 0.85rem;
-    }
-    /* END [CSS-05: BUTTONS & TAGS] */
-
-    /* ==========================================================================
-       START [CSS-06: HERO & 3-CARD IMPACT METRICS]
-       ========================================================================== */
-    .hero {
-      min-height: 100dvh;
-      padding: 7rem 5% 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      max-width: 1320px;
-      margin: 0 auto;
-    }
-
-    .hero-main {
-      max-width: 880px;
-      margin-top: auto;
-      margin-bottom: auto;
-      padding: 1.25rem 0;
-    }
-
-    .hero-badges-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero-badges-row .section-tag {
-      margin-bottom: 0;
-    }
-
-    .availability-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.82rem;
-      color: #cbd5e1;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid var(--border-subtle);
-      padding: 0.32rem 0.85rem;
-      border-radius: 999px;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #38bdf8;
-      box-shadow: 0 0 8px #38bdf8;
-    }
-
-    .hero-title {
-      font-size: clamp(2.1rem, 5vw, 4.2rem);
-      font-weight: 800;
-      line-height: 1.12;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.25rem;
-    }
-
-    body[dir="rtl"] .hero-title {
-      line-height: 1.28;
-      letter-spacing: 0;
-    }
-
-    .hero-title .highlight {
-      background: linear-gradient(90deg, #60a5fa 0%, #38bdf8 55%, #93c5fd 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(0.98rem, 1.6vw, 1.16rem);
-      color: var(--text-muted);
-      max-width: 740px;
-      margin-bottom: 1.85rem;
-    }
-
-    .hero-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.85rem;
-    }
-
-    .metrics-strip {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      padding-top: 1.75rem;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .metric-box {
-      background: rgba(10, 20, 42, 0.6);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1.05rem 1.25rem;
-      backdrop-filter: blur(8px);
-      transition: border-color 0.25s ease;
-    }
-
-    .metric-box:hover {
-      border-color: rgba(56, 189, 248, 0.45);
-    }
-
-    .metric-val {
-      font-family: var(--font-mono);
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: block;
-      margin-bottom: 0.15rem;
-    }
-
-    .metric-lbl {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-    }
-    /* END [CSS-06: HERO & 3-CARD IMPACT METRICS] */
-
-    /* ==========================================================================
-       START [CSS-07: PINNED PROJECTS SHOWCASE (SHORT LAPTOP & FLUID MOBILE SAFE)]
-       Includes responsive height protection for 1366x768 laptops and full
-       2-line insight + recommendation display on mobile screens.
-       ========================================================================== */
-    .projects-pinned-section {
-      position: relative;
-      width: 100%;
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 4.5rem 5% 1.25rem;
-      overflow: hidden;
-    }
-
-    .projects-container {
-      max-width: 1320px;
-      width: 100%;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-      align-items: center;
-      height: 100%;
-      max-height: 860px;
-    }
-
-    @media (min-width: 1024px) {
-      .projects-container {
-        grid-template-columns: 240px 1fr;
-        gap: 2.25rem;
-        height: auto;
-      }
-    }
-
-    .projects-sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .projects-heading {
-      font-size: clamp(1.3rem, 2.1vw, 1.7rem);
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .scroll-hint {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .project-nav-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-    }
-
-    .project-nav-btn {
-      background: rgba(10, 20, 42, 0.55);
-      border: 1px solid var(--border-subtle);
-      border-radius: 9px;
-      padding: 0.75rem 0.95rem;
-      text-align: start;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      color: var(--text-muted);
-    }
-
-    .project-nav-btn.active {
-      border-color: var(--accent-secondary);
-      background: rgba(37, 99, 235, 0.22);
-      color: var(--text-main);
-      box-shadow: 0 0 20px rgba(37, 99, 235, 0.22);
-    }
-
-    .proj-num {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--accent-secondary);
-    }
-
-    .proj-nav-name {
-      font-size: 0.85rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .progress-track {
-      width: 100%;
-      height: 4px;
-      background: rgba(148, 163, 184, 0.16);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 33.33%;
-      background: var(--accent-gradient);
-      transition: width 0.2s ease;
-    }
-
-    .project-stage {
-      position: relative;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 1.75rem;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-    }
-
-    .project-slide {
-      display: none;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      align-items: center;
-      animation: slideFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .project-slide.active {
-      display: grid;
-    }
-
-    @media (min-width: 1024px) {
-      .project-slide {
-        grid-template-columns: 1.08fr 1.12fr;
-        gap: 1.85rem;
-      }
-    }
-
-    @keyframes slideFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .proj-meta-top {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.4rem;
-      margin-bottom: 0.55rem;
-    }
-
-    .tech-tag {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      padding: 0.2rem 0.55rem;
-      border-radius: 6px;
-      background: rgba(56, 189, 248, 0.11);
-      color: var(--accent-secondary);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-    }
-
-    .source-tag {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      padding: 0.2rem 0.55rem;
-      border-radius: 6px;
-      background: rgba(148, 163, 184, 0.1);
-      color: #cbd5e1;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .proj-title {
-      font-size: clamp(1.2rem, 1.9vw, 1.65rem);
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      line-height: 1.25;
-    }
-
-    .proj-summary {
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      margin-bottom: 0.85rem;
-      line-height: 1.55;
-    }
-
-    .proj-kpis {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 0.85rem;
-    }
-
-    .kpi-mini {
-      background: rgba(4, 8, 20, 0.68);
-      border: 1px solid var(--border-subtle);
-      padding: 0.45rem 0.65rem;
-      border-radius: 8px;
-    }
-
-    .kpi-mini strong {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.88rem;
-      color: var(--accent-secondary);
-    }
-
-    .kpi-mini span {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    .insights-list {
-      list-style: none;
-      margin-bottom: 0.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .insights-list li {
-      font-size: 0.83rem;
-      color: #cbd5e1;
-      position: relative;
-      padding-inline-start: 1.1rem;
-      line-height: 1.45;
-    }
-
-    .insights-list li::before {
-      content: "▹";
-      position: absolute;
-      inset-inline-start: 0;
-      color: var(--accent-secondary);
-      font-weight: bold;
-    }
-
-    .proj-recommendation {
-      background: rgba(37, 99, 235, 0.12);
-      border-inline-start: 3px solid var(--accent-secondary);
-      padding: 0.55rem 0.8rem;
-      border-radius: 6px;
-      font-size: 0.81rem;
-      color: #e2e8f0;
-      margin-bottom: 1rem;
-      line-height: 1.45;
-    }
-
-    .proj-recommendation strong {
-      color: var(--accent-secondary);
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      margin-inline-end: 0.35rem;
-    }
-
-    .dashboard-showcase {
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-    }
-
-    .dashboard-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(4, 8, 20, 0.82);
-      padding: 0.42rem 0.75rem;
-      border-radius: 10px;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .window-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .window-dots span {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-    }
-
-    .window-dots span:nth-child(1) { background: #ef4444; }
-    .window-dots span:nth-child(2) { background: #f59e0b; }
-    .window-dots span:nth-child(3) { background: #38bdf8; }
-
-    .dash-switcher {
-      display: inline-flex;
-      gap: 0.3rem;
-      background: rgba(10, 20, 42, 0.95);
-      padding: 0.18rem;
-      border-radius: 7px;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .dash-tab {
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 600;
-      padding: 0.26rem 0.65rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .dash-tab.active {
-      background: var(--accent-gradient);
-      color: #ffffff;
-    }
-
-    .dashboard-img-wrap {
-      position: relative;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      background: #040814;
-      aspect-ratio: 16 / 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: zoom-in;
-    }
-
-    .dashboard-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      transition: transform 0.35s ease, opacity 0.25s ease;
-    }
-
-    .dashboard-img-wrap:hover img {
-      transform: scale(1.02);
-    }
-
-    .img-fallback-msg {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      text-align: center;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      gap: 0.5rem;
-    }
-
-    .zoom-badge {
-      position: absolute;
-      bottom: 0.55rem;
-      inset-inline-end: 0.55rem;
-      background: rgba(4, 8, 20, 0.86);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      padding: 0.22rem 0.55rem;
-      border-radius: 6px;
-      pointer-events: none;
-      backdrop-filter: blur(6px);
-      transition: all 0.25s ease;
-    }
-
-    .dashboard-img-wrap:hover .zoom-badge {
-      border-color: var(--accent-secondary);
-      color: var(--accent-secondary);
-    }
-
-    /* SHORT LAPTOP SCREEN PROTECTION (e.g. 1366x768) */
-    @media (min-width: 1024px) and (max-height: 780px) {
-      .projects-pinned-section {
-        padding: 4rem 4% 0.75rem;
-      }
-      .project-stage {
-        padding: 1.15rem 1.4rem;
-      }
-      .proj-title {
-        font-size: 1.25rem;
-        margin-bottom: 0.3rem;
-      }
-      .proj-summary {
-        font-size: 0.82rem;
-        margin-bottom: 0.55rem;
-      }
-      .proj-kpis {
-        margin-bottom: 0.55rem;
-      }
-      .kpi-mini {
-        padding: 0.35rem 0.5rem;
-      }
-      .insights-list {
-        margin-bottom: 0.5rem;
-        gap: 0.25rem;
-      }
-      .insights-list li {
-        font-size: 0.78rem;
-      }
-      .proj-recommendation {
-        padding: 0.4rem 0.65rem;
-        font-size: 0.76rem;
-        margin-bottom: 0.65rem;
-      }
-      .project-details .btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.82rem;
-      }
-    }
-
-    /* FLUID DYNAMIC MOBILE ADAPTATION (<1024px) - Preserves Full Insights */
-    @media (max-width: 1023px) {
-      .projects-pinned-section {
-        padding: 4.1rem 4% 0.7rem;
-        height: 100dvh;
-      }
-
-      .projects-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-        gap: 0.5dvh;
-      }
-
-      .projects-sidebar {
-        width: 100%;
-        gap: 0.4dvh;
-        flex-shrink: 0;
-      }
-
-      .projects-sidebar .section-tag,
-      .scroll-hint {
-        display: none;
-      }
-
-      .projects-heading {
-        font-size: clamp(1rem, 2dvh, 1.25rem);
-      }
-
-      .project-nav-list {
-        flex-direction: row;
-        overflow-x: auto;
-        gap: 0.35rem;
-        padding-bottom: 0.15rem;
-        scrollbar-width: none;
-      }
-
-      .project-nav-list::-webkit-scrollbar {
-        display: none;
-      }
-
-      .project-nav-btn {
-        padding: 0.35rem 0.6rem;
-        flex: 1;
-        justify-content: center;
-      }
-
-      .proj-nav-name {
-        font-size: clamp(0.7rem, 1.45dvh, 0.8rem);
-      }
-
-      .project-stage {
-        width: 100%;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: clamp(0.65rem, 1.5dvh, 1.1rem);
-        overflow-y: auto;
-      }
-
-      .project-slide.active {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-        gap: 0.6dvh;
-      }
-
-      .project-details {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 0.4dvh;
-      }
-
-      .proj-meta-top {
-        margin-bottom: 0.15dvh;
-      }
-
-      .tech-tag, .source-tag {
-        font-size: clamp(0.6rem, 1.15dvh, 0.68rem);
-        padding: 0.12rem 0.4rem;
-      }
-
-      .proj-title {
-        font-size: clamp(0.95rem, 2dvh, 1.18rem);
-        margin-bottom: 0.15dvh;
-      }
-
-      .proj-summary {
-        display: none;
-      }
-
-      .proj-kpis {
-        margin-bottom: 0.3dvh;
-        gap: 0.35rem;
-      }
-
-      .kpi-mini {
-        padding: clamp(0.25rem, 0.7dvh, 0.45rem) 0.45rem;
-      }
-
-      .kpi-mini strong {
-        font-size: clamp(0.76rem, 1.55dvh, 0.88rem);
-      }
-
-      .kpi-mini span {
-        font-size: clamp(0.6rem, 1.15dvh, 0.68rem);
-      }
-
-      /* Mobile Insights: Show top 2 insights at 2 full lines each so numbers aren't cut */
-      .insights-list {
-        margin-bottom: 0.35dvh;
-        gap: 0.25dvh;
-      }
-
-      .insights-list li {
-        font-size: clamp(0.71rem, 1.4dvh, 0.8rem);
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        line-height: 1.35;
-      }
-
-      .insights-list li:nth-child(3) {
-        display: none;
-      }
-
-      .proj-recommendation {
-        padding: 0.35rem 0.55rem;
-        font-size: clamp(0.69rem, 1.35dvh, 0.78rem);
-        margin-bottom: 0.35dvh;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-
-      .project-details .btn {
-        padding: clamp(0.38rem, 1dvh, 0.58rem) 0.8rem;
-        font-size: clamp(0.74rem, 1.45dvh, 0.84rem);
-      }
-
-      .dashboard-showcase {
-        flex: 1;
-        min-height: 120px;
-        display: flex;
-        flex-direction: column;
-        gap: 0.35dvh;
-      }
-
-      .dashboard-toolbar {
-        padding: 0.25rem 0.55rem;
-        flex-shrink: 0;
-      }
-
-      .dashboard-img-wrap {
-        flex: 1;
-        min-height: 0;
-        aspect-ratio: auto;
-        height: 100%;
-      }
-    }
-    /* END [CSS-07: PINNED PROJECTS SHOWCASE (SHORT LAPTOP & FLUID MOBILE SAFE)] */
-
-    /* ==========================================================================
-       START [CSS-07B: ACCESSIBLE FULLSCREEN LIGHTBOX MODAL]
-       Uses visibility: hidden when closed so keyboard Tab cannot focus inside it.
-       ========================================================================== */
-    .lightbox-modal {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(4, 8, 20, 0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      z-index: 9500;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      cursor: zoom-out;
-    }
-
-    .lightbox-modal.open {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 1.25rem;
-      inset-inline-end: 1.5rem;
-      background: rgba(10, 20, 42, 0.9);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      padding: 0.45rem 0.95rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .lightbox-close:hover {
-      border-color: var(--accent-secondary);
-      color: var(--accent-secondary);
-    }
-
-    .lightbox-img {
-      max-width: 94vw;
-      max-height: 84vh;
-      object-fit: contain;
-      border-radius: 10px;
-      border: 1px solid var(--border-subtle);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
-      transform: scale(0.95);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: default;
-    }
-
-    .lightbox-modal.open .lightbox-img {
-      transform: scale(1);
-    }
-
-    .lightbox-caption {
-      margin-top: 0.85rem;
-      font-family: var(--font-mono);
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      text-align: center;
-    }
-    /* END [CSS-07B: ACCESSIBLE FULLSCREEN LIGHTBOX MODAL] */
-
-    /* ==========================================================================
-       START [CSS-08: SKILLS GRID]
-       ========================================================================== */
-    .skills-section {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 6rem 5%;
-    }
-
-    .section-header {
-      margin-bottom: 3rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-      font-weight: 800;
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .skill-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 1.75rem;
-      backdrop-filter: blur(10px);
-      transition: border-color 0.25s ease, transform 0.25s ease;
-    }
-
-    .skill-card:hover {
-      border-color: var(--accent-secondary);
-      transform: translateY(-4px);
-    }
-
-    .skill-card-title {
-      font-size: 1.08rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--accent-secondary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .skill-items {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .skill-items li {
-      font-size: 0.91rem;
-      color: #e2e8f0;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .skill-items li::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent-primary);
-      flex-shrink: 0;
-    }
-    /* END [CSS-08: SKILLS GRID] */
-
-    /* ==========================================================================
-       START [CSS-09: ABOUT, EDUCATION & CONTACT FOOTER]
-       ========================================================================== */
-    .footer-section {
-      border-top: 1px solid var(--border-subtle);
-      background: rgba(8, 17, 38, 0.65);
-      padding: 5rem 5% 3rem;
-    }
-
-    .footer-container {
-      max-width: 1320px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-
-    @media (min-width: 860px) {
-      .footer-container {
-        grid-template-columns: 1.2fr 1fr;
-      }
-    }
-
-    .about-box {
-      background: rgba(10, 20, 42, 0.65);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1.35rem 1.5rem;
-      margin-top: 1.25rem;
-      color: #cbd5e1;
-      font-size: 0.93rem;
-      line-height: 1.65;
-    }
-
-    .edu-box {
-      background: rgba(10, 20, 42, 0.65);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1.35rem 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .edu-degree {
-      font-weight: 700;
-      font-size: 1.02rem;
-      color: var(--text-main);
-    }
-
-    .edu-meta {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--accent-secondary);
-      margin: 0.25rem 0 0.45rem;
-    }
-
-    .contact-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .contact-avail-badge {
-      display: inline-block;
-      margin-top: 0.65rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--accent-secondary);
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.28);
-      padding: 0.35rem 0.75rem;
-      border-radius: 8px;
-    }
-
-    .contact-links-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-      margin-top: 1.5rem;
-    }
-
-    .contact-link-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.9rem 1.15rem;
-      border-radius: 10px;
-      background: rgba(4, 8, 20, 0.7);
-      border: 1px solid var(--border-subtle);
-      transition: all 0.25s ease;
-    }
-
-    .contact-link-item:hover {
-      border-color: var(--accent-secondary);
-      background: rgba(37, 99, 235, 0.12);
-    }
-
-    .copyright-bar {
-      max-width: 1320px;
-      margin: 3.5rem auto 0;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border-subtle);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-    /* END [CSS-09: ABOUT, EDUCATION & CONTACT FOOTER] */
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=DM+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared Design System v1.1 + Portfolio Extensions -->
+  <link rel="stylesheet" href="./assets/ds.css">
+  <link rel="stylesheet" href="./assets/portfolio.css">
+
+  <!-- Scripts -->
+  <script src="./assets/portfolio-i18n.js" defer></script>
+  <script src="./assets/portfolio.js" defer></script>
 </head>
 <body>
+  <a href="#main-content" class="ds-skip-link">Skip to main content</a>
 
-  <!-- Ambient Aurora + Interactive Mouse Spotlight Background -->
-  <div class="ambient-bg" aria-hidden="true">
-    <div class="aurora-orb aurora-orb-1"></div>
-    <div class="aurora-orb aurora-orb-2"></div>
-  </div>
-
-  <!-- ========================================================================
-       START [HTML-01: CIRCULAR LANGUAGE CURTAIN & LIGHTBOX]
-       ======================================================================== -->
-  <div class="transition-curtain" id="curtain" aria-hidden="true">
-    <div class="curtain-circle curtain-circle-outer" id="curtain-outer"></div>
-    <div class="curtain-circle curtain-circle-inner" id="curtain-inner">
-      <span class="curtain-sub" id="curtain-lang-indicator">SWITCHING LANGUAGE</span>
-      <span class="curtain-label" id="curtain-text">ESAM HARAZ</span>
+  <!-- Circular Language Transition Curtain -->
+  <div class="ds-curtain" id="ds-curtain" aria-hidden="true">
+    <div class="ds-curtain-layer ds-curtain-outer" id="ds-curtain-outer"></div>
+    <div class="ds-curtain-layer ds-curtain-inner" id="ds-curtain-inner">
+      <span class="ds-curtain-sub" id="ds-curtain-sub">SWITCHING TO ENGLISH</span>
+      <span class="ds-curtain-label" id="ds-curtain-label">ESAM HARAZ</span>
     </div>
   </div>
 
-  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Fullscreen Dashboard Preview" onclick="closeLightbox()">
-    <button class="lightbox-close" id="lightbox-close-btn" tabindex="-1" aria-label="Close fullscreen preview" onclick="closeLightbox()">✕ ESC</button>
-    <img class="lightbox-img" id="lightbox-img" src="" alt="Fullscreen Dashboard Preview" onclick="event.stopPropagation()">
-    <div class="lightbox-caption" id="lightbox-caption"></div>
-  </div>
-  <!-- END [HTML-01: CIRCULAR LANGUAGE CURTAIN & LIGHTBOX] -->
-
-  <!-- ========================================================================
-       START [HTML-02: NAVBAR]
-       ======================================================================== -->
-  <header class="navbar">
-    <a href="#" class="brand" aria-label="Esam Haraz Home" onclick="scrollToSection(event, 'top')">
-      <span class="brand-dot"></span>
-      <span id="nav-name">ESAM HARAZ</span>
-    </a>
-
-    <div class="nav-actions">
-      <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="#projects-pinned" id="nav-projects" onclick="scrollToSection(event, '#projects-pinned')">Projects</a>
-        <a href="#skills" id="nav-skills" onclick="scrollToSection(event, '#skills')">Tech Stack</a>
-        <a href="#contact" id="nav-contact" onclick="scrollToSection(event, '#contact')">About & Contact</a>
-      </nav>
-
-      <div class="lang-toggle" id="lang-toggle-box" role="group" aria-label="Language Switcher">
-        <button class="lang-btn active" id="btn-en" aria-label="Switch to English" onclick="triggerLanguageSwitch('en', this)">EN</button>
-        <button class="lang-btn" id="btn-ar" aria-label="التحويل إلى العربية" onclick="triggerLanguageSwitch('ar', this)">AR</button>
+  <!-- Accessible Fullscreen Lightbox Modal -->
+  <div class="ds-lightbox" id="pf-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pf-lightbox-title">
+    <div class="ds-lightbox-dialog">
+      <div class="ds-lightbox-bar">
+        <span class="ds-lightbox-title" id="pf-lightbox-title">Dashboard Preview</span>
+        <button type="button" class="ds-icon-btn" id="pf-lightbox-close" aria-label="Close fullscreen preview">ESC</button>
+      </div>
+      <div class="ds-lightbox-body">
+        <img id="pf-lightbox-img" src="" alt="Fullscreen dashboard preview">
       </div>
     </div>
-  </header>
-  <!-- END [HTML-02: NAVBAR] -->
+  </div>
 
   <!-- ========================================================================
-       START [HTML-03: HERO SECTION]
+       UNIFIED FIXED GLASS HEADER
        ======================================================================== -->
-  <main>
-    <section class="hero">
-      <div class="hero-main">
-        <div class="hero-badges-row">
-          <span class="section-tag" id="hero-role">Data Analyst</span>
-          <span class="availability-pill">
-            <span class="status-dot" aria-hidden="true"></span>
-            <span id="hero-availability">Available Immediately • Egypt (On-Site / Hybrid) & Remote</span>
+  <header class="pf-header" id="pf-header">
+    <a href="#hero" class="pf-brand" aria-label="Esam Haraz Home">
+      <span class="pf-monogram" aria-hidden="true">EH</span>
+      <span class="pf-brand-text" data-pf-text="name">Esam Haraz</span>
+    </a>
+
+    <!-- Desktop Ecosystem Mini Node-Graph -->
+    <nav class="ds-mini-graph" aria-label="Sites network navigation">
+      <a href="https://esam-haraz.github.io/hub/" data-cfg-href="HUB_URL" class="ds-mini-node">
+        <span class="ds-mini-dot" aria-hidden="true"></span>
+        <span data-site-label="hub">Services Hub</span>
+      </a>
+      <span class="ds-mini-edge" aria-hidden="true"></span>
+      <a href="https://esam-haraz.github.io/AutoDeploy/" data-cfg-href="AUTODEPLOY_URL" class="ds-mini-node">
+        <span class="ds-mini-dot" aria-hidden="true"></span>
+        <span data-site-label="autodeploy">AutoDeploy</span>
+      </a>
+      <span class="ds-mini-edge" aria-hidden="true"></span>
+      <a href="https://esam-haraz.github.io/Data-Analysis/" data-cfg-href="DATA_URL" class="ds-mini-node">
+        <span class="ds-mini-dot" aria-hidden="true"></span>
+        <span data-site-label="data">Data Analysis</span>
+      </a>
+      <span class="ds-mini-edge" aria-hidden="true"></span>
+      <a href="./" class="ds-mini-node is-current" aria-current="page">
+        <span class="ds-mini-dot" aria-hidden="true"></span>
+        <span data-site-label="portfolio">Portfolio</span>
+      </a>
+    </nav>
+
+    <!-- Header Controls -->
+    <div class="pf-header-actions">
+      <div class="pf-header-desktop-controls">
+        <button type="button" class="ds-icon-btn" data-pf-lang-toggle aria-label="التبديل إلى اللغة العربية">
+          عربي
+        </button>
+        <button type="button" class="ds-icon-btn" data-pf-theme-toggle aria-pressed="true" aria-label="Switch to light mode">
+          <span data-theme-label>Light</span>
+        </button>
+      </div>
+
+      <a href="https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link"
+         data-cfg-href="CV_URL"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="ds-btn ds-btn-primary pf-cv-btn"
+         data-pf-text="ctaCv">
+        Download CV (PDF) ↗
+      </a>
+
+      <button type="button"
+              class="pf-menu-btn"
+              id="pf-menu-btn"
+              aria-expanded="false"
+              aria-controls="pf-mobile-drawer"
+              aria-label="Open navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="17" x2="20" y2="17"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="pf-mobile-drawer" id="pf-mobile-drawer" role="dialog" aria-label="Navigation menu">
+    <div>
+      <span class="pf-drawer-label">Ecosystem sites</span>
+      <div class="pf-drawer-links">
+        <a href="https://esam-haraz.github.io/hub/" data-cfg-href="HUB_URL" class="pf-drawer-link">
+          <span data-site-label="hub">Services Hub</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="https://esam-haraz.github.io/AutoDeploy/" data-cfg-href="AUTODEPLOY_URL" class="pf-drawer-link">
+          <span data-site-label="autodeploy">AutoDeploy</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="https://esam-haraz.github.io/Data-Analysis/" data-cfg-href="DATA_URL" class="pf-drawer-link">
+          <span data-site-label="data">Data Analysis</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="./" class="pf-drawer-link is-current" aria-current="page">
+          <span data-site-label="portfolio">Portfolio</span>
+          <span aria-hidden="true">●</span>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <span class="pf-drawer-label">Page sections</span>
+      <div class="pf-drawer-links">
+        <a href="#projects" class="pf-drawer-link" data-pf-text="nav.projects">Projects</a>
+        <a href="#skills" class="pf-drawer-link" data-pf-text="nav.skills">Tech Stack</a>
+        <a href="#beyond" class="pf-drawer-link" data-pf-text="nav.beyond">Beyond Analysis</a>
+        <a href="#contact" class="pf-drawer-link" data-pf-text="nav.contact">About &amp; Contact</a>
+      </div>
+    </div>
+
+    <div class="pf-drawer-controls">
+      <button type="button" class="ds-icon-btn" data-pf-lang-toggle aria-label="التبديل إلى اللغة العربية">
+        عربي
+      </button>
+      <button type="button" class="ds-icon-btn" data-pf-theme-toggle aria-pressed="true" aria-label="Switch to light mode">
+        <span data-theme-label>Light</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Thin Top Scroll Progress Bar -->
+  <div class="ds-top-progress" aria-hidden="true">
+    <div class="ds-top-progress-fill"></div>
+  </div>
+
+  <!-- ========================================================================
+       MAIN CONTENT
+       ======================================================================== -->
+  <main id="main-content" class="ds-container">
+
+    <!-- ======================================================================
+         01. HERO SECTION & NUMBERS-FIRST BAR CHART
+         ====================================================================== -->
+    <section class="pf-hero" id="hero" aria-labelledby="hero-headline">
+      <div class="pf-hero-top">
+        <div class="pf-hero-badges">
+          <span class="ds-chip ds-chip-accent" data-pf-text="role">Data Analyst</span>
+          <span class="pf-avail-pill">
+            <span class="pf-avail-dot" aria-hidden="true"></span>
+            <span data-pf-text="availability">Available Immediately • Egypt (On-Site / Hybrid) &amp; Remote</span>
           </span>
         </div>
 
-        <h1 class="hero-title" id="hero-headline">
-          Transforming Raw Data Into <span class="highlight">Actionable Business Impact.</span>
+        <h1 class="pf-hero-title pf-reveal-heading" id="hero-headline" data-pf-html="heroHeadline">
+          From a business question to a dashboard, <span class="highlight">three times over.</span>
         </h1>
-        <p class="hero-subtitle" id="hero-summary">
+
+        <p class="pf-hero-summary" data-pf-text="heroSubtitle">
           Data Analyst specializing in building end-to-end analytics solutions using SQL (PostgreSQL), Microsoft Excel, and Power BI—from raw data cleaning and relational schema design to interactive executive dashboards, while expanding into Python data analysis (Pandas, Polars, NumPy).
         </p>
-        <div class="hero-cta">
-          <a href="#projects-pinned" class="btn btn-primary" id="cta-projects" onclick="scrollToSection(event, '#projects-pinned')">Explore Case Studies ↓</a>
-          <a href="https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link" target="_blank" rel="noopener" class="btn btn-secondary" id="cta-cv">Download CV (PDF) ↗</a>
-          <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="btn btn-secondary" aria-label="Visit Esam Haraz GitHub Profile">GitHub ↗</a>
+
+        <div class="pf-hero-cta">
+          <a href="#projects" class="ds-btn ds-btn-primary" data-pf-text="ctaProjects">Explore Case Studies ↓</a>
+          <a href="https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link"
+             data-cfg-href="CV_URL"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="ds-btn ds-btn-secondary"
+             data-pf-text="ctaCv">
+            Download CV (PDF) ↗
+          </a>
+          <a href="https://github.com/Esam-Haraz"
+             data-cfg-href="GITHUB"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="ds-btn ds-btn-secondary">
+            GitHub ↗
+          </a>
         </div>
       </div>
 
-      <div class="metrics-strip" id="metrics-container">
-        <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
-      </div>
-    </section>
-    <!-- END [HTML-03: HERO SECTION] -->
+      <!-- Numbers-First Hero Chart (Pre-rendered for No-JS & Hydrated by portfolio.js) -->
+      <div class="pf-hero-bars is-visible" id="pf-hero-bars">
+        <a href="#case-hr-analytics" class="pf-hbar-card" aria-label="Jump to HR Attrition case study: 31% overtime vs 10% no overtime">
+          <div class="pf-hbar-head">
+            <span class="pf-hbar-title">HR Overtime Attrition</span>
+            <span class="pf-hbar-arrow" aria-hidden="true">↓</span>
+          </div>
+          <div class="pf-hbar-rows">
+            <div class="pf-hbar-row">
+              <div class="pf-hbar-meta">
+                <span class="pf-hbar-lbl">Overtime</span>
+                <span class="pf-hbar-val">31%</span>
+              </div>
+              <div class="pf-hbar-track" aria-hidden="true">
+                <div class="pf-hbar-fill" style="--pct: 31;"></div>
+              </div>
+            </div>
+            <div class="pf-hbar-row">
+              <div class="pf-hbar-meta">
+                <span class="pf-hbar-lbl">No overtime</span>
+                <span class="pf-hbar-val">10%</span>
+              </div>
+              <div class="pf-hbar-track" aria-hidden="true">
+                <div class="pf-hbar-fill is-muted" style="--pct: 10;"></div>
+              </div>
+            </div>
+          </div>
+          <span class="pf-hbar-caption">3x attrition (31% vs 10%) across 1,470 employees</span>
+        </a>
 
-    <!-- ========================================================================
-         START [HTML-04: PINNED PROJECTS SECTION]
-         ======================================================================== -->
-    <section class="projects-pinned-section" id="projects-pinned">
-      <div class="projects-container">
-        
-        <aside class="projects-sidebar">
+        <a href="#case-supply-chain" class="pf-hbar-card" aria-label="Jump to Supply Chain case study: 41.45% stormy weather vs 16.02% cold weather">
+          <div class="pf-hbar-head">
+            <span class="pf-hbar-title">Supply Chain Weather Delays</span>
+            <span class="pf-hbar-arrow" aria-hidden="true">↓</span>
+          </div>
+          <div class="pf-hbar-rows">
+            <div class="pf-hbar-row">
+              <div class="pf-hbar-meta">
+                <span class="pf-hbar-lbl">Stormy weather</span>
+                <span class="pf-hbar-val">41.45%</span>
+              </div>
+              <div class="pf-hbar-track" aria-hidden="true">
+                <div class="pf-hbar-fill" style="--pct: 41.45;"></div>
+              </div>
+            </div>
+            <div class="pf-hbar-row">
+              <div class="pf-hbar-meta">
+                <span class="pf-hbar-lbl">Cold weather</span>
+                <span class="pf-hbar-val">16.02%</span>
+              </div>
+              <div class="pf-hbar-track" aria-hidden="true">
+                <div class="pf-hbar-fill is-muted" style="--pct: 16.02;"></div>
+              </div>
+            </div>
+          </div>
+          <span class="pf-hbar-caption">25,000 shipments • 26.68% overall delay rate</span>
+        </a>
+
+        <a href="#case-pizza-sales" class="pf-hbar-card" aria-label="Jump to Pizza Sales case study: $817.86K revenue across 21,350 orders">
+          <div class="pf-hbar-head">
+            <span class="pf-hbar-title">2015 Retail Revenue</span>
+            <span class="pf-hbar-arrow" aria-hidden="true">↓</span>
+          </div>
           <div>
-            <span class="section-tag" id="proj-section-tag">Featured Case Studies</span>
-            <h2 class="projects-heading" id="proj-section-heading">End-to-End Analytics</h2>
+            <div class="pf-hbar-big">$817.86K</div>
+            <div class="pf-hbar-sub">21,350 orders • $38.31 avg order value</div>
           </div>
-          <div class="scroll-hint" id="proj-scroll-hint">
-            <span>🖱️ Scroll or use arrows to switch</span>
-          </div>
-          <div class="project-nav-list" id="project-nav-list" role="tablist" aria-label="Project Categories">
-            <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
-          </div>
-          <div class="progress-track" aria-hidden="true">
-            <div class="progress-fill" id="scroll-progress-bar"></div>
-          </div>
-        </aside>
+          <span class="pf-hbar-caption">Fridays and Thursdays lead weekly order volume</span>
+        </a>
 
-        <div class="project-stage" id="project-stage">
-          <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
+        <div class="ds-sr-only">
+          <table>
+            <caption>Summary metrics across the three analytics case studies</caption>
+            <thead>
+              <tr>
+                <th>Case Study</th>
+                <th>Metric</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>IBM HR Analytics</td><td>Overtime vs Non-Overtime Attrition</td><td>31% vs 10% (1,470 employees)</td></tr>
+              <tr><td>Supply Chain Deliveries</td><td>Stormy vs Cold Weather Delay Rate</td><td>41.45% vs 16.02% (25,000 shipments)</td></tr>
+              <tr><td>Pizza Sales 2015</td><td>Total Revenue and Orders</td><td>$817.86K across 21,350 orders ($38.31 AOV)</td></tr>
+            </tbody>
+          </table>
         </div>
-
       </div>
     </section>
-    <!-- END [HTML-04: PINNED PROJECTS SECTION] -->
 
-    <!-- ========================================================================
-         START [HTML-05: SKILLS SECTION]
-         ======================================================================== -->
-    <section class="skills-section" id="skills">
-      <div class="section-header">
-        <span class="section-tag" id="skills-tag">Capabilities</span>
-        <h2 class="section-title" id="skills-title">Technical Stack & Tools</h2>
+    <!-- ======================================================================
+         02. CASE STUDIES (3 INDEPENDENT STACKED SECTIONS)
+         ====================================================================== -->
+    <section class="ds-section" id="projects" aria-labelledby="projects-heading">
+      <div class="ds-section-header">
+        <div class="ds-chips-row" style="margin-block-end: var(--space-2);">
+          <span class="ds-chip" data-pf-text="projSectionTag">Featured Case Studies</span>
+        </div>
+        <h2 class="ds-section-title pf-reveal-heading" id="projects-heading" data-pf-text="projSectionHeading">
+          End-to-End Analytics
+        </h2>
       </div>
-      <div class="skills-grid" id="skills-grid">
-        <!-- Populated dynamically by [JS-03: DOM RENDER ENGINE] -->
+
+      <div class="pf-cases-stack" id="pf-cases-stack">
+        <!-- Case Study 1: IBM HR Analytics -->
+        <article class="pf-case-card" id="case-hr-analytics" aria-labelledby="title-hr-analytics">
+          <div>
+            <div class="pf-case-chips">
+              <span class="ds-chip ds-chip-accent">HR Analytics</span>
+              <span class="ds-chip">SQL</span>
+              <span class="ds-chip">Power BI</span>
+              <span class="ds-chip">DAX</span>
+              <span class="ds-chip">Excel</span>
+              <span class="ds-chip">Source: Kaggle Dataset</span>
+            </div>
+
+            <h3 class="pf-case-title" id="title-hr-analytics">IBM HR Analytics — Employee Attrition &amp; Performance</h3>
+            <p class="pf-case-summary">
+              End-to-end HR analytics solution evaluating 1,470 employee records across SQL, Excel, and Power BI to pinpoint turnover drivers across overtime, income levels, tenure, and job satisfaction.
+            </p>
+
+            <div class="pf-case-kpis">
+              <div class="pf-kpi-box">
+                <strong>1,470</strong>
+                <span>Total Employees</span>
+              </div>
+              <div class="pf-kpi-box">
+                <strong>16.12%</strong>
+                <span>Attrition Rate (237)</span>
+              </div>
+              <div class="pf-kpi-box">
+                <strong>39.76%</strong>
+                <span>Sales Rep Attrition</span>
+              </div>
+            </div>
+
+            <ul class="pf-insights-list">
+              <li>Overtime employees leave at a 31% rate compared to 10% for non-overtime staff (3.1x turnover rate).</li>
+              <li>Sales Representatives record the highest attrition rate across all roles at 39.76%, nearly double the next role.</li>
+              <li>Employees who left earned a lower average monthly income ($4,787) compared to retained employees ($6,832).</li>
+            </ul>
+
+            <div class="pf-rec-box">
+              <strong>Recommendation:</strong>
+              <span>Cap monthly overtime hours and audit compensation/quota structures for Sales Representatives to reduce early-tenure turnover.</span>
+            </div>
+
+            <div class="pf-case-actions">
+              <a href="https://esam-haraz.github.io/Data-Analysis/assets/projects/hr-attrition/" class="ds-btn ds-btn-primary">
+                Read the full case study →
+              </a>
+              <a href="https://github.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance" target="_blank" rel="noopener noreferrer" class="ds-btn ds-btn-secondary">
+                Repository on GitHub ↗
+              </a>
+            </div>
+          </div>
+
+          <div class="pf-device-frame">
+            <div class="pf-device-bar">
+              <div class="pf-device-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="pf-dash-tabs" role="tablist" aria-label="Dashboard switcher">
+                <button type="button" class="pf-dash-tab is-active" role="tab" aria-selected="true" data-proj-id="hr-analytics" data-dash-idx="0">Power BI</button>
+                <button type="button" class="pf-dash-tab" role="tab" aria-selected="false" data-proj-id="hr-analytics" data-dash-idx="1">Excel</button>
+              </div>
+            </div>
+            <button type="button" class="pf-dash-trigger" data-lightbox-proj="0" aria-label="Expand dashboard: IBM HR Analytics — Employee Attrition &amp; Performance">
+              <img id="pf-img-hr-analytics"
+                   src="https://esam-haraz.github.io/Data-Analysis/assets/projects/hr-attrition/PowerBi_Dashboard.webp"
+                   data-asset-name="PowerBi_Dashboard.webp"
+                   alt="IBM HR Analytics — Employee Attrition &amp; Performance — Power BI"
+                   width="1280"
+                   height="720"
+                   loading="lazy">
+              <span class="pf-zoom-hint" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path>
+                </svg>
+                <span>Expand</span>
+              </span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Case Study 2: Pizza Sales -->
+        <article class="pf-case-card" id="case-pizza-sales" aria-labelledby="title-pizza-sales">
+          <div>
+            <div class="pf-case-chips">
+              <span class="ds-chip ds-chip-accent">Retail Operations</span>
+              <span class="ds-chip">SQL (PostgreSQL)</span>
+              <span class="ds-chip">Power BI</span>
+              <span class="ds-chip">Power Query</span>
+              <span class="ds-chip">Excel</span>
+              <span class="ds-chip">Source: Kaggle Dataset</span>
+            </div>
+
+            <h3 class="pf-case-title" id="title-pizza-sales">Pizza Sales Performance &amp; Operations Analytics</h3>
+            <p class="pf-case-summary">
+              Retail sales &amp; operations pipeline processing 21,350 orders ($817.86K revenue) using Power Query, SQL date conversion, and a 60-30-10 Power BI dashboard to guide staffing and menu strategy.
+            </p>
+
+            <div class="pf-case-kpis">
+              <div class="pf-kpi-box">
+                <strong>$817.86K</strong>
+                <span>Total Revenue</span>
+              </div>
+              <div class="pf-kpi-box">
+                <strong>21,350</strong>
+                <span>Total Orders</span>
+              </div>
+              <div class="pf-kpi-box">
+                <strong>$38.31</strong>
+                <span>Avg Order Value</span>
+              </div>
+            </div>
+
+            <ul class="pf-insights-list">
+              <li>Fridays and Thursdays record the highest weekly order volumes, defining peak kitchen operational windows.</li>
+              <li>The Classic category leads total demand and revenue, while Large (L) size dominates customer preferences.</li>
+              <li>The Thai Chicken Pizza is the top revenue generator, whereas The Brie Carre Pizza records the lowest revenue.</li>
+            </ul>
+
+            <div class="pf-rec-box">
+              <strong>Recommendation:</strong>
+              <span>Concentrate kitchen staffing and prep inventory on Thursday/Friday rush hours, and bundle or replace low-performing items like The Brie Carre Pizza.</span>
+            </div>
+
+            <div class="pf-case-actions">
+              <a href="https://esam-haraz.github.io/Data-Analysis/assets/projects/pizza-sales/" class="ds-btn ds-btn-primary">
+                Read the full case study →
+              </a>
+              <a href="https://github.com/Esam-Haraz/Pizza_Sales" target="_blank" rel="noopener noreferrer" class="ds-btn ds-btn-secondary">
+                Repository on GitHub ↗
+              </a>
+            </div>
+          </div>
+
+          <div class="pf-device-frame">
+            <div class="pf-device-bar">
+              <div class="pf-device-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="pf-dash-tabs" role="tablist" aria-label="Dashboard switcher">
+                <button type="button" class="pf-dash-tab is-active" role="tab" aria-selected="true" data-proj-id="pizza-sales" data-dash-idx="0">Power BI</button>
+                <button type="button" class="pf-dash-tab" role="tab" aria-selected="false" data-proj-id="pizza-sales" data-dash-idx="1">Excel</button>
+              </div>
+            </div>
+            <button type="button" class="pf-dash-trigger" data-lightbox-proj="1" aria-label="Expand dashboard: Pizza Sales Performance &amp; Operations Analytics">
+              <img id="pf-img-pizza-sales"
+                   src="https://esam-haraz.github.io/Data-Analysis/assets/projects/pizza-sales/Power_Bi_Dashboard.webp"
+                   data-asset-name="Power_Bi_Dashboard.webp"
+                   alt="Pizza Sales Performance &amp; Operations Analytics — Power BI"
+                   width="1280"
+                   height="720"
+                   loading="lazy">
+              <span class="pf-zoom-hint" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path>
+                </svg>
+                <span>Expand</span>
+              </span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Case Study 3: Supply Chain -->
+        <article class="pf-case-card" id="case-supply-chain" aria-labelledby="title-supply-chain">
+          <div>
+            <div class="pf-case-chips">
+              <span class="ds-chip ds-chip-accent">Logistics &amp; Supply Chain</span>
+              <span class="ds-chip">SQL (PostgreSQL)</span>
+              <span class="ds-chip">Microsoft Excel</span>
+              <span class="ds-chip">Data Quality</span>
+              <span class="ds-chip">Source: Kaggle Dataset</span>
+            </div>
+
+            <h3 class="pf-case-title" id="title-supply-chain">Supply Chain &amp; Shipment Deliveries Analysis</h3>
+            <p class="pf-case-summary">
+              Analyzed 25,000 shipment records using PostgreSQL and Excel to uncover delay drivers, cost scaling, and partner performance—resolving duplicate/decimal primary key issues via SERIAL keys.
+            </p>
+
+            <div class="pf-case-kpis">
+              <div class="pf-kpi-box">
+                <strong>25,000</strong>
+                <span>Total Shipments</span>
+              </div>
+              <div class="pf-kpi-box">
+                <strong>26.68%</strong>
+                <span>Overall Delay Rate</span>
+              </div>
+              <div class="pf-kpi-box">
+                <strong>41.45%</strong>
+                <span>Stormy Delay Rate</span>
+              </div>
+            </div>
+
+            <ul class="pf-insights-list">
+              <li>Stormy weather produces a 41.45% delay rate compared to 16.02% in cold weather — nearly a 2.5x difference.</li>
+              <li>Express delivery recorded the lowest average customer rating (2.72 / 5) despite being the fastest shipping mode.</li>
+              <li>Delivery cost scales linearly with distance from 239.64 (0–50 km) up to 1,365.76 (200+ km).</li>
+            </ul>
+
+            <div class="pf-rec-box">
+              <strong>Recommendation:</strong>
+              <span>Build weather buffer times into SLA estimates during stormy seasons, and investigate whether unmet speed expectations explain the low 2.72 Express rating.</span>
+            </div>
+
+            <div class="pf-case-actions">
+              <a href="https://esam-haraz.github.io/Data-Analysis/assets/projects/supply-chain/" class="ds-btn ds-btn-primary">
+                Read the full case study →
+              </a>
+              <a href="https://github.com/Esam-Haraz/Supply-Chain---Shipment-Deliveries" target="_blank" rel="noopener noreferrer" class="ds-btn ds-btn-secondary">
+                Repository on GitHub ↗
+              </a>
+            </div>
+          </div>
+
+          <div class="pf-device-frame">
+            <div class="pf-device-bar">
+              <div class="pf-device-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="pf-dash-tabs" role="tablist" aria-label="Dashboard switcher">
+                <button type="button" class="pf-dash-tab is-active" role="tab" aria-selected="true" data-proj-id="supply-chain" data-dash-idx="0">Excel Dashboard</button>
+              </div>
+            </div>
+            <button type="button" class="pf-dash-trigger" data-lightbox-proj="2" aria-label="Expand dashboard: Supply Chain &amp; Shipment Deliveries Analysis">
+              <img id="pf-img-supply-chain"
+                   src="https://esam-haraz.github.io/Data-Analysis/assets/projects/supply-chain/Excel_Dashboard.webp"
+                   data-asset-name="Excel_Dashboard.webp"
+                   alt="Supply Chain &amp; Shipment Deliveries Analysis — Excel Dashboard"
+                   width="1280"
+                   height="720"
+                   loading="lazy">
+              <span class="pf-zoom-hint" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path>
+                </svg>
+                <span>Expand</span>
+              </span>
+            </button>
+          </div>
+        </article>
       </div>
     </section>
-  </main>
-  <!-- END [HTML-05: SKILLS SECTION] -->
 
-  <!-- ========================================================================
-       START [HTML-06: ABOUT, EDUCATION & CONTACT FOOTER]
-       ======================================================================== -->
-  <footer class="footer-section" id="contact">
-    <div class="footer-container">
-      
-      <div>
-        <span class="section-tag" id="edu-tag">About & Academic Background</span>
-        <h2 class="section-title" id="edu-heading"> Analytical Mindset & Education</h2>
-        
-        <div class="about-box" id="about-story">
-          My academic background in Education trained me in research methodologies, hypothesis testing, and communicating complex concepts clearly. Today, I apply that structured analytical rigor to clean raw data, uncover business drivers, and build clear dashboards.
+    <!-- ======================================================================
+         03. SKILLS SECTION
+         ====================================================================== -->
+    <section class="ds-section" id="skills" aria-labelledby="skills-heading">
+      <div class="ds-section-header">
+        <div class="ds-chips-row" style="margin-block-end: var(--space-2);">
+          <span class="ds-chip" data-pf-text="skillsTag">Capabilities</span>
+        </div>
+        <h2 class="ds-section-title pf-reveal-heading" id="skills-heading" data-pf-text="skillsTitle">
+          Technical Stack &amp; Tools
+        </h2>
+      </div>
+
+      <div class="pf-skills-grid" id="pf-skills-grid">
+        <article class="pf-skill-card">
+          <div class="pf-skill-head">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <ellipse cx="12" cy="5" rx="8" ry="3"></ellipse>
+              <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"></path>
+              <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"></path>
+            </svg>
+            <h3 class="pf-skill-title">SQL &amp; Databases (PostgreSQL)</h3>
+          </div>
+          <ul class="pf-skill-list">
+            <li>Relational Schema Design &amp; Primary Keys</li>
+            <li>Data Filtering, Sorting &amp; Conditional Logic</li>
+            <li>Aggregations &amp; Grouping (GROUP BY, COUNT, SUM, AVG)</li>
+            <li>Data Quality Auditing &amp; Type Conversion</li>
+          </ul>
+        </article>
+
+        <article class="pf-skill-card">
+          <div class="pf-skill-head">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="4" y="13" width="4" height="7" rx="1"></rect>
+              <rect x="10" y="9" width="4" height="11" rx="1"></rect>
+              <rect x="16" y="4" width="4" height="16" rx="1"></rect>
+            </svg>
+            <h3 class="pf-skill-title">Power BI &amp; Data Visualization</h3>
+          </div>
+          <ul class="pf-skill-list">
+            <li>Interactive Executive Dashboards</li>
+            <li>Custom DAX Measures (Retention, Attrition, AOV)</li>
+            <li>Power Query Data Cleaning &amp; Transformation</li>
+            <li>60-30-10 Visual Layout &amp; Custom Color Themes</li>
+          </ul>
+        </article>
+
+        <article class="pf-skill-card">
+          <div class="pf-skill-head">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+              <path d="M3 10h18M9 4v16"></path>
+            </svg>
+            <h3 class="pf-skill-title">Microsoft Excel Analytics</h3>
+          </div>
+          <ul class="pf-skill-list">
+            <li>Dynamic Pivot Tables &amp; Pivot Charts</li>
+            <li>Interactive Slicers &amp; Cross-Filtering Dashboards</li>
+            <li>Exploratory Data Analysis (EDA) &amp; Type Validation</li>
+            <li>Data Cleaning &amp; Duplicate Handling</li>
+          </ul>
+        </article>
+
+        <article class="pf-skill-card">
+          <div class="pf-skill-head">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            <h3 class="pf-skill-title">Python (Expanding) &amp; Workflow</h3>
+          </div>
+          <ul class="pf-skill-list">
+            <li>Currently Expanding: Pandas, Polars &amp; NumPy</li>
+            <li>Core Python &amp; File Handling (250+ Practice Scripts)</li>
+            <li>Pattern Matching with Regular Expressions (Regex)</li>
+            <li>Git, GitHub &amp; Bilingual Markdown Documentation</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         04. BEYOND ANALYSIS (COMPACT AUTODEPLOY CARD + SERVICES HUB LINK)
+         ====================================================================== -->
+    <section class="ds-section" id="beyond" aria-labelledby="beyond-heading">
+      <div class="ds-section-header">
+        <div class="ds-chips-row" style="margin-block-end: var(--space-2);">
+          <span class="ds-chip" data-pf-text="beyondTag">Beyond Analysis</span>
+        </div>
+        <h2 class="ds-section-title pf-reveal-heading" id="beyond-heading" data-pf-text="beyondTitle">
+          Desktop Automation &amp; Tools
+        </h2>
+      </div>
+
+      <p class="pf-beyond-intro" data-pf-text="beyondIntro">
+        In addition to data analytics case studies, I design and build standalone Windows desktop utilities to automate repetitive system workflows.
+      </p>
+
+      <article class="pf-beyond-card">
+        <div class="pf-beyond-body">
+          <div class="pf-beyond-title-row">
+            <h3 style="font-size: var(--text-h3);" data-pf-text="beyondCardTitle">
+              AutoDeploy v1.2.0 — Post-Format Windows Setup Automation
+            </h3>
+            <span class="ds-chip">Python</span>
+            <span class="ds-chip">PyQt6</span>
+            <span class="ds-chip">AI-Assisted Build</span>
+          </div>
+          <p class="pf-beyond-desc" data-pf-text="beyondCardDesc">
+            A standalone zero-dependency Python/PyQt6 utility that automates silent software installations, AppData backups, and shortcut restoration after a fresh Windows format.
+          </p>
         </div>
 
-        <div class="edu-box">
-          <div class="edu-degree" id="edu-degree">Bachelor of Education (B.Ed.) — Damietta University</div>
-          <div class="edu-meta" id="edu-date">Graduated Jul 2026 (Sep 2022 – Jul 2026) | Damietta, Egypt</div>
-          <p style="color: var(--text-muted); font-size: 0.88rem;" id="edu-desc">
+        <a href="https://esam-haraz.github.io/AutoDeploy/"
+           data-cfg-href="AUTODEPLOY_URL"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="ds-btn ds-btn-secondary"
+           data-pf-text="beyondCardBtn">
+          Explore AutoDeploy ↗
+        </a>
+      </article>
+
+      <a href="https://esam-haraz.github.io/hub/"
+         data-cfg-href="HUB_URL"
+         class="pf-hub-text-link"
+         data-pf-text="beyondHubLink">
+        Freelance &amp; tools: Services Hub ↗
+      </a>
+    </section>
+
+    <!-- ======================================================================
+         05. ABOUT & EDUCATION
+         ====================================================================== -->
+    <section class="ds-section" id="about" aria-labelledby="edu-heading">
+      <div class="ds-section-header">
+        <div class="ds-chips-row" style="margin-block-end: var(--space-2);">
+          <span class="ds-chip" data-pf-text="eduTag">About &amp; Academic Background</span>
+        </div>
+        <h2 class="ds-section-title pf-reveal-heading" id="edu-heading" data-pf-text="eduHeading">
+          Analytical Mindset &amp; Education
+        </h2>
+      </div>
+
+      <div class="pf-about-edu-grid">
+        <div class="pf-info-card">
+          <p data-pf-text="aboutStory">
+            My academic background in Education trained me in research methodologies, hypothesis testing, and communicating complex concepts clearly. Today, I apply that structured analytical rigor to clean raw data, uncover business drivers, and build clear dashboards.
+          </p>
+        </div>
+
+        <div class="pf-info-card">
+          <h3 style="font-size: var(--text-h3);" data-pf-text="eduDegree">
+            Bachelor of Education (B.Ed.) — Damietta University
+          </h3>
+          <div class="pf-edu-meta" data-pf-text="eduDate">
+            Graduated Jul 2026 (Sep 2022 – Jul 2026) | Damietta, Egypt
+          </div>
+          <p style="font-size: var(--text-sm); color: var(--ink-muted);" data-pf-text="eduDesc">
             Focused on quantitative data processing and structured research methodology.
           </p>
         </div>
       </div>
+    </section>
 
-      <div class="contact-card">
+  </main>
+
+  <!-- ========================================================================
+       06. CONTACT & FOOTER
+       ======================================================================== -->
+  <footer class="ds-footer" id="contact">
+    <div class="ds-container">
+      <div class="pf-contact-grid">
         <div>
-          <span class="section-tag" id="contact-tag">Get In Touch</span>
-          <h3 style="font-size: 1.5rem; font-weight: 800;" id="contact-heading">Ready to Contribute to Data-Driven Teams</h3>
-          <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 0.4rem;" id="contact-sub">
-            Seeking Data Analyst internships and entry-level roles.
-          </p>
-          <div class="contact-avail-badge" id="contact-avail-badge">
-            📍 Damietta, Egypt • Open to Remote, Hybrid & On-Site
+          <div class="ds-chips-row" style="margin-block-end: var(--space-2);">
+            <span class="ds-chip" data-pf-text="contactTag">Get In Touch</span>
           </div>
+          <h2 class="ds-section-title pf-reveal-heading" data-pf-text="contactHeading">
+            Ready to Contribute to Data-Driven Teams
+          </h2>
+          <p style="color: var(--ink-muted); margin-block-end: var(--space-3);" data-pf-text="contactSub">
+            Seeking Data Analyst internships and entry-level opportunities.
+          </p>
+          <span class="ds-chip" data-pf-text="contactAvailBadge">
+            Damietta, Egypt • Open to Remote, Hybrid &amp; On-Site
+          </span>
         </div>
 
-        <div class="contact-links-list">
-          <a href="mailto:esamv20@gmail.com" class="contact-link-item" aria-label="Send email to esamv20@gmail.com">
-            <span>✉️ esamv20@gmail.com</span>
-            <span style="color: var(--accent-secondary); font-family: var(--font-mono);">Email ↗</span>
+        <div class="pf-contact-links">
+          <a href="mailto:esamv20@gmail.com" class="pf-contact-row" aria-label="Send email to esamv20@gmail.com">
+            <span class="pf-contact-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <path d="M3 7l9 6 9-6"></path>
+              </svg>
+              <span>esamv20@gmail.com</span>
+            </span>
+            <span class="ds-mono">Email ↗</span>
           </a>
-          <a href="https://www.linkedin.com/in/esam-haraz-459925402" target="_blank" rel="noopener" class="contact-link-item" aria-label="Visit Esam Haraz LinkedIn Profile">
-            <span>💼 linkedin.com/in/esam-haraz</span>
-            <span style="color: var(--accent-secondary); font-family: var(--font-mono);">LinkedIn ↗</span>
+
+          <a href="https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link"
+             data-cfg-href="CV_URL"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="pf-contact-row"
+             aria-label="Download CV PDF on Google Drive">
+            <span class="pf-contact-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <span data-pf-text="ctaCv">Download CV (PDF) ↗</span>
+            </span>
+            <span class="ds-mono">Drive ↗</span>
           </a>
-          <a href="https://github.com/Esam-Haraz" target="_blank" rel="noopener" class="contact-link-item" aria-label="Visit Esam Haraz GitHub Profile">
-            <span>💻 github.com/Esam-Haraz</span>
-            <span style="color: var(--accent-secondary); font-family: var(--font-mono);">GitHub ↗</span>
+
+          <a href="https://www.linkedin.com/in/esam-haraz-459925402"
+             data-cfg-href="LINKEDIN"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="pf-contact-row"
+             aria-label="Visit Esam Haraz LinkedIn Profile">
+            <span class="pf-contact-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+                <path d="M8 11v5M8 8v.01M12 16v-5c0-1.1.9-2 2-2s2 .9 2 2v5"></path>
+              </svg>
+              <span>linkedin.com/in/esam-haraz</span>
+            </span>
+            <span class="ds-mono">LinkedIn ↗</span>
+          </a>
+
+          <a href="https://github.com/Esam-Haraz"
+             data-cfg-href="GITHUB"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="pf-contact-row"
+             aria-label="Visit Esam Haraz GitHub Profile">
+            <span class="pf-contact-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"></path>
+              </svg>
+              <span>github.com/Esam-Haraz</span>
+            </span>
+            <span class="ds-mono">GitHub ↗</span>
           </a>
         </div>
       </div>
 
-    </div>
-
-    <div class="copyright-bar">
-      <span id="footer-copy">© 2026 Esam Haraz. Hosted on GitHub Pages.</span>
-      <span style="font-family: var(--font-mono);">SQL • Excel • Power BI • Python</span>
+      <div class="ds-footer-bottom" style="margin-block-start: var(--space-6);">
+        <span data-pf-text="footerCopy">© 2026 Esam Haraz. Hosted on GitHub Pages.</span>
+        <span class="ds-mono">SQL • Excel • Power BI • Python</span>
+      </div>
     </div>
   </footer>
-  <!-- END [HTML-06: ABOUT, EDUCATION & CONTACT FOOTER] -->
-
-  <!-- External Animation Libraries: Reliable jsDelivr / Cloudflare CDNs -->
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-  <script>
-    /* ==========================================================================
-       START [JS-01: PORTFOLIO DATA STORE]
-       ========================================================================== */
-    const PORTFOLIO_DATA = {
-      cvUrl: "https://drive.google.com/file/d/1RmhGB0Nvr3bI8VKO4Y__9YSiyUP0d5Ad/view?usp=drive_link",
-
-      en: {
-        dir: "ltr",
-        name: "Esam Haraz",
-        role: "Data Analyst",
-        availability: "Available Immediately • Egypt (On-Site / Hybrid) & Remote",
-        nav: { projects: "Projects", skills: "Tech Stack", contact: "About & Contact" },
-        heroHeadline: 'Transforming Raw Data Into <span class="highlight">Actionable Business Impact.</span>',
-        heroSummary: "Data Analyst specializing in building end-to-end analytics solutions using SQL (PostgreSQL), Microsoft Excel, and Power BI—from raw data cleaning and relational schema design to interactive executive dashboards, while expanding into Python data analysis (Pandas, Polars, NumPy).",
-        ctaProjects: "Explore Case Studies ↓",
-        ctaCv: "Download CV (PDF) ↗",
-        metrics: [
-          { val: "3x Attrition", lbl: "31% vs 10% Overtime Turnover Uncovered (HR Case Study)" },
-          { val: "$817.86K", lbl: "2015 Retail Revenue Analyzed Across 21,350 Orders" },
-          { val: "41.45% Delay", lbl: "Stormy Weather Impact vs 16.02% in Cold Conditions (25K Shipments)" }
-        ],
-        projSectionTag: "Featured Case Studies",
-        projSectionHeading: "End-to-End Analytics",
-        projScrollHint: "🖱️ Scroll or use arrow keys to switch",
-        repoBtnText: "Explore Full Repository & SQL on GitHub ↗",
-        recLabel: "Recommendation:",
-        sourceLabel: "Source: Kaggle Dataset",
-        skillsTag: "Capabilities",
-        skillsTitle: "Technical Stack & Tools",
-        skills: [
-          {
-            category: "SQL & Databases (PostgreSQL)",
-            items: [
-              "Relational Schema Design & Primary Keys",
-              "Data Filtering, Sorting & Conditional Logic",
-              "Aggregations & Grouping (GROUP BY, COUNT, SUM, AVG)",
-              "Data Quality Auditing & Type Conversion"
-            ]
-          },
-          {
-            category: "Power BI & Data Visualization",
-            items: [
-              "Interactive Executive Dashboards",
-              "Custom DAX Measures (Retention, Attrition, AOV)",
-              "Power Query Data Cleaning & Transformation",
-              "60-30-10 Visual Layout & Custom Color Themes"
-            ]
-          },
-          {
-            category: "Microsoft Excel Analytics",
-            items: [
-              "Dynamic Pivot Tables & Pivot Charts",
-              "Interactive Slicers & Cross-Filtering Dashboards",
-              "Exploratory Data Analysis (EDA) & Type Validation",
-              "Data Cleaning & Duplicate Handling"
-            ]
-          },
-          {
-            category: "Python (Expanding) & Workflow",
-            items: [
-              "Currently Expanding: Pandas, Polars & NumPy",
-              "Core Python & File Handling (250+ Practice Scripts)",
-              "Pattern Matching with Regular Expressions (Regex)",
-              "Git, GitHub & Bilingual Markdown Documentation"
-            ]
-          }
-        ],
-        eduTag: "About & Academic Background",
-        eduHeading: "Analytical Mindset & Education",
-        aboutStory: "My academic background in Education trained me in research methodologies, hypothesis testing, and communicating complex concepts clearly. Today, I apply that structured analytical rigor to clean raw data, uncover business drivers, and build clear dashboards.",
-        eduDegree: "Bachelor of Education (B.Ed.) — Damietta University",
-        eduDate: "Graduated Jul 2026 (Sep 2022 – Jul 2026) | Damietta, Egypt",
-        eduDesc: "Focused on quantitative data processing and structured research methodology.",
-        contactTag: "Get In Touch",
-        contactHeading: "Ready to Contribute to Data-Driven Teams",
-        contactSub: "Seeking Data Analyst internships and entry-level opportunities.",
-        contactAvailBadge: "📍 Damietta, Egypt • Open to Remote, Hybrid & On-Site",
-        footerCopy: "© 2026 Esam Haraz. Hosted on GitHub Pages.",
-        imgFallback: "📊 Dashboard preview failed to load"
-      },
-
-      ar: {
-        dir: "rtl",
-        name: "عصام حراز",
-        role: "محلل بيانات (Data Analyst)",
-        availability: "متاح فوراً للعمل • مصر (مقر الشركة / هجين) وعن بُعد (Remote)",
-        nav: { projects: "المشاريع", skills: "المهارات التقنية", contact: "عني وتواصل" },
-        heroHeadline: 'تحويل البيانات الخام إلى <span class="highlight">رؤى وقرارات أعمال فعالة.</span>',
-        heroSummary: "محلل بيانات متخصص في بناء مشاريع تحليلية متكاملة باستخدام SQL (PostgreSQL) وExcel وPower BI — بدءاً من تنظيف البيانات وتصميم الجداول وحتى بناء لوحات التحكم التفاعلية، مع التوسع الحالي في تحليل البيانات بلغة Python (Pandas, Polars, NumPy).",
-        ctaProjects: "استكشف المشاريع ↓",
-        ctaCv: "تحميل السيرة الذاتية (CV) ↗",
-        metrics: [
-          { val: "3x تسرب وظيفي", lbl: "31% مقابل 10% معدل ترك العمل مع الساعات الإضافية (مشروع HR)" },
-          { val: "$817.86K", lbl: "إيرادات مبيعات تم تحليلها عبر 21,350 طلباً لتحسين التشغيل" },
-          { val: "41.45% تأخير", lbl: "معدل تأخر الشحنات في الطقس العاصف مقابل 16.02% في البارد (25 ألف شحنة)" }
-        ],
-        projSectionTag: "أبرز المشاريع التطبيقية",
-        projSectionHeading: "مشاريع تحليل البيانات",
-        projScrollHint: "🖱️ مرر للأسفل أو استخدم الأسهم للتنقل",
-        repoBtnText: "استعراض الكود والتوثيق الكامل على GitHub ↗",
-        recLabel: "التوصية العملية:",
-        sourceLabel: "المصدر: بيانات Kaggle",
-        skillsTag: "الأدوات والقدرات",
-        skillsTitle: "المهارات والأدوات التقنية",
-        skills: [
-          {
-            category: "قواعد البيانات و SQL (PostgreSQL)",
-            items: [
-              "تصميم الجداول (Schema Design) والمفاتيح الأساسية",
-              "تصفية وفرز البيانات والشروط المنطقية",
-              "تجميع البيانات والدوال الحسابية (GROUP BY, COUNT, SUM, AVG)",
-              "فحص جودة البيانات ومعالجة صيغ التواريخ والأنواع"
-            ]
-          },
-          {
-            category: "ذكاء الأعمال وتصور البيانات (Power BI)",
-            items: [
-              "بناء لوحات تحكم تفاعلية (Interactive Dashboards)",
-              "كتابة مقاييس DAX مخصصة لمؤشرات الأداء (KPIs)",
-              "تنظيف وتحويل البيانات عبر Power Query",
-              "تطبيق قاعدة التصميم 60-30-10 وثيمات الألوان المخصصة"
-            ]
-          },
-          {
-            category: "تحليل البيانات عبر Microsoft Excel",
-            items: [
-              "الجداول والرسوم المحورية (Pivot Tables & Charts)",
-              "بناء لوحات تفاعلية باستخدام مقسمات العرض (Slicers)",
-              "الاستكشاف الأولي للبيانات (EDA) والتحقق من الأنواع",
-              "تنظيف البيانات واكتشاف القيم المكررة والشاذة"
-            ]
-          },
-          {
-            category: "لغة Python (قيد التوسع) وأدوات العمل",
-            items: [
-              "قيد التوسع التطبيقي: Pandas و Polars و NumPy",
-              "أساس برمجي في Python ومعالجة الملفات (+250 تمرين عملي)",
-              "التعبيرات النمطية واستخراج النصوص (Regex)",
-              "إدارة المشاريع عبر Git و GitHub والتوثيق بـ Markdown"
-            ]
-          }
-        ],
-        eduTag: "نبذة عني والخلفية الأكاديمية",
-        eduHeading: "العقلية التحليلية والتعليم",
-        aboutStory: "دراستي الأكاديمية في كلية التربية درّبتني على مناهج البحث العلمي، واختبار الفرضيات، وتبسيط المفاهيم المعقدة. أوظف اليوم هذه المنهجية البحثية والكمية في تنظيف البيانات الخام، واستخلاص دوافع الأعمال، وبناء لوحات تحكم واضحة تدعم اتخاذ القرار.",
-        eduDegree: "بكالوريوس التربية — جامعة دمياط",
-        eduDate: "تخرج في يوليو 2026 (سبتمبر 2022 – يوليو 2026) | دمياط، مصر",
-        eduDesc: "التركيز على مناهج البحث العلمي ومعالجة البيانات الكمية.",
-        contactTag: "تواصل معي",
-        contactHeading: "جاهز للانضمام والمساهمة في فرق البيانات",
-        contactSub: "أبحث عن فرص التدريب (Internships) والوظائف التأسيسية كمحلل بيانات.",
-        contactAvailBadge: "📍 دمياط، مصر • متاح للعمل عن بُعد (Remote) أو هجين أو من المقر",
-        footerCopy: "© 2026 عصام حراز. مستضاف عبر GitHub Pages.",
-        imgFallback: "📊 تعذر تحميل معاينة لوحة التحكم"
-      },
-
-      projects: [
-        {
-          id: "hr-analytics",
-          num: "01",
-          repoUrl: "https://github.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance",
-          tags: ["SQL", "Power BI", "DAX", "Excel"],
-          dashboards: [
-            {
-              label: "Power BI",
-              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance/main/Images/PowerBi_Dashboard.png",
-              backupUrl: "assets/images/hr-powerbi.png"
-            },
-            {
-              label: "Excel",
-              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/IBM-HR-Analytics-Employee-Attrition-Performance/main/Images/Excel_Dashboard.png",
-              backupUrl: "assets/images/hr-excel.png"
-            }
-          ],
-          en: {
-            navTitle: "IBM HR Attrition",
-            title: "IBM HR Analytics — Employee Attrition & Performance",
-            summary: "End-to-end HR analytics solution evaluating 1,470 employee records across SQL, Excel, and Power BI to pinpoint turnover drivers across overtime, income levels, tenure, and job satisfaction.",
-            kpis: [
-              { val: "1,470", lbl: "Total Employees" },
-              { val: "16.12%", lbl: "Attrition Rate (237)" },
-              { val: "39.76%", lbl: "Sales Rep Attrition" }
-            ],
-            insights: [
-              "Overtime employees leave at a 31% rate compared to 10% for non-overtime staff (3.1x turnover rate).",
-              "Sales Representatives record the highest attrition rate across all roles at 39.76%, nearly double the next role.",
-              "Employees who left earned a lower average monthly income ($4,787) compared to retained employees ($6,832)."
-            ],
-            recommendation: "Cap monthly overtime hours and audit compensation/quota structures for Sales Representatives to reduce early-tenure turnover."
-          },
-          ar: {
-            navTitle: "الموارد البشرية (HR)",
-            title: "تحليل تسرب الموظفين والأداء — IBM HR Analytics",
-            summary: "مشروع متكامل لتحليل بيانات 1,470 موظفاً باستخدام SQL وExcel وPower BI لتحديد الأسباب الرئيسية لترك العمل عبر ساعات العمل الإضافي، فجوات الرواتب، والرضا الوظيفي.",
-            kpis: [
-              { val: "1,470", lbl: "إجمالي الموظفين" },
-              { val: "16.12%", lbl: "معدل الترك (237)" },
-              { val: "39.76%", lbl: "ترك مندوبي المبيعات" }
-            ],
-            insights: [
-              "العاملون لوقت إضافي (Overtime) يتركون العمل بنسبة 31% مقابل 10% فقط لغيرهم (أكثر من 3 أضعاف).",
-              "مندوبو المبيعات يسجلون أعلى نسبة تسرب وظيفي بين جميع الأدوار بمعدل 39.76%.",
-              "الموظفون المغادرون كان متوسط دخلهم الشهري أقل بوضوح (4,787) مقارنة بالمستمرين في الشركة (6,832)."
-            ],
-            recommendation: "وضع سقف لساعات العمل الإضافي الشهرية ومراجعة هيكل الحوافز والرواتب لمندوبي المبيعات للحد من التسرب الوظيفي."
-          }
-        },
-        {
-          id: "pizza-sales",
-          num: "02",
-          repoUrl: "https://github.com/Esam-Haraz/Pizza_Sales",
-          tags: ["SQL (PostgreSQL)", "Power BI", "Power Query", "Excel"],
-          dashboards: [
-            {
-              label: "Power BI",
-              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Pizza_Sales/main/Images/Power_Bi_Dashboard.png",
-              backupUrl: "assets/images/pizza-powerbi.png"
-            },
-            {
-              label: "Excel",
-              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Pizza_Sales/main/Images/Excel_Dashboard.png",
-              backupUrl: "assets/images/pizza-excel.png"
-            }
-          ],
-          en: {
-            navTitle: "Pizza Sales & Ops",
-            title: "Pizza Sales Performance & Operations Analytics",
-            summary: "Retail sales & operations pipeline processing 21,350 orders ($817.86K revenue) using Power Query, SQL date conversion, and a 60-30-10 Power BI dashboard to guide staffing and menu strategy.",
-            kpis: [
-              { val: "$817.86K", lbl: "Total Revenue" },
-              { val: "21,350", lbl: "Total Orders" },
-              { val: "$38.31", lbl: "Avg Order Value" }
-            ],
-            insights: [
-              "Fridays and Thursdays record the highest weekly order volumes, defining peak kitchen operational windows.",
-              "The Classic category leads total demand and revenue, while Large (L) size dominates customer preferences.",
-              "The Thai Chicken Pizza is the top revenue generator, whereas The Brie Carre Pizza records the lowest revenue."
-            ],
-            recommendation: "Concentrate kitchen staffing and prep inventory on Thursday/Friday rush hours, and bundle or replace low-performing items like The Brie Carre Pizza."
-          },
-          ar: {
-            navTitle: "مبيعات البيتزا",
-            title: "تحليل أداء المبيعات والعمليات التشغيلية — Pizza Sales",
-            summary: "تحليل شامل للمبيعات والعمليات على 21,350 طلباً بإجمالي إيرادات 817.86 ألف دولار باستخدام Power Query وSQL ولوحة Power BI مصممة بقاعدة 60-30-10 لتحسين جدولة العمالة وقائمة المنتجات.",
-            kpis: [
-              { val: "$817.86K", lbl: "إجمالي الإيرادات" },
-              { val: "21,350", lbl: "إجمالي الطلبات" },
-              { val: "$38.31", lbl: "متوسط الطلب" }
-            ],
-            insights: [
-              "يومي الجمعة والخميس يسجلان أعلى كثافة في الطلبات الأسبوعية؛ مما يحدد أوقات الذروة التشغيلية للمطبخ.",
-              "فئة Classic تتصدر المبيعات والإيرادات، والحجم الكبير (Large) هو الأكثر تفضيلاً لدى العملاء.",
-              "بيتزا الدجاج التايلاندي (Thai Chicken) هي الأعلى إيراداً، بينما سجلت Brie Carre الأداء الأضعف."
-            ],
-            recommendation: "تكثيف جدولة طاقم المطبخ والمخزون خلال ذروة الخميس والجمعة، وإعادة تسعير أو استبدال الأصناف ضعيفة الإيرادات مثل Brie Carre."
-          }
-        },
-        {
-          id: "supply-chain",
-          num: "03",
-          repoUrl: "https://github.com/Esam-Haraz/Supply-Chain---Shipment-Deliveries",
-          tags: ["SQL (PostgreSQL)", "Microsoft Excel", "Data Quality"],
-          dashboards: [
-            {
-              label: "Excel Dashboard",
-              imgUrl: "https://raw.githubusercontent.com/Esam-Haraz/Supply-Chain---Shipment-Deliveries/main/Images/Excel_Dashboard.png",
-              backupUrl: "assets/images/supply-excel.png"
-            }
-          ],
-          en: {
-            navTitle: "Supply Chain",
-            title: "Supply Chain & Shipment Deliveries Analysis",
-            summary: "Analyzed 25,000 shipment records using PostgreSQL and Excel to uncover delay drivers, cost scaling, and partner performance—resolving duplicate/decimal primary key issues via SERIAL keys.",
-            kpis: [
-              { val: "25,000", lbl: "Total Shipments" },
-              { val: "26.68%", lbl: "Overall Delay Rate" },
-              { val: "41.45%", lbl: "Stormy Delay Rate" }
-            ],
-            insights: [
-              "Stormy weather produces a 41.45% delay rate compared to 16.02% in cold weather — nearly a 2.5x difference.",
-              "Express delivery recorded the lowest average customer rating (2.72 / 5) despite being the fastest shipping mode.",
-              "Delivery cost scales linearly with distance from 239.64 (0–50 km) up to 1,365.76 (200+ km)."
-            ],
-            recommendation: "Build weather buffer times into SLA estimates during stormy seasons, and investigate whether unmet speed expectations explain the low 2.72 Express rating."
-          },
-          ar: {
-            navTitle: "سلاسل الإمداد",
-            title: "تحليل سلاسل الإمداد وتوصيل الشحنات — Supply Chain",
-            summary: "تحليل 25,000 سجل شحنة باستخدام PostgreSQL وExcel لاكتشاف أسباب التأخير وأنماط التكلفة، مع معالجة مشكلات جودة البيانات في المعرفات المكررة والعشرية عبر SERIAL PRIMARY KEY.",
-            kpis: [
-              { val: "25,000", lbl: "إجمالي الشحنات" },
-              { val: "26.68%", lbl: "نسبة التأخير" },
-              { val: "41.45%", lbl: "تأخير العواصف" }
-            ],
-            insights: [
-              "الطقس العاصف يرفع معدل تأخير الشحنات إلى 41.45% مقارنة بـ 16.02% في الطقس البارد (أكثر من الضعف).",
-              "الشحن السريع (Express) سجل أقل متوسط تقييم من العملاء (2.72 من 5) رغم كونه أسرع وسيلة توصيل.",
-              "تزداد تكلفة التوصيل بعلاقة خطية منتظمة مع المسافة من 239.64 (0–50 كم) إلى 1,365.76 (+200 كم)."
-            ],
-            recommendation: "إضافة هامش وقت احتياطي لمواعيد التسليم في المواسم العاصفة، ودراسة ما إذا كان ارتفاع سقف توقعات عملاء الشحن السريع يفسر انخفاض تقييمه (2.72)."
-          }
-        }
-      ]
-    };
-    /* END [JS-01: PORTFOLIO DATA STORE] */
-
-    /* ==========================================================================
-       START [JS-02: SINGLE-TICKER LENIS, GSAP & MOUSE SPOTLIGHT INIT]
-       Fixed double-rAF issue: GSAP ticker drives Lenis when GSAP is present;
-       native requestAnimationFrame only runs as a fallback if GSAP fails.
-       ========================================================================== */
-    let currentLang = "en";
-    try {
-      const savedLang = localStorage.getItem("esam_portfolio_lang");
-      if (savedLang === "ar" || savedLang === "en") {
-        currentLang = savedLang;
-      } else if (navigator.language && navigator.language.toLowerCase().startsWith("ar")) {
-        currentLang = "ar";
-      }
-    } catch (e) {}
-
-    let activeProjectIndex = 0;
-    let activeDashboardTabs = {}; // Persists selected dashboard tab per project across language switches
-    let projectScrollTrigger = null;
-    let lastFocusedElement = null;
-
-    let lenis = {
-      stop: () => { document.body.style.overflow = "hidden"; },
-      start: () => { document.body.style.overflow = ""; },
-      raf: () => {},
-      on: () => {},
-      scrollTo: (target) => {
-        if (target === "top") {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
-          const el = document.querySelector(target);
-          if (el) el.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    };
-
-    const hasGSAP = typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined";
-
-    if (typeof Lenis !== "undefined") {
-      try {
-        lenis = new Lenis({
-          duration: 1.15,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-          syncTouch: false
-        });
-
-        if (hasGSAP) {
-          gsap.registerPlugin(ScrollTrigger);
-          lenis.on("scroll", ScrollTrigger.update);
-          gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-          });
-          gsap.ticker.lagSmoothing(0);
-        } else {
-          function fallbackRaf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(fallbackRaf);
-          }
-          requestAnimationFrame(fallbackRaf);
-        }
-      } catch (err) {
-        console.warn("Lenis smooth scroll fallback:", err);
-      }
-    }
-
-    window.addEventListener("pointermove", (e) => {
-      document.documentElement.style.setProperty("--mouse-x", `${e.clientX}px`);
-      document.documentElement.style.setProperty("--mouse-y", `${e.clientY}px`);
-    }, { passive: true });
-    /* END [JS-02: SINGLE-TICKER LENIS, GSAP & MOUSE SPOTLIGHT INIT] */
-
-    /* ==========================================================================
-       START [JS-03: DOM RENDER ENGINE & STATE PERSISTENCE]
-       ========================================================================== */
-    function handleImageError(imgEl, backupUrl) {
-      if (!imgEl.dataset.retried) {
-        imgEl.dataset.retried = "true";
-        if (imgEl.src.includes("/main/")) {
-          imgEl.src = imgEl.src.replace("/main/", "/master/");
-        } else if (backupUrl) {
-          imgEl.src = backupUrl;
-        } else {
-          showFallbackMessage(imgEl);
-        }
-      } else if (!imgEl.dataset.backedUp && backupUrl && imgEl.src !== backupUrl) {
-        imgEl.dataset.backedUp = "true";
-        imgEl.src = backupUrl;
-      } else {
-        showFallbackMessage(imgEl);
-      }
-    }
-
-    function showFallbackMessage(imgEl) {
-      imgEl.style.display = "none";
-      const fallback = imgEl.parentElement.querySelector(".img-fallback-msg");
-      if (fallback) fallback.style.display = "flex";
-    }
-
-    function renderSite(lang) {
-      const data = PORTFOLIO_DATA[lang];
-      document.documentElement.lang = lang;
-      document.documentElement.dir = data.dir;
-      document.body.dir = data.dir;
-
-      document.getElementById("btn-en").classList.toggle("active", lang === "en");
-      document.getElementById("btn-ar").classList.toggle("active", lang === "ar");
-
-      document.getElementById("nav-name").textContent = data.name.toUpperCase();
-      document.getElementById("curtain-text").textContent = data.name;
-      document.getElementById("nav-projects").textContent = data.nav.projects;
-      document.getElementById("nav-skills").textContent = data.nav.skills;
-      document.getElementById("nav-contact").textContent = data.nav.contact;
-
-      document.getElementById("hero-role").textContent = data.role;
-      document.getElementById("hero-availability").textContent = data.availability;
-      document.getElementById("hero-headline").innerHTML = data.heroHeadline;
-      document.getElementById("hero-summary").textContent = data.heroSummary;
-      document.getElementById("cta-projects").textContent = data.ctaProjects;
-      const cvBtn = document.getElementById("cta-cv");
-      cvBtn.textContent = data.ctaCv;
-      cvBtn.href = PORTFOLIO_DATA.cvUrl;
-
-      const metricsContainer = document.getElementById("metrics-container");
-      metricsContainer.innerHTML = data.metrics.map(m => `
-        <div class="metric-box">
-          <span class="metric-val">${m.val}</span>
-          <span class="metric-lbl">${m.lbl}</span>
-        </div>
-      `).join("");
-
-      document.getElementById("proj-section-tag").textContent = data.projSectionTag;
-      document.getElementById("proj-section-heading").textContent = data.projSectionHeading;
-      document.getElementById("proj-scroll-hint").innerHTML = `<span>${data.projScrollHint}</span>`;
-
-      const navList = document.getElementById("project-nav-list");
-      navList.innerHTML = PORTFOLIO_DATA.projects.map((proj, idx) => `
-        <button class="project-nav-btn ${idx === activeProjectIndex ? 'active' : ''}"
-                role="tab"
-                id="tab-${proj.id}"
-                tabindex="${idx === activeProjectIndex ? '0' : '-1'}"
-                aria-selected="${idx === activeProjectIndex}"
-                aria-controls="panel-${proj.id}"
-                aria-label="Select project ${proj.num}: ${proj[lang].navTitle}"
-                onclick="selectProjectManual(${idx})"
-                onkeydown="handleTabKeydown(event, ${idx})">
-          <span class="proj-num">${proj.num}</span>
-          <span class="proj-nav-name">${proj[lang].navTitle}</span>
-        </button>
-      `).join("");
-
-      const stage = document.getElementById("project-stage");
-      stage.innerHTML = PORTFOLIO_DATA.projects.map((proj, idx) => {
-        const pLang = proj[lang];
-        const savedTabIdx = activeDashboardTabs[proj.id] || 0;
-        const activeDash = proj.dashboards[savedTabIdx] || proj.dashboards[0];
-
-        const dashButtons = proj.dashboards.map((d, dIdx) => `
-          <button class="dash-tab ${dIdx === savedTabIdx ? 'active' : ''}"
-                  aria-label="View ${d.label} dashboard"
-                  onclick="switchDashboardImage('${proj.id}', ${dIdx}, this)">
-            ${d.label}
-          </button>
-        `).join("");
-
-        return `
-          <article class="project-slide ${idx === activeProjectIndex ? 'active' : ''}"
-                   id="panel-${proj.id}"
-                   data-index="${idx}"
-                   role="tabpanel"
-                   aria-labelledby="tab-${proj.id}">
-            <div class="project-details">
-              <div>
-                <div class="proj-meta-top">
-                  <span class="proj-num" style="font-size:0.88rem;">#${proj.num}</span>
-                  ${proj.tags.map(t => `<span class="tech-tag">${t}</span>`).join("")}
-                  <span class="source-tag">${data.sourceLabel}</span>
-                </div>
-                <h3 class="proj-title">${pLang.title}</h3>
-                <p class="proj-summary">${pLang.summary}</p>
-              </div>
-              
-              <div class="proj-kpis">
-                ${pLang.kpis.map(k => `
-                  <div class="kpi-mini">
-                    <strong>${k.val}</strong>
-                    <span>${k.lbl}</span>
-                  </div>
-                `).join("")}
-              </div>
-
-              <ul class="insights-list">
-                ${pLang.insights.map(ins => `<li>${ins}</li>`).join("")}
-              </ul>
-
-              <div class="proj-recommendation">
-                <strong>💡 ${data.recLabel}</strong>${pLang.recommendation}
-              </div>
-
-              <a href="${proj.repoUrl}" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">
-                ${data.repoBtnText}
-              </a>
-            </div>
-
-            <div class="dashboard-showcase">
-              <div class="dashboard-toolbar">
-                <div class="window-dots" aria-hidden="true">
-                  <span></span><span></span><span></span>
-                </div>
-                <div class="dash-switcher" role="group" aria-label="Dashboard View Switcher">
-                  ${dashButtons}
-                </div>
-              </div>
-              <div class="dashboard-img-wrap"
-                   tabindex="0"
-                   role="button"
-                   data-proj-index="${idx}"
-                   aria-label="${lang === 'ar' ? 'تكبير لوحة التحكم: ' : 'Expand dashboard preview: '}${pLang.title}"
-                   onclick="openLightboxByIndex(${idx}, this)"
-                   onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightboxByIndex(${idx}, this);}">
-                <img id="img-${proj.id}" src="${activeDash.imgUrl}" alt="${pLang.title} Dashboard" loading="lazy"
-                     onerror="handleImageError(this, '${activeDash.backupUrl || ''}')">
-                <div class="img-fallback-msg">
-                  <span>${data.imgFallback}</span>
-                  <span style="color:var(--accent-secondary); font-size:0.75rem;">${proj.repoUrl}</span>
-                </div>
-                <span class="zoom-badge">🔍 ${lang === 'ar' ? 'اضغط للتكبير' : 'Click to Expand'}</span>
-              </div>
-            </div>
-          </article>
-        `;
-      }).join("");
-
-      // Sync progress bar width with current active project
-      const total = PORTFOLIO_DATA.projects.length;
-      document.getElementById("scroll-progress-bar").style.width = `${((activeProjectIndex + 1) / total) * 100}%`;
-
-      document.getElementById("skills-tag").textContent = data.skillsTag;
-      document.getElementById("skills-title").textContent = data.skillsTitle;
-      document.getElementById("skills-grid").innerHTML = data.skills.map(s => `
-        <div class="skill-card">
-          <div class="skill-card-title">❖ ${s.category}</div>
-          <ul class="skill-items">
-            ${s.items.map(item => `<li>${item}</li>`).join("")}
-          </ul>
-        </div>
-      `).join("");
-
-      document.getElementById("edu-tag").textContent = data.eduTag;
-      document.getElementById("edu-heading").textContent = data.eduHeading;
-      document.getElementById("about-story").textContent = data.aboutStory;
-      document.getElementById("edu-degree").textContent = data.eduDegree;
-      document.getElementById("edu-date").textContent = data.eduDate;
-      document.getElementById("edu-desc").textContent = data.eduDesc;
-
-      document.getElementById("contact-tag").textContent = data.contactTag;
-      document.getElementById("contact-heading").textContent = data.contactHeading;
-      document.getElementById("contact-sub").textContent = data.contactSub;
-      document.getElementById("contact-avail-badge").textContent = data.contactAvailBadge;
-      document.getElementById("footer-copy").textContent = data.footerCopy;
-    }
-    /* END [JS-03: DOM RENDER ENGINE & STATE PERSISTENCE] */
-
-    /* ==========================================================================
-       START [JS-04: DASHBOARD, KEYBOARD TABS & ACCESSIBLE LIGHTBOX]
-       ========================================================================== */
-    function switchDashboardImage(projId, dashIdx, btnEl) {
-      const proj = PORTFOLIO_DATA.projects.find(p => p.id === projId);
-      if (!proj || !proj.dashboards[dashIdx]) return;
-
-      activeDashboardTabs[projId] = dashIdx;
-      const targetDash = proj.dashboards[dashIdx];
-      const imgEl = document.getElementById(`img-${projId}`);
-      if (!imgEl) return;
-
-      const parentSwitcher = btnEl.parentElement;
-      parentSwitcher.querySelectorAll(".dash-tab").forEach(b => b.classList.remove("active"));
-      btnEl.classList.add("active");
-
-      imgEl.style.display = "";
-      const fallback = imgEl.parentElement.querySelector(".img-fallback-msg");
-      if (fallback) fallback.style.display = "none";
-
-      imgEl.onerror = function() { handleImageError(this, targetDash.backupUrl || ""); };
-
-      imgEl.style.opacity = "0.25";
-      setTimeout(() => {
-        delete imgEl.dataset.retried;
-        delete imgEl.dataset.backedUp;
-        imgEl.src = targetDash.imgUrl;
-        imgEl.style.opacity = "1";
-      }, 150);
-    }
-
-    function setActiveProject(index) {
-      if (index === activeProjectIndex) return;
-      activeProjectIndex = index;
-
-      document.querySelectorAll(".project-slide").forEach((slide, idx) => {
-        slide.classList.toggle("active", idx === index);
-      });
-
-      document.querySelectorAll(".project-nav-btn").forEach((btn, idx) => {
-        const isActive = idx === index;
-        btn.classList.toggle("active", isActive);
-        btn.setAttribute("aria-selected", isActive);
-        btn.setAttribute("tabindex", isActive ? "0" : "-1");
-      });
-
-      const total = PORTFOLIO_DATA.projects.length;
-      const pct = ((index + 1) / total) * 100;
-      document.getElementById("scroll-progress-bar").style.width = `${pct}%`;
-    }
-
-    function selectProjectManual(index) {
-      setActiveProject(index);
-    }
-
-    // ARIA Tablist Keyboard Arrow Navigation
-    function handleTabKeydown(event, idx) {
-      const total = PORTFOLIO_DATA.projects.length;
-      let nextIdx = null;
-
-      if (event.key === "ArrowDown" || event.key === "ArrowRight") {
-        event.preventDefault();
-        nextIdx = (idx + 1) % total;
-      } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
-        event.preventDefault();
-        nextIdx = (idx - 1 + total) % total;
-      } else if (event.key === "Home") {
-        event.preventDefault();
-        nextIdx = 0;
-      } else if (event.key === "End") {
-        event.preventDefault();
-        nextIdx = total - 1;
-      }
-
-      if (nextIdx !== null) {
-        setActiveProject(nextIdx);
-        const btns = document.querySelectorAll(".project-nav-btn");
-        if (btns[nextIdx]) btns[nextIdx].focus();
-      }
-    }
-
-    function openLightboxByIndex(projIdx, triggerEl) {
-      const proj = PORTFOLIO_DATA.projects[projIdx];
-      if (!proj) return;
-
-      const sourceImg = document.getElementById(`img-${proj.id}`);
-      if (!sourceImg || sourceImg.style.display === "none") return;
-
-      lastFocusedElement = triggerEl || document.activeElement;
-
-      const modal = document.getElementById("lightbox-modal");
-      const modalImg = document.getElementById("lightbox-img");
-      const caption = document.getElementById("lightbox-caption");
-      const closeBtn = document.getElementById("lightbox-close-btn");
-
-      modalImg.src = sourceImg.src;
-      caption.textContent = proj[currentLang].title;
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
-      closeBtn.setAttribute("tabindex", "0");
-      lenis.stop();
-
-      setTimeout(() => closeBtn.focus(), 50);
-    }
-
-    function closeLightbox() {
-      const modal = document.getElementById("lightbox-modal");
-      const closeBtn = document.getElementById("lightbox-close-btn");
-      if (!modal.classList.contains("open")) return;
-
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-      closeBtn.setAttribute("tabindex", "-1");
-      lenis.start();
-
-      if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
-        lastFocusedElement.focus();
-      }
-    }
-
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeLightbox();
-    });
-    /* END [JS-04: DASHBOARD, KEYBOARD TABS & ACCESSIBLE LIGHTBOX] */
-
-    /* ==========================================================================
-       START [JS-05: PINNED SCROLLTRIGGER & SMOOTH ANCHOR NAVIGATION]
-       ========================================================================== */
-    function scrollToSection(event, targetSelector) {
-      event.preventDefault();
-      if (targetSelector === "top") {
-        lenis.scrollTo(0);
-        return;
-      }
-      const targetEl = document.querySelector(targetSelector);
-      if (targetEl) {
-        lenis.scrollTo(targetEl);
-      }
-    }
-
-    function initPinnedProjectsScroll() {
-      if (typeof ScrollTrigger === "undefined") return;
-
-      if (projectScrollTrigger) {
-        projectScrollTrigger.kill();
-      }
-
-      const totalProjects = PORTFOLIO_DATA.projects.length;
-      const scrollMultiplier = window.innerWidth < 1024 ? 0.85 : 0.95;
-
-      projectScrollTrigger = ScrollTrigger.create({
-        trigger: "#projects-pinned",
-        start: "top top",
-        end: () => `+=${window.innerHeight * (totalProjects * scrollMultiplier)}`,
-        pin: true,
-        scrub: 0.3,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const targetIndex = Math.min(
-            totalProjects - 1,
-            Math.floor(progress * totalProjects)
-          );
-          setActiveProject(targetIndex);
-          document.getElementById("scroll-progress-bar").style.width = `${Math.max(15, progress * 100)}%`;
-        }
-      });
-    }
-    /* END [JS-05: PINNED SCROLLTRIGGER & SMOOTH ANCHOR NAVIGATION] */
-
-    /* ==========================================================================
-       START [JS-06: CIRCULAR LANGUAGE SWITCH & LOCALSTORAGE]
-       ========================================================================== */
-    let isTransitioning = false;
-
-    function triggerLanguageSwitch(targetLang, btnEl) {
-      if (targetLang === currentLang || isTransitioning) return;
-
-      try {
-        localStorage.setItem("esam_portfolio_lang", targetLang);
-      } catch (e) {}
-
-      if (typeof gsap === "undefined") {
-        currentLang = targetLang;
-        renderSite(currentLang);
-        return;
-      }
-
-      isTransitioning = true;
-
-      const outerCircle = document.getElementById("curtain-outer");
-      const innerCircle = document.getElementById("curtain-inner");
-      const curtainText = document.getElementById("curtain-text");
-      const curtainSub = document.getElementById("curtain-lang-indicator");
-      const toggleBox = document.getElementById("lang-toggle-box");
-
-      const rect = (btnEl || toggleBox).getBoundingClientRect();
-      const startX = Math.round(((rect.left + rect.width / 2) / window.innerWidth) * 100);
-      const startY = Math.round(((rect.top + rect.height / 2) / window.innerHeight) * 100);
-
-      curtainSub.textContent = targetLang === "ar" ? "التحويل إلى العربية" : "SWITCHING TO ENGLISH";
-      curtainText.textContent = PORTFOLIO_DATA[targetLang].name;
-
-      const tl = gsap.timeline({
-        onComplete: () => {
-          gsap.set([outerCircle, innerCircle], { clipPath: `circle(0% at ${startX}% ${startY}%)` });
-          isTransitioning = false;
-        }
-      });
-
-      gsap.set([outerCircle, innerCircle], { clipPath: `circle(0% at ${startX}% ${startY}%)` });
-      gsap.set([curtainText, curtainSub], { opacity: 0, scale: 0.9, y: 12 });
-
-      tl.to(outerCircle, {
-        clipPath: `circle(155% at ${startX}% ${startY}%)`,
-        duration: 0.65,
-        ease: "power3.inOut"
-      }, 0)
-      .to(innerCircle, {
-        clipPath: `circle(155% at ${startX}% ${startY}%)`,
-        duration: 0.65,
-        ease: "power3.inOut"
-      }, 0.08)
-      .to([curtainSub, curtainText], {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        duration: 0.3,
-        stagger: 0.05,
-        ease: "back.out(1.5)"
-      }, 0.32)
-      .add(() => {
-        currentLang = targetLang;
-        renderSite(currentLang);
-        initPinnedProjectsScroll();
-        if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
-
-        const diagX = 100 - startX;
-        const diagY = 100;
-
-        gsap.set([outerCircle, innerCircle], { clipPath: `circle(155% at ${diagX}% ${diagY}%)` });
-        tl.to([curtainSub, curtainText], {
-          opacity: 0,
-          scale: 0.92,
-          duration: 0.2,
-          ease: "power2.in"
-        })
-        .to(innerCircle, {
-          clipPath: `circle(0% at ${diagX}% ${diagY}%)`,
-          duration: 0.62,
-          ease: "power3.inOut"
-        }, "-=0.05")
-        .to(outerCircle, {
-          clipPath: `circle(0% at ${diagX}% ${diagY}%)`,
-          duration: 0.62,
-          ease: "power3.inOut"
-        }, "-=0.52");
-      }, "+=0.15");
-    }
-
-    let lastWidth = window.innerWidth;
-    window.addEventListener("DOMContentLoaded", () => {
-      renderSite(currentLang);
-      initPinnedProjectsScroll();
-      if (window.location.search.includes("generate-og=1")) {
-        setTimeout(generateOgCoverImage, 600);
-      }
-    });
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth !== lastWidth) {
-        lastWidth = window.innerWidth;
-        initPinnedProjectsScroll();
-      }
-    });
-    /* END [JS-06: CIRCULAR LANGUAGE SWITCH & LOCALSTORAGE] */
-
-    /* ==========================================================================
-       START [JS-07: BUILT-IN 1200x630 OG-COVER.PNG GENERATOR (Ctrl+Shift+O)]
-       Press Ctrl+Shift+O (or visit ?generate-og=1) to automatically render and
-       download a crisp 1200x630 og-cover.png social preview card.
-       ========================================================================== */
-    function generateOgCoverImage() {
-      const canvas = document.createElement("canvas");
-      canvas.width = 1200;
-      canvas.height = 630;
-      const ctx = canvas.getContext("2d");
-
-      // Background Dark Navy
-      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 630);
-      bgGrad.addColorStop(0, "#040814");
-      bgGrad.addColorStop(0.55, "#081229");
-      bgGrad.addColorStop(1, "#061024");
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, 1200, 630);
-
-      // Ambient Blue Glow Orbs
-      const glow1 = ctx.createRadialGradient(200, 120, 10, 200, 120, 420);
-      glow1.addColorStop(0, "rgba(37, 99, 235, 0.35)");
-      glow1.addColorStop(1, "transparent");
-      ctx.fillStyle = glow1;
-      ctx.fillRect(0, 0, 1200, 630);
-
-      const glow2 = ctx.createRadialGradient(1020, 500, 10, 1020, 500, 400);
-      glow2.addColorStop(0, "rgba(56, 189, 248, 0.25)");
-      glow2.addColorStop(1, "transparent");
-      ctx.fillStyle = glow2;
-      ctx.fillRect(0, 0, 1200, 630);
-
-      // Card Frame Border
-      ctx.strokeStyle = "rgba(56, 189, 248, 0.3)";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(48, 48, 1104, 534);
-
-      // Role Pill
-      ctx.fillStyle = "rgba(37, 99, 235, 0.22)";
-      ctx.fillRect(96, 105, 220, 42);
-      ctx.strokeStyle = "#38bdf8";
-      ctx.strokeRect(96, 105, 220, 42);
-      ctx.fillStyle = "#38bdf8";
-      ctx.font = "600 18px 'JetBrains Mono', monospace";
-      ctx.fillText("DATA ANALYST", 132, 132);
-
-      // Main Name & Headline
-      ctx.fillStyle = "#f8fafc";
-      ctx.font = "800 64px 'Inter', sans-serif";
-      ctx.fillText("Esam Haraz", 96, 230);
-
-      ctx.fillStyle = "#38bdf8";
-      ctx.font = "700 32px 'Inter', sans-serif";
-      ctx.fillText("End-to-End Analytics • SQL • Power BI • Excel • Python", 96, 288);
-
-      // 3 Impact Metric Boxes
-      const cards = [
-        { val: "3x Attrition", lbl: "31% vs 10% Overtime Turnover" },
-        { val: "$817.86K", lbl: "Retail Revenue Analyzed (21.3K Orders)" },
-        { val: "41.45% Delay", lbl: "Stormy Weather Impact (25K Shipments)" }
-      ];
-
-      cards.forEach((c, i) => {
-        const x = 96 + i * 345;
-        const y = 365;
-        ctx.fillStyle = "rgba(10, 20, 42, 0.85)";
-        ctx.fillRect(x, y, 320, 125);
-        ctx.strokeStyle = "rgba(148, 163, 184, 0.25)";
-        ctx.strokeRect(x, y, 320, 125);
-
-        ctx.fillStyle = "#38bdf8";
-        ctx.font = "700 34px 'JetBrains Mono', monospace";
-        ctx.fillText(c.val, x + 24, y + 55);
-
-        ctx.fillStyle = "#cbd5e1";
-        ctx.font = "500 16px 'Inter', sans-serif";
-        ctx.fillText(c.lbl, x + 24, y + 92);
-      });
-
-      // Footer URL
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "500 18px 'JetBrains Mono', monospace";
-      ctx.fillText("esam-haraz.github.io/portfolio", 96, 545);
-
-      const link = document.createElement("a");
-      link.download = "og-cover.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    }
-
-    window.addEventListener("keydown", (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "o") {
-        e.preventDefault();
-        generateOgCoverImage();
-      }
-    });
-    /* END [JS-07: BUILT-IN 1200x630 OG-COVER.PNG GENERATOR (Ctrl+Shift+O)] */
-  </script>
 </body>
 </html>
