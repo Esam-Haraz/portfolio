@@ -1,0 +1,1740 @@
+/* ============================================================================
+   DESIGN SYSTEM v1.1 — SHARED PIPELINE ARCHITECTURE
+   Author: Esam Haraz
+   Path: Data-Analysis/assets/projects/ds.css
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   1. DESIGN TOKENS (LIGHT PAPER DEFAULT & DEEP FOREST DARK MODE)
+   ---------------------------------------------------------------------------- */
+:root {
+  /* Surface & Ink Palette (Light Mode Default) */
+  --bg-paper: #F3F6F4;
+  --bg-surface: #FFFFFF;
+  --bg-sunken: #E6ECE8;
+  --ink: #0D1F1A;
+  --ink-muted: #41564F;
+
+  /* Structural Rules (WCAG AA Non-Text Contrast >= 3:1) */
+  --rule: #CBD6CF;
+  --rule-strong: #6B7F75;
+
+  /* Interactive Focus & Links */
+  --cobalt: #2B59FF;
+
+  /* Site Accent Tokens (Used as fills with --ink-on-accent text) */
+  --ink-on-accent: #0D1F1A;
+  --accent-deploy: #35E08C;
+  --accent-data: #FFB020;
+  --accent-folio: #FF6F59;
+  --accent-hub: #527BFF;
+
+  /* Default Site Accent & High-Contrast Stroke Line Token */
+  --site-accent: var(--accent-data);
+  --accent-line: #9A5B00;
+
+  /* Semantic Status Tokens */
+  --status-warn-bg: #FFF3D6;
+  --status-warn-ink: #6E4300;
+  --status-err: #C92A2A;
+
+  /* Typography Families */
+  --font-display: 'Bricolage Grotesque', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Instrument Sans', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Fluid Type Scale */
+  --text-hero: clamp(1.95rem, 3.6vw, 3.1rem);
+  --text-h2: clamp(1.45rem, 2.5vw, 2.05rem);
+  --text-h3: clamp(1.1rem, 1.5vw, 1.3rem);
+  --text-body: 1rem;
+  --text-sm: 0.875rem;
+  --text-mono: 0.8125rem;
+
+  /* Spacing Scale (4px Base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3.5rem;
+  --space-10: 5rem;
+
+  /* Geometric Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  /* Motion Vocabulary (Strictly 4 Allowed Motions) */
+  --motion-fill-dur: 320ms;
+  --motion-fill-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --motion-tick-dur: 220ms;
+  --motion-tick-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --motion-connect-dur: 550ms;
+  --motion-connect-ease: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --motion-wipe-dur: 580ms;
+  --motion-wipe-ease: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* Layout Dimensions */
+  --header-h: 64px;
+  --rail-w: 36px;
+  --container-max: 1180px;
+}
+
+/* Per-Site Accent & Line Overrides (Light Mode) */
+[data-site="deploy"],
+[data-site="autodeploy"] {
+  --site-accent: var(--accent-deploy);
+  --accent-line: #0B8A4C;
+}
+
+[data-site="data"] {
+  --site-accent: var(--accent-data);
+  --accent-line: #9A5B00;
+}
+
+[data-site="portfolio"] {
+  --site-accent: var(--accent-folio);
+  --accent-line: #B83B28;
+}
+
+[data-site="hub"] {
+  --site-accent: var(--accent-hub);
+  --accent-line: #2B59FF;
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --bg-paper: #0B1411;
+  --bg-surface: #12201B;
+  --bg-sunken: #070D0B;
+  --ink: #ECF2EF;
+  --ink-muted: #98ADA5;
+  --rule: #22362F;
+  --rule-strong: #4F7A6A;
+  --cobalt: #6E90FF;
+  --accent-line: var(--site-accent);
+  --status-warn-bg: #2A1F08;
+  --status-warn-ink: #FFB020;
+  --status-err: #FF6B6B;
+}
+
+/* ----------------------------------------------------------------------------
+   2. RESET, BASE TYPOGRAPHY & ACCESSIBILITY
+   ---------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--bg-paper);
+  color: var(--ink);
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + var(--space-5));
+  overflow-x: hidden;
+  max-inline-size: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-paper);
+  color: var(--ink);
+  line-height: 1.65;
+  min-height: 100dvh;
+  padding-block-start: var(--header-h);
+  overflow-x: hidden;
+  max-inline-size: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+[dir="rtl"] body,
+body[dir="rtl"] {
+  line-height: 1.75;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4 {
+  letter-spacing: 0;
+}
+
+p, li {
+  max-inline-size: 68ch;
+}
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, svg {
+  display: block;
+  max-inline-size: 100%;
+}
+
+/* Visible Keyboard Focus Ring */
+:focus-visible {
+  outline: 2.5px solid var(--cobalt);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Skip Link for Keyboard Navigation */
+.ds-skip-link {
+  position: fixed;
+  inset-block-start: -100px;
+  inset-inline-start: var(--space-4);
+  z-index: 10000;
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  font-weight: 700;
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-md);
+  transition: inset-block-start 150ms ease;
+}
+
+.ds-skip-link:focus {
+  inset-block-start: var(--space-3);
+}
+
+/* Screen-Reader Only Utility (Used to wrap Accessible Chart Data Tables) */
+.ds-sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   3. FIXED GLASS SITE HEADER, MINI NODE-GRAPH NAV & MOBILE (<480px) DROPDOWN
+   ---------------------------------------------------------------------------- */
+.ds-header {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 900;
+  block-size: var(--header-h);
+  background-color: rgba(243, 246, 244, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-block-end: 1px solid var(--rule);
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+[data-theme="dark"] .ds-header {
+  background-color: rgba(11, 20, 17, 0.8);
+}
+
+.ds-header.is-scrolled {
+  background-color: rgba(243, 246, 244, 0.88);
+  border-block-end-color: var(--rule-strong);
+  box-shadow: 0 6px 24px rgba(13, 31, 26, 0.08);
+}
+
+[data-theme="dark"] .ds-header.is-scrolled {
+  background-color: rgba(11, 20, 17, 0.88);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.ds-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  min-block-size: 44px;
+  padding-inline: var(--space-1);
+}
+
+.ds-brand-mark {
+  inline-size: 12px;
+  block-size: 12px;
+  border-radius: var(--radius-pill);
+  background-color: var(--site-accent);
+  border: 1.5px solid var(--ink);
+  flex-shrink: 0;
+}
+
+/* Desktop & Tablet (>= 480px) Mini Node-Graph Navigation */
+.ds-mini-graph {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ds-mini-graph::-webkit-scrollbar {
+  display: none;
+}
+
+.ds-mini-node {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 44px;
+  padding-inline: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-muted);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.ds-mini-node:hover {
+  color: var(--ink);
+  background-color: var(--bg-surface);
+  border-color: var(--rule-strong);
+}
+
+.ds-mini-node[aria-current="page"],
+.ds-mini-node.is-current {
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  border-color: var(--ink);
+  font-weight: 700;
+}
+
+.ds-mini-dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid currentColor;
+  background-color: transparent;
+}
+
+.ds-mini-node.is-current .ds-mini-dot {
+  background-color: var(--ink-on-accent);
+}
+
+.ds-mini-edge {
+  inline-size: 18px;
+  block-size: 2px;
+  background-color: var(--rule-strong);
+  flex-shrink: 0;
+}
+
+/* Mobile (< 480px) Site Switcher Dropdown */
+.ds-nav-dropdown {
+  display: none;
+  position: relative;
+}
+
+.ds-nav-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-block-size: 44px;
+  min-inline-size: 44px;
+  padding-inline: var(--space-3);
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ds-nav-dropdown-menu {
+  position: absolute;
+  inset-block-start: calc(100% + 6px);
+  inset-inline-start: 0;
+  min-inline-size: 210px;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-md);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: var(--space-2);
+  display: none;
+  flex-direction: column;
+  gap: var(--space-1);
+  z-index: 950;
+}
+
+.ds-nav-dropdown-menu.is-open {
+  display: flex;
+}
+
+.ds-nav-dropdown-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: 44px;
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ds-nav-dropdown-menu a:hover {
+  background-color: var(--bg-sunken);
+}
+
+.ds-nav-dropdown-menu a.is-current {
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  font-weight: 700;
+}
+
+@media (max-width: 479px) {
+  .ds-mini-graph {
+    display: none;
+  }
+  .ds-nav-dropdown {
+    display: block;
+  }
+}
+
+.ds-header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ds-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-block-size: 44px;
+  min-inline-size: 44px;
+  padding-inline: var(--space-3);
+  background-color: var(--bg-surface);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.ds-icon-btn:hover {
+  background-color: var(--bg-sunken);
+  border-color: var(--ink);
+}
+
+/* ----------------------------------------------------------------------------
+   4. SCROLL PROGRESS (THIN TOP BAR & PROJECT PAGE VERTICAL RAIL)
+   ---------------------------------------------------------------------------- */
+.ds-top-progress {
+  position: fixed;
+  inset-block-start: var(--header-h);
+  inset-inline: 0;
+  block-size: 3px;
+  background-color: var(--rule);
+  z-index: 895;
+  pointer-events: none;
+}
+
+.ds-top-progress-fill {
+  block-size: 100%;
+  inline-size: 100%;
+  background-color: var(--accent-line);
+  transform-origin: inline-start center;
+  transform: scaleX(var(--scroll-progress, 0));
+  transition: transform 80ms linear;
+}
+
+/* Vertical Pipeline Rail (Rendered on Case Study Pages Only, Desktop >= 1024px) */
+.ds-rail {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .has-rail .ds-top-progress {
+    display: none;
+  }
+
+  .ds-rail {
+    position: fixed;
+    inset-block-start: calc(var(--header-h) + var(--space-8));
+    inset-inline-start: clamp(0.75rem, 2vw, 1.75rem);
+    inline-size: var(--rail-w);
+    block-size: calc(100dvh - var(--header-h) - (var(--space-8) * 2));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 800;
+    pointer-events: none;
+  }
+
+  .ds-rail-track {
+    position: absolute;
+    inset-block: 10px;
+    inset-inline-start: 50%;
+    inline-size: 2px;
+    transform: translateX(-50%);
+    background-color: var(--rule);
+  }
+
+  .ds-rail-fill {
+    inline-size: 100%;
+    block-size: 100%;
+    background-color: var(--accent-line);
+    transform-origin: top center;
+    transform: scaleY(var(--scroll-progress, 0));
+    transition: transform 80ms linear;
+  }
+
+  .ds-rail-node {
+    position: relative;
+    z-index: 2;
+    inline-size: 14px;
+    block-size: 14px;
+    border-radius: var(--radius-pill);
+    background-color: var(--bg-paper);
+    border: 2px solid var(--rule-strong);
+    pointer-events: auto;
+    transition: background-color var(--motion-fill-dur) var(--motion-fill-ease),
+                border-color var(--motion-fill-dur) var(--motion-fill-ease);
+  }
+
+  .ds-rail-node.is-active,
+  .ds-rail-node.is-passed {
+    background-color: var(--site-accent);
+    border-color: var(--ink);
+  }
+
+  .has-rail main,
+  .has-rail .ds-footer {
+    padding-inline-start: calc(var(--rail-w) + var(--space-5));
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   5. LAYOUT CONTAINERS, SECTIONS & HEADERS
+   ---------------------------------------------------------------------------- */
+.ds-container {
+  inline-size: 100%;
+  max-inline-size: var(--container-max);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+}
+
+.ds-section {
+  padding-block: clamp(2.75rem, 6vw, 4.75rem);
+  border-block-end: 1px solid var(--rule);
+}
+
+.ds-section:last-of-type {
+  border-block-end: none;
+}
+
+.ds-section-header {
+  margin-block-end: var(--space-6);
+}
+
+.ds-section-title {
+  font-size: var(--text-h2);
+  line-height: 1.2;
+  margin-block-end: var(--space-2);
+}
+
+.ds-section-desc {
+  font-size: var(--text-body);
+  color: var(--ink-muted);
+}
+
+/* ----------------------------------------------------------------------------
+   6. PIPELINE NODES, PORTS, CONNECTORS & PROGRESS BARS
+   ---------------------------------------------------------------------------- */
+.ds-node {
+  position: relative;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.ds-node:hover,
+.ds-node:focus-within {
+  border-color: var(--ink);
+}
+
+.ds-node-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-block-end: 1px solid var(--rule);
+  background-color: var(--bg-sunken);
+  border-start-start-radius: calc(var(--radius-lg) - 1px);
+  border-start-end-radius: calc(var(--radius-lg) - 1px);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  color: var(--ink-muted);
+}
+
+.ds-node-body {
+  padding: var(--space-5);
+}
+
+.ds-port {
+  position: absolute;
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-surface);
+  border: 2px solid var(--rule-strong);
+  z-index: 3;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.ds-port.is-connected {
+  background-color: var(--site-accent);
+  border-color: var(--ink);
+}
+
+.ds-port--top {
+  inset-block-start: -5px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+
+[dir="rtl"] .ds-port--top {
+  transform: translateX(50%);
+}
+
+.ds-port--bottom {
+  inset-block-end: -5px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+
+[dir="rtl"] .ds-port--bottom {
+  transform: translateX(50%);
+}
+
+/* SVG Connector Lines */
+.ds-connector {
+  display: block;
+  overflow: visible;
+}
+
+.ds-connector-base {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 2;
+}
+
+.ds-connector-fill {
+  fill: none;
+  stroke: var(--accent-line);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: var(--path-len, 100);
+  stroke-dashoffset: calc(var(--path-len, 100) * (1 - var(--progress, 0)));
+  transition: stroke-dashoffset var(--motion-connect-dur) var(--motion-connect-ease);
+}
+
+/* Horizontal Rounded Progress Bar */
+.ds-progress {
+  inline-size: 100%;
+  block-size: 12px;
+  background-color: var(--bg-sunken);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.ds-progress-fill {
+  block-size: 100%;
+  inline-size: calc(var(--progress, 0) * 100%);
+  background-color: var(--site-accent);
+  border-inline-end: 1px solid var(--ink);
+  border-radius: var(--radius-pill);
+  transition: inline-size var(--motion-fill-dur) var(--motion-fill-ease);
+}
+
+/* ----------------------------------------------------------------------------
+   7. BUTTONS, CHIPS & CHECKBOXES (NO HOVER-LIFT)
+   ---------------------------------------------------------------------------- */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-block-size: 44px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+  border: 1.5px solid var(--ink);
+  transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.ds-btn-primary {
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.ds-btn-primary:hover {
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.ds-btn-secondary {
+  background-color: var(--bg-surface);
+  color: var(--ink);
+  border-color: var(--rule-strong);
+}
+
+.ds-btn-secondary:hover {
+  border-color: var(--ink);
+  background-color: var(--bg-sunken);
+}
+
+.ds-btn-ghost {
+  background-color: transparent;
+  color: var(--ink);
+  border-color: transparent;
+}
+
+.ds-btn-ghost:hover {
+  background-color: var(--bg-sunken);
+  border-color: var(--rule-strong);
+}
+
+.ds-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ds-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-sunken);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.ds-chip-accent {
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  border-color: var(--ink);
+  font-weight: 700;
+}
+
+/* Custom Checkbox with Stroke-Draw Tick */
+.ds-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 44px;
+  cursor: pointer;
+}
+
+.ds-checkbox input {
+  position: absolute;
+  opacity: 0;
+  inline-size: 0;
+  block-size: 0;
+}
+
+.ds-checkbox-box {
+  inline-size: 20px;
+  block-size: 20px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--rule-strong);
+  background-color: var(--bg-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.ds-checkbox input:checked + .ds-checkbox-box {
+  background-color: var(--site-accent);
+  border-color: var(--ink);
+}
+
+.ds-checkbox-tick {
+  inline-size: 14px;
+  block-size: 14px;
+  fill: none;
+  stroke: var(--ink-on-accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset var(--motion-tick-dur) var(--motion-tick-ease);
+}
+
+.ds-checkbox input:checked + .ds-checkbox-box .ds-checkbox-tick {
+  stroke-dashoffset: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   8. SPIDER / RADIAL NETWORK GRAPH (HOME PAGE + INTERACTIVE RINGS)
+   ---------------------------------------------------------------------------- */
+.ds-spider-wrap {
+  position: relative;
+  margin-block-start: var(--space-5);
+}
+
+.ds-spider-canvas {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ds-spider-svg {
+  display: none;
+}
+
+/* Central Topic Node */
+.ds-spider-center {
+  background-color: var(--bg-surface);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: 4px 4px 0 var(--ink);
+  position: relative;
+  z-index: 2;
+}
+
+.ds-spider-center-badge {
+  display: inline-block;
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-block-end: var(--space-2);
+}
+
+/* Branching Project Nodes (Real <a> Elements) */
+.ds-spider-branches {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: relative;
+  z-index: 2;
+}
+
+.ds-spider-node {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  position: relative;
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+
+.ds-spider-node:hover,
+.ds-spider-node:focus-visible {
+  border-color: var(--ink);
+  background-color: var(--bg-surface);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.ds-spider-node-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.ds-spider-node-title {
+  font-size: var(--text-h3);
+  line-height: 1.3;
+}
+
+.ds-spider-stat {
+  background-color: var(--bg-sunken);
+  border-inline-start: 3px solid var(--accent-line);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* Expandable Detail Revealed on Hover / Focus Without Lifting */
+.ds-spider-extra {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  max-block-size: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-block-size var(--motion-fill-dur) var(--motion-fill-ease),
+              opacity var(--motion-fill-dur) var(--motion-fill-ease);
+}
+
+.ds-spider-node:hover .ds-spider-extra,
+.ds-spider-node:focus-visible .ds-spider-extra {
+  max-block-size: 6rem;
+  opacity: 1;
+}
+
+.ds-spider-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--cobalt);
+  margin-block-start: var(--space-1);
+}
+
+/* Mobile Vertical Pipeline Line */
+@media (max-width: 899px) {
+  .ds-spider-branches {
+    padding-inline-start: var(--space-5);
+    border-inline-start: 2px solid var(--accent-line);
+  }
+}
+
+/* Animated Orbit Keyframes for Concentric Rings */
+@keyframes dsRingOrbitCw {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -120; }
+}
+
+@keyframes dsRingOrbitCcw {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: 120; }
+}
+
+/* Desktop Radial Layout over Concentric Animated SVG Rings */
+@media (min-width: 900px) {
+  .ds-spider-canvas {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr 1fr;
+    grid-template-rows: auto auto;
+    align-items: center;
+    column-gap: clamp(3.25rem, 6vw, 5.5rem);
+    row-gap: clamp(3.5rem, 6vw, 5.25rem);
+    padding-block: var(--space-6);
+  }
+
+  .ds-spider-svg {
+    display: block;
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    z-index: 3;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .ds-spider-ring {
+    fill: none;
+    stroke: var(--rule-strong);
+    stroke-width: 1.4;
+    stroke-dasharray: 6 6;
+    opacity: 0.72;
+    will-change: transform;
+    transition: stroke 260ms ease, opacity 260ms ease, stroke-width 260ms ease;
+    animation: dsRingOrbitCw 18s linear infinite;
+  }
+
+  .ds-spider-ring:nth-of-type(2) {
+    stroke-dasharray: 8 6;
+    animation-name: dsRingOrbitCcw;
+    animation-duration: 24s;
+  }
+
+  .ds-spider-ring:nth-of-type(3) {
+    stroke-dasharray: 4 8;
+    animation-duration: 32s;
+  }
+
+  .ds-spider-svg.is-interactive .ds-spider-ring {
+    stroke: var(--accent-line);
+    opacity: 0.85;
+    stroke-width: 1.75;
+  }
+
+  .ds-spider-edge-base {
+    fill: none;
+    stroke: var(--rule-strong);
+    stroke-width: 2;
+  }
+
+  .ds-spider-edge-fill {
+    fill: none;
+    stroke: var(--accent-line);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: var(--edge-len, 400);
+    stroke-dashoffset: calc(var(--edge-len, 400) * (1 - var(--edge-progress, 0)));
+    transition: stroke-dashoffset var(--motion-connect-dur) var(--motion-connect-ease);
+  }
+
+  .ds-spider-edge-fill.is-active {
+    stroke-width: 4;
+    transition-duration: var(--motion-fill-dur);
+    transition-timing-function: var(--motion-fill-ease);
+  }
+
+  .ds-spider-port {
+    fill: var(--bg-surface);
+    stroke: var(--ink);
+    stroke-width: 2;
+    transition: fill 180ms ease;
+  }
+
+  .ds-spider-port.is-active {
+    fill: var(--site-accent);
+  }
+
+  .ds-spider-center {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: center;
+  }
+
+  .ds-spider-branches {
+    display: contents;
+  }
+
+  .ds-spider-node[data-branch="0"] {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .ds-spider-node[data-branch="1"] {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .ds-spider-node[data-branch="2"] {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   9. WHAT I DO & 4-STEP CONNECTED PIPELINE WITH PORTS & STEP INDICATORS
+   ---------------------------------------------------------------------------- */
+.ds-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+.ds-pipeline-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  gap: 0;
+}
+
+.ds-pipeline-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 34px;
+  position: relative;
+  z-index: 2;
+}
+
+.ds-pipeline-link .ds-connector {
+  inline-size: 34px;
+  block-size: 24px;
+  transform: rotate(90deg);
+  overflow: visible;
+}
+
+@media (min-width: 960px) {
+  .ds-pipeline-row {
+    grid-template-columns: 1fr 34px 1fr 34px 1fr 34px 1fr;
+    align-items: stretch;
+  }
+
+  .ds-pipeline-link {
+    inline-size: 34px;
+    block-size: auto;
+    align-self: center;
+  }
+
+  .ds-pipeline-link .ds-connector {
+    transform: none;
+  }
+
+  [dir="rtl"] .ds-pipeline-link .ds-connector {
+    transform: scaleX(-1);
+  }
+}
+
+.ds-pipeline-step {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-3);
+  position: relative;
+  transition: border-color 180ms ease;
+}
+
+.ds-pipeline-step:hover,
+.ds-pipeline-step:focus-within {
+  border-color: var(--ink);
+}
+
+/* Step Node Ports (Top/Bottom on Mobile, Start/End on Desktop) */
+.ds-port--in {
+  inset-block-start: -5px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+
+[dir="rtl"] .ds-port--in {
+  transform: translateX(50%);
+}
+
+.ds-port--out {
+  inset-block-end: -5px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+
+[dir="rtl"] .ds-port--out {
+  transform: translateX(50%);
+}
+
+@media (min-width: 960px) {
+  .ds-port--in {
+    inset-block-start: 50%;
+    inset-inline-start: -5px;
+    transform: translateY(-50%);
+  }
+
+  [dir="rtl"] .ds-port--in {
+    transform: translateY(-50%);
+  }
+
+  .ds-port--out {
+    inset-block-start: 50%;
+    inset-block-end: auto;
+    inset-inline-start: auto;
+    inset-inline-end: -5px;
+    transform: translateY(-50%);
+  }
+
+  [dir="rtl"] .ds-port--out {
+    transform: translateY(-50%);
+  }
+}
+
+.ds-step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.ds-step-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  border: 1px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.ds-step-pct {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.ds-step-meter {
+  margin-block-start: auto;
+  padding-block-start: var(--space-2);
+}
+
+.ds-step-meter .ds-progress {
+  block-size: 8px;
+}
+
+/* ----------------------------------------------------------------------------
+   10. CASE STUDY: KPI STRIP, HORIZONTAL BAR CHARTS & CALLOUTS
+   ---------------------------------------------------------------------------- */
+.ds-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin-block: var(--space-5);
+}
+
+.ds-kpi-card {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ds-kpi-val {
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+.ds-kpi-label {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+/* Findings Stack */
+.ds-findings-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.ds-finding-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ds-finding-title {
+  font-size: var(--text-h3);
+  line-height: 1.35;
+}
+
+.ds-finding-note {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+/* Zero-Baseline Horizontal Rounded Bar Chart */
+.ds-bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ds-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ds-bar-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.ds-bar-label {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ds-bar-val {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.ds-bar-track {
+  inline-size: 100%;
+  block-size: 16px;
+  background-color: var(--bg-sunken);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  padding: 2px;
+}
+
+.ds-bar-fill {
+  block-size: 100%;
+  inline-size: 0%;
+  background-color: var(--site-accent);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-pill);
+  transition: inline-size var(--motion-fill-dur) var(--motion-fill-ease);
+}
+
+.ds-bar-chart.is-visible .ds-bar-fill {
+  inline-size: calc(var(--bar-pct, 0) * 1%);
+}
+
+/* Single Standout Number Callout (Used when < 2 comparable values exist) */
+.ds-callout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  background-color: var(--bg-sunken);
+  border: 1px solid var(--rule-strong);
+  border-inline-start: 4px solid var(--accent-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.ds-callout-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+.ds-callout-text {
+  font-size: var(--text-body);
+  color: var(--ink);
+}
+
+/* ----------------------------------------------------------------------------
+   11. DASHBOARD FRAMES, MISSING IMAGE FALLBACK & KEYBOARD LIGHTBOX
+   ---------------------------------------------------------------------------- */
+.ds-dash-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 820px) {
+  .ds-dash-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.ds-dash-frame {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-dash-trigger {
+  display: block;
+  inline-size: 100%;
+  background-color: var(--bg-sunken);
+  border: none;
+  padding: 0;
+  cursor: zoom-in;
+  text-align: start;
+}
+
+.ds-dash-trigger img {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background-color: var(--bg-sunken);
+}
+
+.ds-img-missing {
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: var(--bg-sunken);
+  border-block-end: 1px dashed var(--rule-strong);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  color: var(--ink-muted);
+}
+
+.ds-dash-caption {
+  padding: var(--space-3) var(--space-4);
+  border-block-start: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+/* Accessible Modal Lightbox */
+.ds-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  background-color: rgba(7, 13, 11, 0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.ds-lightbox.is-open {
+  display: flex;
+}
+
+.ds-lightbox-dialog {
+  background-color: var(--bg-surface);
+  border: 2px solid var(--rule-strong);
+  border-radius: var(--radius-lg);
+  max-inline-size: min(94vw, 1240px);
+  max-block-size: 92dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ds-lightbox-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-block-end: 1px solid var(--rule);
+  background-color: var(--bg-sunken);
+}
+
+.ds-lightbox-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ds-lightbox-body {
+  padding: var(--space-3);
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-paper);
+}
+
+.ds-lightbox-body img {
+  max-block-size: 76dvh;
+  inline-size: auto;
+  block-size: auto;
+}
+
+/* ----------------------------------------------------------------------------
+   12. SQL & DAX ACCORDION (<details>) & DATA QUALITY WARNING BOX
+   ---------------------------------------------------------------------------- */
+.ds-accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ds-details {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.ds-summary {
+  list-style: none;
+  min-block-size: 48px;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  font-weight: 600;
+  cursor: pointer;
+  background-color: var(--bg-surface);
+  transition: background-color 160ms ease;
+}
+
+.ds-summary::-webkit-details-marker {
+  display: none;
+}
+
+.ds-summary:hover {
+  background-color: var(--bg-sunken);
+}
+
+.ds-summary-indicator {
+  inline-size: 22px;
+  block-size: 22px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--rule-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.ds-details[open] .ds-summary {
+  border-block-end: 1px solid var(--rule);
+  background-color: var(--bg-sunken);
+}
+
+.ds-details-body {
+  padding: var(--space-4);
+  background-color: var(--bg-paper);
+}
+
+.ds-details-body img {
+  inline-size: 100%;
+  block-size: auto;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+}
+
+/* Data Quality & Limitations Notice */
+.ds-notice-warn {
+  background-color: var(--status-warn-bg);
+  color: var(--status-warn-ink);
+  border: 1.5px solid var(--status-warn-ink);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ds-notice-warn ul {
+  padding-inline-start: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Reproduce Steps List */
+.ds-steps-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  counter-reset: repro-step;
+}
+
+.ds-steps-list li {
+  counter-increment: repro-step;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+
+.ds-steps-list li::before {
+  content: counter(repro-step, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  font-weight: 700;
+  background-color: var(--site-accent);
+  color: var(--ink-on-accent);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 0.1rem 0.45rem;
+  flex-shrink: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   13. CIRCULAR LANGUAGE CURTAIN (WIPE MOTION)
+   ---------------------------------------------------------------------------- */
+.ds-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9900;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ds-curtain-layer {
+  position: absolute;
+  inset: 0;
+  clip-path: circle(0% at 92% 4%);
+  will-change: clip-path;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.ds-curtain-outer {
+  background-color: var(--site-accent);
+}
+
+.ds-curtain-inner {
+  background-color: var(--bg-paper);
+  color: var(--ink);
+}
+
+.ds-curtain-label {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 800;
+}
+
+.ds-curtain-sub {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  color: var(--ink-muted);
+}
+
+/* ----------------------------------------------------------------------------
+   14. FOOTER & PROJECT NAVIGATION BAR
+   ---------------------------------------------------------------------------- */
+.ds-project-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-6);
+  border-block-start: 1px solid var(--rule);
+}
+
+.ds-footer {
+  border-block-start: 1px solid var(--rule);
+  background-color: var(--bg-sunken);
+  padding-block: var(--space-8) var(--space-6);
+}
+
+.ds-footer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-5);
+  margin-block-end: var(--space-5);
+}
+
+.ds-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.ds-footer-bottom {
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+/* ----------------------------------------------------------------------------
+   15. REDUCED MOTION PREFERENCE (SHOW FINAL STATES IMMEDIATELY)
+   ---------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .ds-connector-fill,
+  .ds-spider-edge-fill {
+    stroke-dashoffset: 0 !important;
+  }
+
+  .ds-progress-fill {
+    inline-size: calc(var(--progress, 1) * 100%) !important;
+  }
+
+  .ds-bar-fill {
+    inline-size: calc(var(--bar-pct, 0) * 1%) !important;
+  }
+}
